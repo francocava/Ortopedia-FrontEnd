@@ -83,8 +83,8 @@ export default {
         },
         {
           icon: 'mdi-apps',
-          title: 'Prueba',
-          to: '/prueba'
+          title: 'Agregar Cliente',
+          to: '/cliente'
         }
       ],
       miniVariant: false,
