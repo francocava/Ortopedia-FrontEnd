@@ -1,7 +1,6 @@
 <template>
   <v-layout>
-    <v-card elevation="5" outlined>
-       <v-col class="d-flex align-center">
+       <v-col class="d-flex align-center justify-md-center">
       <div class="text-center">
       <v-card-title>Ingresar Cliente Nuevo</v-card-title>
       <v-form ref="form" v-model="valid" lazy-validation>
@@ -20,6 +19,7 @@
         ></v-text-field>
 
         <v-text-field
+          type="number"
           v-model="dni"
           :rules="dniRules"
           label="DNI"
@@ -47,7 +47,6 @@
       </v-form>
       </div>
        </v-col>
-    </v-card>
   </v-layout>
 </template>
 
@@ -68,7 +67,6 @@
       dni:'',
       dniRules: [
         v => !!v || 'Falta el DNI del cliente',
-        //regla para que solo entren numeros
       ],
       select: null,
       items: [

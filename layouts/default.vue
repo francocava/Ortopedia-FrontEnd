@@ -3,9 +3,10 @@
     <v-navigation-drawer
       v-model="drawer"
       :mini-variant="miniVariant"
-      :clipped="clipped"
       fixed
+      permanent
       app
+      clipped
     >
       <v-list>
         <v-list-item
@@ -25,7 +26,7 @@
       </v-list>
     </v-navigation-drawer>
     <v-app-bar
-      :clipped-left="clipped"
+      clipped-left
       fixed
       app
     >
@@ -36,20 +37,10 @@
       >
         <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
       </v-btn>
-      <!-- <v-btn
-        icon
-        @click.stop="clipped = !clipped"
-      >
-        <v-icon>mdi-application</v-icon>
-      </v-btn> -->
-      <!-- <v-btn
-        icon
-        @click.stop="fixed = !fixed"
-      >
-        <v-icon>mdi-minus</v-icon>
-      </v-btn> -->
-      <v-toolbar-title v-text="title" />
+      
+      <v-toolbar-title v-text="title"/>
       <v-spacer />
+      <v-icon>mdi-account-circle</v-icon>
     </v-app-bar>
     <v-main>
       <v-container>
@@ -82,9 +73,14 @@ export default {
           to: '/inspire'
         },
         {
-          icon: 'mdi-apps',
+          icon: 'mdi-plus-outline',
           title: 'Agregar Cliente',
           to: '/cliente'
+        },
+        {
+          icon: 'mdi-plus-outline',
+          title: 'Ver Clientes',
+          to: '/prueba'
         }
       ],
       miniVariant: false,
