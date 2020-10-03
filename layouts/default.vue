@@ -98,7 +98,7 @@ export default {
           //icon: 'mdi-file-powerpoint-box-outline',
           icon: 'mdi-format-paragraph',
           title: 'Pedidos',
-          to: '/',
+          to: '/pedido',
         },
         {
           icon: 'mdi-clipboard-text-outline',
