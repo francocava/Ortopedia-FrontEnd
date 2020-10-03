@@ -1,5 +1,6 @@
 <template>
   <v-layout>
+    <v-card>
        <v-col class="d-flex align-center justify-md-center">
       <div class="text-center">
       <v-card-title>Ingresar Cliente Nuevo</v-card-title>
@@ -47,6 +48,7 @@
       </v-form>
       </div>
        </v-col>
+    </v-card>
   </v-layout>
 </template>
 
