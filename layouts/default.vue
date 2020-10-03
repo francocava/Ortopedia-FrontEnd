@@ -18,10 +18,9 @@
           </v-list-item-content>
         </v-list-item>
 
-
         <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
+          v-for="item in itemsSimple"
+          :key="item"
           :to="item.to"
           router
           exact
@@ -33,6 +32,32 @@
             <v-list-item-title v-text="item.title" />
           </v-list-item-content>
         </v-list-item>
+
+
+        <v-list-group
+        v-for="item in items"
+        :key="item.title"
+        v-model="item.active"
+        :prepend-icon="item.icon"
+      >
+        <template v-slot:activator>
+          <v-list-item-content>
+            <v-list-item-title v-text="item.title"></v-list-item-title>
+          </v-list-item-content>
+        </template>
+
+        <v-list-item
+          v-for="child in item.items"
+          :key="child.title"
+          :to="child.to"
+        >
+          <v-list-item-content>
+            <v-list-item-title v-text="child.title"></v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list-group>
+
+
       </v-list>
     </v-navigation-drawer>
     <v-app-bar
@@ -41,13 +66,6 @@
       app
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <!-- <v-btn
-        icon
-        @click.stop="miniVariant = !miniVariant"
-      >
-        <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
-      </v-btn> -->
-      
       <v-toolbar-title v-text="title"/>
       <v-spacer />
       <v-icon>mdi-account-circle</v-icon>
@@ -71,7 +89,7 @@ export default {
   data () {
     return {
       drawer: true,
-      items: [
+      itemsSimple: [
         {
           icon: 'mdi-apps',
           title: 'Welcome',
@@ -82,15 +100,49 @@ export default {
           title: 'Inspire',
           to: '/inspire'
         },
-        {
+        /* {
           icon: 'mdi-plus-outline',
-          title: 'Nuevo Cliente',
-          to: '/cliente'
+          title: 'Nuevo',
+          items: [
+            {title: 'Cliente',to: '/cliente'},
+            {title: 'Sucursal',to: '/sucu'},
+            {title: 'Obra Social',to: '/obs'},
+          ],
+          to: '/'
         },
         {
-          icon: 'mdi-plus-outline',
-          title: 'Ver Clientes',
+          icon: 'mdi-file-outline',
+          title: 'Ver',
+          items: [
+            {title: 'Pedidos'},
+            {title: 'Clientes'},
+            {title: 'Pagos'},
+
+          ],
           to: '/prueba'
+        } */
+      ],
+      items: [
+        {
+          icon: 'mdi-plus-outline',
+          title: 'Nuevo',
+          items: [
+            {title: 'Cliente', to: '/cliente'},
+            {title: 'Sucursal', to: '/sucu'},
+            {title: 'Obra Social', to: '/obs'},
+          ],
+          to: '/'
+        },
+        {
+          icon: 'mdi-file-outline',
+          title: 'Ver',
+          items: [
+            {title: 'Pedidos', to: '/prueba'},
+            {title: 'Clientes', to: '/prueba1'},
+            {title: 'Pagos', to: '/prueba2'},
+
+          ],
+          to: '/'
         }
       ],
       miniVariant: false,
