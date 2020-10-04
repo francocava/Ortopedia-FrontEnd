@@ -70,7 +70,7 @@
     </v-navigation-drawer>
     <v-app-bar clipped-left fixed app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-toolbar-title v-text="title" />
+      <v-toolbar-title class="text-center" v-text="title" />
       <v-spacer />
 
       <v-avatar>
@@ -129,7 +129,7 @@ export default {
           items: [
             { title: 'Pedidos', to: '/pedidos' },
             { title: 'Facturas', to: '' },
-            { title: 'Pagos', to: '/prueba2' },
+            { title: 'Pagos', to: '/prueba' },
             { title: 'Cobros', to: '' },
             { title: 'Clientes', to: '/prueba1' },
             { title: 'Productos', to: '' },
