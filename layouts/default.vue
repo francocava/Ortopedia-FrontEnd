@@ -15,13 +15,13 @@
             >
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title v-text="hola" />
+            <v-list-item-title />
           </v-list-item-content>
         </v-list-item>
 
         <v-list-item
           v-for="item in itemsSimple"
-          :key="item"
+          :key="item.title"
           :to="item.to"
           router
           exact
@@ -92,7 +92,8 @@
 export default {
   data() {
     return {
-      drawer: true,
+      fixed: false,
+      drawer: false,
       itemsSimple: [
         {
           //icon: 'mdi-file-powerpoint-box-outline',

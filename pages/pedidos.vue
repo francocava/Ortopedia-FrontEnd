@@ -8,6 +8,9 @@
         single-line
         hide-details
       ></v-text-field>
+
+      {{search}}
+
     </v-card-title>
     <v-data-table
       :headers="headers"
@@ -140,6 +143,7 @@
 <script>
 export default {
   data: () => ({
+    search: '',
     dialog: false,
     dialogDelete: false,
     headers: [
