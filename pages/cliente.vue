@@ -1,53 +1,50 @@
 <template>
-  <v-layout>
-    <v-card>
-      <v-col class="d-flex align-center justify-md-center">
-        <div class="text-center">
-          <v-card-title>Ingresar Cliente Nuevo</v-card-title>
-          <v-form ref="form" v-model="valid" lazy-validation>
-            <v-text-field
-              v-model="nombre"
-              :rules="nombreRules"
-              label="Nombre"
-              required
-            ></v-text-field>
+  <v-card>
+    <v-card-title>Ingresar Cliente Nuevo</v-card-title>
 
-            <v-text-field
-              v-model="apellido"
-              :rules="apellidoRules"
-              label="Apellido"
-              required
-            ></v-text-field>
+    <v-card-text>
+      <v-form ref="form" v-model="valid" lazy-validation>
+        <v-text-field
+          v-model="nombre"
+          :rules="nombreRules"
+          label="Nombre"
+          required
+        ></v-text-field>
 
-            <v-text-field
-              type="number"
-              v-model="dni"
-              :rules="dniRules"
-              label="DNI"
-              required
-            ></v-text-field>
+        <v-text-field
+          v-model="apellido"
+          :rules="apellidoRules"
+          label="Apellido"
+          required
+        ></v-text-field>
 
-            <v-select
-              v-model="select"
-              :items="items"
-              :rules="[(v) => !!v || 'Item is required']"
-              label="Obra Social"
-              required
-            ></v-select>
+        <v-text-field
+          type="number"
+          v-model="dni"
+          :rules="dniRules"
+          label="DNI"
+          required
+        ></v-text-field>
 
-            <v-btn
-              :disabled="!valid"
-              color="success"
-              class="mr-4"
-              @click="validate"
-            >
-              Enviar
-            </v-btn>
-          </v-form>
-        </div>
-      </v-col>
-    </v-card>
-  </v-layout>
+        <v-select
+          v-model="select"
+          :items="items"
+          :rules="[(v) => !!v || 'Item is required']"
+          label="Obra Social"
+          required
+        ></v-select>
+
+        <v-btn
+          :disabled="!valid"
+          color="success"
+          class="mr-4"
+          @click="validate"
+        >
+          Enviar
+        </v-btn>
+      </v-form>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>

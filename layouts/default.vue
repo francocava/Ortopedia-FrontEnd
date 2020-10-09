@@ -58,16 +58,35 @@
         </v-list-group>
       </v-list>
 
-
       <template v-slot:append>
-        <div class="pa-2">
-          <v-btn text color="#616161">
-            <v-icon>mdi-logout</v-icon>
-            Salir
-            </v-btn>
-        </div>
+        <v-list>
+          <v-list-item>
+            <v-list-item-action
+              @click.stop="$vuetify.theme.dark = !$vuetify.theme.dark"
+            >
+              <v-icon v-if="!$vuetify.theme.dark">mdi-weather-sunny</v-icon>
+              <v-icon v-else>mdi-weather-night</v-icon>
+            </v-list-item-action>
+
+            <v-list-item-content>
+              <v-list-item-title v-if="$vuetify.theme.dark" v-text="'Modo Oscuro'" />
+              <v-list-item-title v-else v-text="'Modo Claro'" />
+            </v-list-item-content>
+          </v-list-item>
+
+          <v-list-item>
+            <v-list-item-action @click.stop="miniVariant = !miniVariant">
+              <v-icon>mdi-logout</v-icon>
+            </v-list-item-action>
+
+            <v-list-item-content>
+              <v-list-item-title v-text="'Salir'" />
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
       </template>
     </v-navigation-drawer>
+
     <v-app-bar clipped-left fixed app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title class="text-center" v-text="title" />
