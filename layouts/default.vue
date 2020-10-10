@@ -117,7 +117,7 @@ export default {
         {
           //icon: 'mdi-file-powerpoint-box-outline',
           icon: 'mdi-format-paragraph',
-          title: 'Pedidos',
+          title: 'Pedido',
           to: '/pedido',
         },
         {
@@ -132,7 +132,7 @@ export default {
           title: 'Nuevo',
           items: [
             { title: 'Cliente', to: '/cliente' },
-            { title: 'Producto', to: '' },
+            { title: 'Producto', to: '/producto' },
             { title: 'Accesorio', to: '' },
             { title: 'Pago', to: '' },
             { title: 'Cobro', to: '' },
@@ -147,14 +147,14 @@ export default {
           icon: 'mdi-file-outline',
           title: 'Ver',
           items: [
-            { title: 'Pedidos', to: '/pedidoVer' },
+            { title: 'Pedidos', to: '/pedidos' },
             { title: 'Facturas', to: '' },
-            { title: 'Pagos', to: '/pagoVer' },
+            { title: 'Pagos', to: '/pagos' },
             { title: 'Cobros', to: '' },
             { title: 'Clientes', to: '/prueba1' },
             { title: 'Productos', to: '' },
             { title: 'Accesorios', to: '' },
-            { title: 'Obras Sociales', to: '/obraSocialVer' },
+            { title: 'Obras Sociales', to: '/obras-sociales' },
             { title: 'Sucursales', to: '' },
             { title: 'Empleados', to: '' },
             { title: 'Proveedores', to: '' },
@@ -168,3 +168,4 @@ export default {
   },
 }
 </script>
+

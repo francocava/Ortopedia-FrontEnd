@@ -4,13 +4,10 @@
       <v-text-field
         v-model="search"
         append-icon="mdi-magnify"
-        label="Search"
+        label="Buscar"
         single-line
         hide-details
       ></v-text-field>
-
-      {{search}}
-
     </v-card-title>
     <v-data-table
       :headers="headers"

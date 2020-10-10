@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-title>Cliente Nuevo</v-card-title>
+    <v-card-title>Producto Nuevo</v-card-title>
 
     <v-card-text>
       <v-form ref="form" v-model="valid" lazy-validation>
@@ -11,28 +11,29 @@
           required
         ></v-text-field>
 
+        <v-select
+          v-model="select"
+          :items="items"
+          :rules="[(v) => !!v || 'Item is required']"
+          label="Accesorios"
+          required
+          multiple
+        ></v-select>
+
         <v-text-field
-          v-model="apellido"
-          :rules="apellidoRules"
-          label="Apellido"
+          v-model="proveedor"
+          :rules="proveedorRules"
+          label="Proveedor"
           required
         ></v-text-field>
 
         <v-text-field
           type="number"
-          v-model="dni"
-          :rules="dniRules"
-          label="DNI"
+          v-model="precio"
+          :rules="precioRules"
+          label="Precio"
           required
         ></v-text-field>
-
-        <v-select
-          v-model="select"
-          :items="items"
-          :rules="[(v) => !!v || 'Item is required']"
-          label="Obra Social"
-          required
-        ></v-select>
 
         <v-btn
           :disabled="!valid"
@@ -53,18 +54,18 @@ export default {
     valid: true,
     nombre: '',
     nombreRules: [
-      (v) => !!v || 'Falta el nombre del cliente',
-      (v) => (v && v.length <= 15) || 'Nombre muy largo',
+      (v) => !!v || 'Falta el nombre del producto',
+      (v) => (v && v.length <= 50) || 'Nombre muy largo',
     ],
-    apellido: '',
-    apellidoRules: [
-      (v) => !!v || 'Falta el apellido del cliente',
-      (v) => (v && v.length <= 25) || 'Apellido muy largo',
+    proveedor: '',
+    proveedorRules: [
+      (v) => !!v || 'Falta el nombre del proveedor',
+      (v) => (v && v.length <= 30) || 'Muy largo',
     ],
-    dni: '',
-    dniRules: [(v) => !!v || 'Falta el DNI del cliente'],
-    select: null,
     items: ['Osecac', 'Pami', 'Osbba', 'Swiss Medical'],
+    precio: '',
+    precioRules: [(v) => !!v || 'Falta el precio'],
+    select: null,
   }),
 
   methods: {
