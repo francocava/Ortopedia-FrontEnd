@@ -74,7 +74,7 @@
             </v-list-item-content>
           </v-list-item>
 
-          <v-list-item>
+          <v-list-item to="/login">
             <v-list-item-action @click.stop="miniVariant = !miniVariant">
               <v-icon>mdi-logout</v-icon>
             </v-list-item-action>

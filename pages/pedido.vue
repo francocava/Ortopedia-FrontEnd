@@ -48,7 +48,7 @@
 
       <v-menu
         ref="menu"
-        v-model="menu"
+        v-model="menu2"
         :close-on-content-click="false"
         :return-value.sync="date"
         transition="scale-transition"
@@ -140,6 +140,7 @@ export default {
     valid: true,
     date: new Date().toISOString().substr(0, 10),
     menu: false,
+    menu2: false,
     nombre: '',
     nombreRules: [
       (v) => !!v || 'Falta el nombre del cliente',
@@ -165,9 +166,9 @@ export default {
   },
 }
 
-//como es el tema de las facturas
+//la factura se agrega despues //despues del pedido me lleve a pedidos (lo mismo con todo los nuevos) this.router.to 
 //necesito una barra de busqueda para los clientes
-//estado por default seria "no" supongo
-//mmm pagos y cobros
+
+//Informes 4 v-card
 
 </script>
