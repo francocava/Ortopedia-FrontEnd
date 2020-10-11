@@ -98,6 +98,24 @@
 
         <v-select
           v-model="cliente"
+          :rules="[(v) => !!v || 'Elija al menos un Producto']"
+          :items="items"
+          label="Producto"
+          required
+          multiple
+        ></v-select>
+
+        <v-select
+          v-model="cliente"
+          :rules="[]"
+          :items="items"
+          label="Accesorio"
+          required
+          multiple
+        ></v-select>
+
+        <v-select
+          v-model="cliente"
           :rules="[(v) => !!v || 'Elija una Sucursal']"
           :items="items2"
           label="Sucursal"

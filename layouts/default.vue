@@ -123,7 +123,7 @@ export default {
         {
           icon: 'mdi-clipboard-text-outline',
           title: 'Informes',
-          to: '/inspire',
+          to: '/informes',
         },
       ],
       items: [
