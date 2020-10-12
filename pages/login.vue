@@ -21,11 +21,13 @@
 
         <div class="text-center">
           <v-btn
-            color="success"
             outlined
-            to="/pedido"
             :disabled="!valid"
+            color="success"
+            class="mr-4"
             @click="validate"
+            to="/pedido"
+            
           >
             Entrar
           </v-btn>

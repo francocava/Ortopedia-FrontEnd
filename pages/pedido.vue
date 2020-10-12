@@ -1,6 +1,7 @@
 <template>
   <v-card>
     <v-card-title>Pedido Nuevo</v-card-title>
+    <v-btn>Nuevo Cliente</v-btn>
 
     <v-card-text>
       <v-form ref="form" v-model="valid" lazy-validation>
@@ -144,6 +145,7 @@
           color="success"
           class="mr-4"
           @click="validate"
+          to="/pedidos"
         >
           Enviar
         </v-btn>
