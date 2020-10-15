@@ -49,4 +49,11 @@ export default {
     },
   },
 }
+
+
+//el :to se saltea las validaciones
+
+
 </script>
+
+

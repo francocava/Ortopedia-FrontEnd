@@ -24,7 +24,7 @@
           <v-dialog v-model="dialog" max-width="500px">
             <template v-slot:activator="{ on, attrs }">
               <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
-                Nuevo Item
+                Nuevo
               </v-btn>
             </template>
             <v-card>
@@ -166,6 +166,18 @@ export default {
           apellido: 'Rodriguez',
           dni: '17888356',
           obraSocial: 'Pami',
+        },
+        {
+          nombre: 'Juan',
+          apellido: 'Carlos',
+          dni: '14888678',
+          obraSocial: 'OSSBA',
+        },
+        {
+          nombre: 'Gaston',
+          apellido: 'Perez',
+          dni: '39458753',
+          obraSocial: 'Osecac',
         },
       ]
     },

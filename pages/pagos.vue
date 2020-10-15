@@ -53,6 +53,12 @@
                         label="proveedor"
                       ></v-text-field>
                     </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="editedItem.proveedor"
+                        label="proveedor"
+                      ></v-text-field>
+                    </v-col>
                     <v-col cols="12" sm="6" md="4"> </v-col>
                   </v-row>
                 </v-container>
@@ -113,6 +119,7 @@ export default {
         value: 'monto',
       },
       { text: 'Forma de pago', value: 'formaDePago' },
+      { text: 'Cliente', value: 'cliente' },
       { text: 'Proveedor', value: 'proveedor' },
       { text: 'Actions', value: 'actions', sortable: false },
     ],
@@ -121,11 +128,13 @@ export default {
     editedItem: {
       monto: 0,
       formaDePago: '',
+      cliente: '',
       proveedor: '',
     },
     defaultItem: {
       monto: 0,
       formaDePago: '',
+      cliente: '',
       proveedor: '',
     },
   }),
@@ -155,16 +164,19 @@ export default {
         {
           monto: '$' + '8950',
           formaDePago: 'Efectivo',
+          cliente: 'Juan Carlos',
           proveedor: 'Insumos S.A',
         },
         {
           monto: '$' + '5670',
           formaDePago: 'Tarjeta de Credito',
+          cliente: 'Victoria Royo',
           proveedor: 'Medicus',
         },
         {
           monto: '$' + '345',
           formaDePago: 'Tarjeta de Credito',
+          cliente: 'Matias Fisher',
           proveedor: 'Health Bros',
         },
       ]

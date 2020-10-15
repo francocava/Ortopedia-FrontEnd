@@ -1,89 +1,308 @@
 <template>
-  <v-row justify="center" align="center">
-    <v-col cols="12" sm="8" md="6">
-      <div class="text-center">
-        <logo />
-        <vuetify-logo />
-      </div>
-      <v-card>
-        <v-card-title class="headline">
-          Welcome to the Vuetify + Nuxt.js template
-        </v-card-title>
-        <v-card-text>
-          <p>Vuetify is a progressive Material Design component framework for Vue.js. It was designed to empower developers to create amazing applications.</p>
-          <p>
-            For more information on Vuetify, check out the <a
-              href="https://vuetifyjs.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              documentation
-            </a>.
-          </p>
-          <p>
-            If you have questions, please join the official <a
-              href="https://chat.vuetifyjs.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="chat"
-            >
-              discord
-            </a>.
-          </p>
-          <p>
-            Find a bug? Report it on the github <a
-              href="https://github.com/vuetifyjs/vuetify/issues"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="contribute"
-            >
-              issue board
-            </a>.
-          </p>
-          <p>Thank you for developing with Vuetify and I look forward to bringing more exciting features in the future.</p>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
-          </div>
-          <hr class="my-3">
-          <a
-            href="https://nuxtjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Nuxt Documentation
-          </a>
-          <br>
-          <a
-            href="https://github.com/nuxt/nuxt.js"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Nuxt GitHub
-          </a>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn
-            color="primary"
-            nuxt
-            to="/inspire"
-          >
-            Continue
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-col>
-  </v-row>
+  <v-card>
+    <v-card-title>
+      <v-text-field
+        v-model="search"
+        append-icon="mdi-magnify"
+        label="Buscar"
+        single-line
+        hide-details
+      ></v-text-field>
+    </v-card-title>
+    <v-data-table
+      :headers="headers"
+      :items="pedidos"
+      :search="search"
+      sort-by="monto"
+      class="elevation-1"
+    >
+      <template v-slot:top>
+        <v-toolbar flat>
+          <v-toolbar-title>Pedidos</v-toolbar-title>
+          <v-divider class="mx-4" inset vertical></v-divider>
+          <v-spacer></v-spacer>
+
+          <v-spacer></v-spacer>
+          <v-dialog v-model="dialog" max-width="500px">
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
+                Nuevo
+              </v-btn>
+            </template>
+            <v-card>
+              <v-card-title>
+                <span class="headline">{{ formTitle }}</span>
+              </v-card-title>
+
+              <v-card-text>
+                <v-container>
+                  <v-row>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="editedItem.fechaIngresoAut"
+                        label="Fecha Ingreso"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="editedItem.cliente"
+                        label="Cliente"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="editedItem.sucursal"
+                        label="Sucursal"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="editedItem.nroCotizacion"
+                        label="Nro Cotizacion"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="editedItem.fechaRetiro"
+                        label="Fecha Retiro"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="editedItem.importeFac"
+                        label="Importe Factura"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="editedItem.flCt"
+                        label="FL/CT"
+                      ></v-text-field>
+                    </v-col>
+
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="editedItem.nroRecibo"
+                        label="Nro Recibo"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="editedItem.cancelado"
+                        label="Cancelado"
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </v-card-text>
+
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="blue darken-1" text @click="close">
+                  Cancelar
+                </v-btn>
+                <v-btn color="blue darken-1" text @click="save">
+                  Guardar
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+          <v-dialog v-model="dialogDelete" max-width="500px">
+            <v-card>
+              <v-card-title class="headline"
+                >Estas seguro que queres eliminar el item?</v-card-title
+              >
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="blue darken-1" text @click="closeDelete"
+                  >Cancelar</v-btn
+                >
+                <v-btn color="blue darken-1" text @click="deleteItemConfirm"
+                  >OK</v-btn
+                >
+                <v-spacer></v-spacer>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+        </v-toolbar>
+      </template>
+      <template v-slot:item.actions="{ item }">
+        <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
+        <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
+      </template>
+      <template v-slot:no-data>
+        <v-btn color="primary" @click="initialize"> Reset </v-btn>
+      </template>
+    </v-data-table>
+  </v-card>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-import VuetifyLogo from '~/components/VuetifyLogo.vue'
-
 export default {
-  components: {
-    Logo,
-    VuetifyLogo
-  }
+  data: () => ({
+    search: '',
+    dialog: false,
+    dialogDelete: false,
+    headers: [
+      {
+        text: 'Fecha Ingreso',
+        align: 'start',
+        sortable: false,
+        value: 'fechaIngresoAut',
+      },
+      { text: 'Cliente', value: 'cliente', sortable: false },
+      { text: 'Sucursal', value: 'sucursal', sortable: false },
+      { text: 'Empleado', value: 'empleado', sortable: false },
+      { text: 'Nro Cotizacion', value: 'nroCotizacion', sortable: false },
+      { text: 'Fecha Retiro', value: 'fechaRetiro', sortable: false },
+      { text: 'Importe', value: 'importeFac' },
+      { text: 'FL/CT', value: 'flCt', sortable: false },
+      { text: 'Nro Recibo', value: 'nroRecibo', sortable: false },
+      { text: 'Cancelado', value: 'cancelado', sortable: false },
+      { text: 'Actions', value: 'actions', sortable: false },
+    ],
+    pedidos: [],
+    editedIndex: -1,
+    editedItem: {
+      fechaIngresoAut: '',
+      cliente: '',
+      sucursal: '',
+      empleado: '',
+      nroCotizacion: '',
+      fechaRetiro: '',
+      importeFac: '',
+      flct: '',
+      nroRecibo: '',
+      cancelado: '',
+    },
+    defaultItem: {
+      fechaIngresoAut: '',
+      cliente: '',
+      sucursal: '',
+      empleado: '',
+      nroCotizacion: '',
+      fechaRetiro: '',
+      importeFac: '',
+      flct: '',
+      nroRecibo: '',
+      cancelado: '',
+    },
+  }),
+
+  computed: {
+    formTitle() {
+      return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+    },
+  },
+
+  watch: {
+    dialog(val) {
+      val || this.close()
+    },
+    dialogDelete(val) {
+      val || this.closeDelete()
+    },
+  },
+
+  created() {
+    this.initialize()
+  },
+
+  methods: {
+    initialize() {
+      this.pedidos = [
+        {
+          fechaIngresoAut: '10/12/20',
+          cliente: 'Juan Carlos',
+          sucursal: 'Floresta',
+          empleado: 'Nico Ravielli',
+          nroCotizacion: '5',
+          fechaRetiro: '12/12/20',
+          importeFac: '$' + '2346',
+          flCt: 'fl',
+          nroRecibo: '2345',
+          cancelado: 'No',
+        },
+        {
+          fechaIngresoAut: '09/10/20',
+          cliente: 'Gaston Perez',
+          sucursal: 'Floresta',
+          empleado: 'Maria Arriada',
+          nroCotizacion: '8',
+          fechaRetiro: '13/10/20',
+          importeFac: '$' + '1236',
+          flCt: 'ct',
+          nroRecibo: '2399',
+          cancelado: 'No',
+        },
+        {
+          fechaIngresoAut: '02/08/20',
+          cliente: 'Matias Fisher',
+          sucursal: 'Floresta',
+          empleado: 'Maria Arriada',
+          nroCotizacion: '32',
+          fechaRetiro: '04/08/20',
+          importeFac: '$' + '6091',
+          flCt: 'ct',
+          nroRecibo: '2401',
+          cancelado: 'No',
+        },
+        {
+          fechaIngresoAut: '09/11/20',
+          cliente: 'Victoria Royo',
+          sucursal: 'Floresta',
+          empleado: 'Nico Ravielli',
+          nroCotizacion: '8',
+          fechaRetiro: '10/11/20',
+          importeFac: '$' + '578',
+          flCt: 'ct',
+          nroRecibo: '2000',
+          cancelado: 'No',
+        },
+      ]
+    },
+
+    editItem(item) {
+      this.editedIndex = this.pedidos.indexOf(item)
+      this.editedItem = Object.assign({}, item)
+      this.dialog = true
+    },
+
+    deleteItem(item) {
+      this.editedIndex = this.pedidos.indexOf(item)
+      this.editedItem = Object.assign({}, item)
+      this.dialogDelete = true
+    },
+
+    deleteItemConfirm() {
+      this.pedidos.splice(this.editedIndex, 1)
+      this.closeDelete()
+    },
+
+    close() {
+      this.dialog = false
+      this.$nextTick(() => {
+        this.editedItem = Object.assign({}, this.defaultItem)
+        this.editedIndex = -1
+      })
+    },
+
+    closeDelete() {
+      this.dialogDelete = false
+      this.$nextTick(() => {
+        this.editedItem = Object.assign({}, this.defaultItem)
+        this.editedIndex = -1
+      })
+    },
+
+    save() {
+      if (this.editedIndex > -1) {
+        Object.assign(this.pedidos[this.editedIndex], this.editedItem)
+      } else {
+        this.pedidos.push(this.editedItem)
+      }
+      this.close()
+    },
+  },
 }
 </script>

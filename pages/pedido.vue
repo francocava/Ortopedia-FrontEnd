@@ -1,22 +1,24 @@
 <template>
   <v-card>
-    <v-card-title>Pedido Nuevo</v-card-title>
+    <v-card-title>Pedido Nuevo
+      <v-spacer></v-spacer>
     <v-btn>Nuevo Cliente</v-btn>
+    </v-card-title>
 
     <v-card-text>
       <v-form ref="form" v-model="valid" lazy-validation>
         <v-menu
-        ref="menu"
-        v-model="menu"
+        ref="menuAutorizacion"
+        v-model="menuAutorizacion"
         :close-on-content-click="false"
-        :return-value.sync="date"
+        :return-value.sync="fechaAutorizacion"
         transition="scale-transition"
         offset-y
         min-width="290px"
       >
         <template v-slot:activator="{ on, attrs }">
           <v-text-field
-            v-model="date"
+            v-model="fechaAutorizacion"
             label="Ingreso de Autorizacion"
             prepend-icon="mdi-calendar"
             readonly
@@ -25,7 +27,7 @@
           ></v-text-field>
         </template>
         <v-date-picker
-          v-model="date"
+          v-model="fechaAutorizacion"
           no-title
           scrollable
         >
@@ -33,14 +35,14 @@
           <v-btn
             text
             color="primary"
-            @click="menu = false"
+            @click="menuAutorizacion = false"
           >
             Cancel
           </v-btn>
           <v-btn
             text
             color="primary"
-            @click="$refs.menu.save(date)"
+            @click="$refs.menuAutorizacion.save(fechaAutorizacion)"
           >
             OK
           </v-btn>
@@ -48,17 +50,17 @@
       </v-menu>
 
       <v-menu
-        ref="menu"
-        v-model="menu2"
+        ref="menuRetiro"
+        v-model="menuRetiro"
         :close-on-content-click="false"
-        :return-value.sync="date"
+        :return-value.sync="fechaRetiro"
         transition="scale-transition"
         offset-y
         min-width="290px"
       >
         <template v-slot:activator="{ on, attrs }">
           <v-text-field
-            v-model="date"
+            v-model="fechaRetiro"
             label="Retiro"
             prepend-icon="mdi-calendar"
             readonly
@@ -67,7 +69,7 @@
           ></v-text-field>
         </template>
         <v-date-picker
-          v-model="date"
+          v-model="fechaRetiro"
           no-title
           scrollable
         >
@@ -75,14 +77,14 @@
           <v-btn
             text
             color="primary"
-            @click="menu = false"
+            @click="menuRetiro = false"
           >
             Cancel
           </v-btn>
           <v-btn
             text
             color="primary"
-            @click="$refs.menu.save(date)"
+            @click="$refs.menuRetiro.save(fechaRetiro)"
           >
             OK
           </v-btn>
@@ -98,25 +100,25 @@
         ></v-select>
 
         <v-select
-          v-model="cliente"
+          v-model="producto"
           :rules="[(v) => !!v || 'Elija al menos un Producto']"
-          :items="items"
+          :items="itemsProd"
           label="Producto"
           required
           multiple
         ></v-select>
 
         <v-select
-          v-model="cliente"
+          v-model="accesorio"
           :rules="[]"
-          :items="items"
+          :items="itemsAcc"
           label="Accesorio"
           required
           multiple
         ></v-select>
 
         <v-select
-          v-model="cliente"
+          v-model="sucursal"
           :rules="[(v) => !!v || 'Elija una Sucursal']"
           :items="items2"
           label="Sucursal"
@@ -158,10 +160,15 @@
 export default {
   data: () => ({
     valid: true,
-    date: new Date().toISOString().substr(0, 10),
-    menu: false,
-    menu2: false,
+    fechaAutorizacion: new Date().toISOString().substr(0, 10),
+    fechaRetiro: new Date().toISOString().substr(0, 10),
+    menuAutorizacion: false,
+    menuRetiro: false,
     nombre: '',
+    producto:'',
+    accesorio:'',
+    cliente:'',
+    sucursal:'',
     nombreRules: [
       (v) => !!v || 'Falta el nombre del cliente',
       (v) => (v && v.length <= 15) || 'Nombre muy largo',
@@ -171,10 +178,12 @@ export default {
       (v) => !!v || 'Falta el apellido del cliente',
       (v) => (v && v.length <= 25) || 'Apellido muy largo',
     ],
-    cotizacion: '',
-    cotizacionRules: [(v) => !!v || 'Ingrese el numero'],
+    nroCotizacion: '',
+    nroCotizacionRules: [(v) => !!v || 'Ingrese el numero'],
     select: null,
     items: ['Gaston Cabrera', 'Alberto Raiker', 'Franco Bulgarelli', 'Milena Perez'],
+    itemsProd: ['Silla de Ruedas','Plantilla','Muleta'],
+    itemsAcc: ['Cabezal silla','Expansor'],
     items2: ['Florida','Centro'],
     items3: ['FL','CT'],
   }),
