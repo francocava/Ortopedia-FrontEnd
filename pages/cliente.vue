@@ -26,6 +26,13 @@
           required
         ></v-text-field>
 
+        <v-text-field
+          type="number"
+          :rules="dniRules"
+          label="Teléfono"
+          required
+        ></v-text-field>
+
         <v-select
           v-model="select"
           :items="items"
@@ -33,6 +40,13 @@
           label="Obra Social"
           required
         ></v-select>
+
+        <v-text-field
+          type="number"
+          :rules="dniRules"
+          label="Número afiliado"
+          required
+        ></v-text-field>
 
         <v-btn
           :disabled="!valid"

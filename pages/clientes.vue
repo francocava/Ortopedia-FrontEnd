@@ -37,23 +37,40 @@
                   <v-row>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.monto"
+                        v-model="editedItem.nombre"
                         label="Nombre"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.formaDePago"
+                        v-model="editedItem.apellido"
                         label="Apellido"
+                      ></v-text-field>
+                    </v-col>
+                     <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="editedItem.dni"
+                        label="DNI"
+                      ></v-text-field>
+                    </v-col>
+                     <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="editedItem.telefono"
+                        label="Telefono"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.proveedor"
+                        v-model="editedItem.obraSocial"
                         label="Obra Social"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="4"> </v-col>
+                     <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="editedItem.numeroAfiliado"
+                        label="Afiliado"
+                      ></v-text-field>
+                    </v-col>
                   </v-row>
                 </v-container>
               </v-card-text>
@@ -114,7 +131,9 @@ export default {
       },
       { text: 'Apellido', value: 'apellido' },
       { text: 'DNI', value: 'dni', sortable: true },
+      { text: 'Teléfono', value: 'dni', sortable: true },
       { text: 'Obra Social', value: 'obraSocial', sortable: true },
+      { text: 'Número Afiliado', value: 'dni', sortable: true },
       { text: 'Actions', value: 'actions', sortable: false },
     ],
     pagos: [],
@@ -159,25 +178,25 @@ export default {
           nombre: 'Micaela',
           apellido: 'Rodriguez',
           dni: '17998356',
+          telefono: '49496060',
           obraSocial: 'Osecac',
+          numeroAfiliado: '101010',
         },
         {
           nombre: 'Tomas',
           apellido: 'Rodriguez',
           dni: '17888356',
+          telefono: '43439090',
           obraSocial: 'Pami',
+          numeroAfiliado: '96969',
         },
         {
           nombre: 'Juan',
           apellido: 'Carlos',
           dni: '14888678',
+          telefono: '239402',
           obraSocial: 'OSSBA',
-        },
-        {
-          nombre: 'Gaston',
-          apellido: 'Perez',
-          dni: '39458753',
-          obraSocial: 'Osecac',
+          numeroAfiliado: '324456',
         },
       ]
     },
