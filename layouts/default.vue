@@ -52,7 +52,7 @@
             :to="child.to"
           >
             <v-list-item-content>
-              <v-list-item-title v-text="child.title"></v-list-item-title>
+              <v-list-item-title v-text="child.title" class="ml-14"></v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list-group>
@@ -112,12 +112,12 @@ export default {
   data() {
     return {
       fixed: false,
-      drawer: false,
+      drawer: true,
       itemsSimple: [
         {
           //icon: 'mdi-file-powerpoint-box-outline',
           icon: 'mdi-format-paragraph',
-          title: 'Pedido',
+          title: 'Crear Pedido',
           to: '/pedido',
         },
         {
@@ -147,11 +147,11 @@ export default {
           icon: 'mdi-file-outline',
           title: 'Ver',
           items: [
-            { title: 'Pedidos', to: '/pedidos' },
-            { title: 'Facturas', to: '' },
+            { title: 'Pedidos', to: '/' },
+            { title: 'Clientes', to: '/clientes' },
             { title: 'Pagos', to: '/pagos' },
             { title: 'Cobros', to: '' },
-            { title: 'Clientes', to: '/clientes' },
+            { title: 'Facturas', to: '' },
             { title: 'Productos', to: '' },
             { title: 'Accesorios', to: '' },
             { title: 'Obras Sociales', to: '/obras-sociales' },
