@@ -133,7 +133,7 @@ export default {
           items: [
             { title: 'Cliente', to: '/cliente' },
             { title: 'Producto', to: '/producto' },
-            { title: 'Accesorio', to: '' },
+            { title: 'Accesorio', to: '/accesorio' },
             { title: 'Pago', to: '' },
             { title: 'Cobro', to: '' },
             { title: 'Proveedor', to: '' },
