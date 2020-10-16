@@ -11,6 +11,11 @@
           required
         ></v-text-field>
 
+        <v-text-field
+          v-model="descripcion"
+          label="Descripción"
+        ></v-text-field>
+
         <v-select
           v-model="select"
           :items="items"
@@ -35,6 +40,12 @@
           required
         ></v-text-field>
 
+        <v-text-field
+          type="number"
+          v-model="nroArt"
+          label="Número de Articulo"
+        ></v-text-field>
+
         <v-btn
           :disabled="!valid"
           color="success"
@@ -53,6 +64,8 @@ export default {
   data: () => ({
     valid: true,
     nombre: '',
+    descripcion: '',
+    nroArt: '',
     nombreRules: [
       (v) => !!v || 'Falta el nombre del producto',
       (v) => (v && v.length <= 50) || 'Nombre muy largo',

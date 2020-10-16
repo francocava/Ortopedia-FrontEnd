@@ -27,6 +27,11 @@
         ></v-text-field>
 
         <v-text-field
+          v-model="contacto"
+          label="Contacto"
+        ></v-text-field>
+
+        <v-text-field
           type="number"
           :rules="dniRules"
           label="Teléfono"
@@ -66,6 +71,7 @@ export default {
   data: () => ({
     valid: true,
     nombre: '',
+    contacto: '',
     nombreRules: [
       (v) => !!v || 'Falta el nombre del cliente',
       (v) => (v && v.length <= 15) || 'Nombre muy largo',

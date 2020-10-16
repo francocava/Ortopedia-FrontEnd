@@ -53,6 +53,12 @@
                         label="DNI"
                       ></v-text-field>
                     </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="editedItem.contacto"
+                        label="Contacto"
+                      ></v-text-field>
+                    </v-col>
                      <v-col cols="12" sm="6" md="4">
                       <v-text-field
                         v-model="editedItem.telefono"
@@ -131,6 +137,7 @@ export default {
       },
       { text: 'Apellido', value: 'apellido' },
       { text: 'DNI', value: 'dni', sortable: true },
+      { text: 'Contacto', value: 'contacto'},
       { text: 'Teléfono', value: 'dni', sortable: true },
       { text: 'Obra Social', value: 'obraSocial', sortable: true },
       { text: 'Número Afiliado', value: 'dni', sortable: true },
@@ -142,6 +149,8 @@ export default {
       nombre: '',
       apellido: '',
       dni: 0,
+      contacto: '',
+      telefono: 0,
       obraSocial: '',
     },
     defaultItem: {
@@ -178,6 +187,7 @@ export default {
           nombre: 'Micaela',
           apellido: 'Rodriguez',
           dni: '17998356',
+          contacto: '',
           telefono: '49496060',
           obraSocial: 'Osecac',
           numeroAfiliado: '101010',
@@ -186,6 +196,7 @@ export default {
           nombre: 'Tomas',
           apellido: 'Rodriguez',
           dni: '17888356',
+          contacto: 'Mariela',
           telefono: '43439090',
           obraSocial: 'Pami',
           numeroAfiliado: '96969',
@@ -194,6 +205,7 @@ export default {
           nombre: 'Juan',
           apellido: 'Carlos',
           dni: '14888678',
+          contacto: '',
           telefono: '239402',
           obraSocial: 'OSSBA',
           numeroAfiliado: '324456',
