@@ -155,7 +155,7 @@ export default {
             { title: 'Productos', to: '' },
             { title: 'Accesorios', to: '' },
             { title: 'Obras Sociales', to: '/obras-sociales' },
-            { title: 'Sucursales', to: '' },
+            { title: 'Sucursales', to: '/sucursales' },
             { title: 'Empleados', to: '' },
             { title: 'Proveedores', to: '' },
             { title: 'Forma de pago', to: '/formasPagos' },
