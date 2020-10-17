@@ -140,7 +140,7 @@ export default {
             { title: 'Sucursal', to: '/sucursal' },
             { title: 'Obra social', to: '/obraSocial' },
             { title: 'Empleado', to: '' },
-            { title: 'Forma de pago', to: '' },
+            { title: 'Forma de pago', to: '/formaPago' },
           ],
         },
         {
@@ -158,6 +158,7 @@ export default {
             { title: 'Sucursales', to: '' },
             { title: 'Empleados', to: '' },
             { title: 'Proveedores', to: '' },
+            { title: 'Forma de pago', to: '/formasPagos' },
           ],
         },
       ],
