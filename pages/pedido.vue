@@ -61,7 +61,7 @@
         <template v-slot:activator="{ on, attrs }">
           <v-text-field
             v-model="fechaRetiro"
-            label="Retiro"
+            label="Retiro Estimado"
             prepend-icon="mdi-calendar"
             readonly
             v-bind="attrs"
@@ -125,15 +125,6 @@
           required
         ></v-select>
 
-        <v-text-field
-          type="number"
-          v-model="nroCotizacion"
-          :rules="nroCotizacionRules"
-          label="Numero de Cotizacion"
-          required
-        ></v-text-field>
-
-
         <v-select
           v-model="select"
           :items="items3"
@@ -178,8 +169,6 @@ export default {
       (v) => !!v || 'Falta el apellido del cliente',
       (v) => (v && v.length <= 25) || 'Apellido muy largo',
     ],
-    nroCotizacion: '',
-    nroCotizacionRules: [(v) => !!v || 'Ingrese el numero'],
     select: null,
     items: ['Gaston Cabrera', 'Alberto Raiker', 'Franco Bulgarelli', 'Milena Perez'],
     itemsProd: ['Silla de Ruedas','Plantilla','Muleta'],
