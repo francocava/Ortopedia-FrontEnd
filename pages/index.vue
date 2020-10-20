@@ -144,16 +144,12 @@ export default {
     dialog: false,
     dialogDelete: false,
     headers: [
-      {
-        text: 'Fecha Ingreso',
-        align: 'start',
-        sortable: false,
-        value: 'fechaIngresoAut',
-      },
+      { text: 'Nro Cotizacion', value: 'nroCotizacion', sortable: true },
+      { text: 'Fecha Ingreso', align: 'start', sortable: true, value: 'fechaIngresoAut' },
       { text: 'Cliente', value: 'cliente', sortable: false },
+      { text: 'OS', value: 'obraSocial', sortable: true },
       { text: 'Sucursal', value: 'sucursal', sortable: false },
       { text: 'Empleado', value: 'empleado', sortable: false },
-      { text: 'Nro Cotizacion', value: 'nroCotizacion', sortable: false },
       { text: 'Fecha Retiro', value: 'fechaRetiro', sortable: false },
       { text: 'Importe', value: 'importeFac' },
       { text: 'FL/CT', value: 'flCt', sortable: false },
@@ -214,6 +210,7 @@ export default {
         {
           fechaIngresoAut: '10/12/20',
           cliente: 'Juan Carlos',
+          obraSocial: 'Pami',
           sucursal: 'Floresta',
           empleado: 'Nico Ravielli',
           nroCotizacion: '5',
@@ -226,6 +223,7 @@ export default {
         {
           fechaIngresoAut: '09/10/20',
           cliente: 'Gaston Perez',
+          obraSocial: 'OSDE',
           sucursal: 'Floresta',
           empleado: 'Maria Arriada',
           nroCotizacion: '8',
@@ -238,6 +236,7 @@ export default {
         {
           fechaIngresoAut: '02/08/20',
           cliente: 'Matias Fisher',
+          obraSocial: 'Pami',
           sucursal: 'Floresta',
           empleado: 'Maria Arriada',
           nroCotizacion: '32',
@@ -250,6 +249,7 @@ export default {
         {
           fechaIngresoAut: '09/11/20',
           cliente: 'Victoria Royo',
+          obraSocial: 'Osecac',
           sucursal: 'Floresta',
           empleado: 'Nico Ravielli',
           nroCotizacion: '8',
