@@ -135,7 +135,7 @@ export default {
             { title: 'Producto', to: '/producto' },
             { title: 'Accesorio', to: '/accesorio' },
             { title: 'Pago', to: '/pago' },
-            { title: 'Cobro', to: '' },
+            { title: 'Cobro', to: '/cobro' },
             { title: 'Proveedor', to: '/proveedor' },
             { title: 'Sucursal', to: '/sucursal' },
             { title: 'Obra social', to: '/obraSocial' },
