@@ -134,7 +134,7 @@ export default {
             { title: 'Cliente', to: '/cliente' },
             { title: 'Producto', to: '/producto' },
             { title: 'Accesorio', to: '/accesorio' },
-            { title: 'Pago', to: '' },
+            { title: 'Pago', to: '/pago' },
             { title: 'Cobro', to: '' },
             { title: 'Proveedor', to: '/proveedor' },
             { title: 'Sucursal', to: '/sucursal' },
