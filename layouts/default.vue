@@ -152,7 +152,7 @@ export default {
             { title: 'Pagos', to: '/pagos' },
             { title: 'Cobros', to: '/cobros' },
             { title: 'Facturas', to: '' },
-            { title: 'Productos', to: '' },
+            { title: 'Productos', to: '/productos' },
             { title: 'Accesorios', to: '/accesorios' },
             { title: 'Obras Sociales', to: '/obras-sociales' },
             { title: 'Sucursales', to: '/sucursales' },
