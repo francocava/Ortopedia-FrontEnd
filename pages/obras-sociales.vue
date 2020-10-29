@@ -37,7 +37,7 @@
                   <v-row>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.obra"
+                        v-model="editedItem.nombre"
                         label="Nombre"
                       ></v-text-field>
                     </v-col>
@@ -94,19 +94,28 @@ export default {
     dialogDelete: false,
     headers: [
       {
-        text: 'Obra',
+        text: 'Nombre',
         align: 'start',
-        value: 'obra',
+        value: 'nombre',
       },
     ],
     editedIndex: -1,
     editedItem: {
-      obra: '',
+      nombre: '',
     },
     defaultItem: {
-      obra: '',
+      nombre: '',
     },
+
+    pagos: [],
+
+
   }),
+
+  async fetch() {
+    this.pagos = await this.$http.$get('http://127.0.0.1:8000/api/obraSocial')
+    console.log(this.pagos);
+  },
 
   computed: {
     formTitle() {
@@ -123,20 +132,9 @@ export default {
     },
   },
 
-  created() {
-    this.initialize()
-  },
-
   methods: {
     initialize() {
-      this.pagos = [
-        {
-          obra: 'Pami',
-        },
-        {
-          obra: 'OSDE',
-        },
-      ]
+      this.$fetch()
     },
 
     editItem(item) {
