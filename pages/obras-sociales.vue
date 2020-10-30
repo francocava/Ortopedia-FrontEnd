@@ -11,7 +11,7 @@
     </v-card-title>
     <v-data-table
       :headers="headers"
-      :items="pagos"
+      :items="obras"
       :search="search"
       sort-by="monto"
       class="elevation-1"
@@ -108,14 +108,14 @@ export default {
       nombre: '',
     },
 
-    pagos: [],
+    obras: [],
 
 
   }),
 
   async fetch() {
-    this.pagos = await this.$http.$get('http://127.0.0.1:8000/api/obraSocial')
-    console.log(this.pagos);
+    this.obras = await this.$http.$get('http://127.0.0.1:8000/api/obraSocial')
+    console.log(this.obras);
   },
 
   computed: {
@@ -139,19 +139,19 @@ export default {
     },
 
     editItem(item) {
-      this.editedIndex = this.pagos.indexOf(item)
+      this.editedIndex = this.obras.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialog = true
     },
 
     deleteItem(item) {
-      this.editedIndex = this.pagos.indexOf(item)
+      this.editedIndex = this.obras.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialogDelete = true
     },
 
     deleteItemConfirm() {
-      this.pagos.splice(this.editedIndex, 1)
+      this.obras.splice(this.editedIndex, 1)
       this.closeDelete()
     },
 
@@ -173,9 +173,9 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.pagos[this.editedIndex], this.editedItem)
+        Object.assign(this.obras[this.editedIndex], this.editedItem)
       } else {
-        this.pagos.push(this.editedItem)
+        this.obras.push(this.editedItem)
       }
       this.close()
     },

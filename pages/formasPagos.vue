@@ -11,7 +11,7 @@
     </v-card-title>
     <v-data-table
       :headers="headers"
-      :items="pagos"
+      :items="formasPago"
       :search="search"
       sort-by="monto"
       class="elevation-1"
@@ -37,7 +37,7 @@
                   <v-row>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.monto"
+                        v-model="editedItem.tipo"
                         label="Tipo"
                       ></v-text-field>
                     </v-col>
@@ -96,19 +96,26 @@ export default {
       {
         text: 'Forma',
         align: 'start',
-        value: 'forma',
+        value: 'tipo',
       },
       { text: 'Actions', value: 'actions', sortable: false },
     ],
-    pagos: [],
+    
     editedIndex: -1,
     editedItem: {
-      forma: '',
+      tipo: '',
     },
     defaultItem: {
-      forma: '',
+      tipo: '',
     },
+
+    formasPago: [],
   }),
+
+  async fetch() {
+    this.formasPago = await this.$http.$get('http://127.0.0.1:8000/api/formaPago')
+    console.log(this.formasPago);
+  },
 
   computed: {
     formTitle() {
@@ -131,33 +138,23 @@ export default {
 
   methods: {
     initialize() {
-      this.pagos = [
-        {
-          forma: 'Debito',
-        },
-        {
-          forma: 'Credito',
-        },
-        {
-          forma: 'Efectivo',
-        },
-      ]
+      this.$fetch()
     },
 
     editItem(item) {
-      this.editedIndex = this.pagos.indexOf(item)
+      this.editedIndex = this.formasPago.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialog = true
     },
 
     deleteItem(item) {
-      this.editedIndex = this.pagos.indexOf(item)
+      this.editedIndex = this.formasPago.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialogDelete = true
     },
 
     deleteItemConfirm() {
-      this.pagos.splice(this.editedIndex, 1)
+      this.formasPago.splice(this.editedIndex, 1)
       this.closeDelete()
     },
 
@@ -179,9 +176,9 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.pagos[this.editedIndex], this.editedItem)
+        Object.assign(this.formasPago[this.editedIndex], this.editedItem)
       } else {
-        this.pagos.push(this.editedItem)
+        this.formasPago.push(this.editedItem)
       }
       this.close()
     },
