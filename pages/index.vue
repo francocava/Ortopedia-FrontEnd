@@ -39,50 +39,50 @@
                   <v-row>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.fechaIngresoAut"
+                        v-model="editedItem.fecha_ingreso_autorizacion"
                         label="Fecha Ingreso"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.cliente"
+                        v-model="editedItem.clie_id"
                         label="Cliente"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.sucursal"
+                        v-model="editedItem.suc_id"
                         label="Sucursal"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.nroCotizacion"
+                        v-model="editedItem.id"
                         label="Nro Cotizacion"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.fechaRetiro"
+                        v-model="editedItem.fecha_retiro"
                         label="Fecha Retiro"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.importeFac"
+                        v-model="editedItem.importe_fac"
                         label="Importe Factura"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.flCt"
+                        v-model="editedItem.fl_Ct"
                         label="FL/CT"
                       ></v-text-field>
                     </v-col>
 
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.nroRecibo"
+                        v-model="editedItem.nro_recibo_proveedor"
                         label="Nro Recibo"
                       ></v-text-field>
                     </v-col>
@@ -144,46 +144,50 @@ export default {
     dialog: false,
     dialogDelete: false,
     headers: [
-      { text: 'Nro Cotizacion', value: 'nroCotizacion', sortable: true },
-      { text: 'Fecha Ingreso', align: 'start', sortable: true, value: 'fechaIngresoAut' },
-      { text: 'Cliente', value: 'cliente', sortable: false },
+      { text: 'Nro Cotizacion', value: 'id', sortable: true },
+      { text: 'Fecha Ingreso', align: 'start', sortable: true, value: 'fecha_ingreso_autorizacion' },
+      { text: 'Cliente', value: 'clie_id', sortable: false },
       { text: 'OS', value: 'obraSocial', sortable: true },
-      { text: 'Sucursal', value: 'sucursal', sortable: false },
-      { text: 'Empleado', value: 'empleado', sortable: false },
-      { text: 'Fecha Retiro', value: 'fechaRetiro', sortable: false },
-      { text: 'Importe', value: 'importeFac' },
-      { text: 'FL/CT', value: 'flCt', sortable: false },
-      { text: 'Nro Recibo', value: 'nroRecibo', sortable: false },
+      { text: 'Sucursal', value: 'suc_id', sortable: false },
+      { text: 'Empleado', value: 'usuario_id', sortable: false },
+      { text: 'Fecha Retiro', value: 'fecha_retiro', sortable: false },
+      { text: 'Importe', value: 'importe_fac' },
+      { text: 'FL/CT', value: 'fl_Ct', sortable: false },
+      { text: 'Nro Recibo', value: 'nro_recibo_proveedor', sortable: false },
       { text: 'Cancelado', value: 'cancelado', sortable: false },
       { text: 'Actions', value: 'actions', sortable: false },
     ],
     pedidos: [],
     editedIndex: -1,
     editedItem: {
-      fechaIngresoAut: '',
-      cliente: '',
-      sucursal: '',
-      empleado: '',
-      nroCotizacion: '',
-      fechaRetiro: '',
-      importeFac: '',
-      flct: '',
-      nroRecibo: '',
+      fecha_ingreso_autorizacion: '',
+      clie_id: '',
+      suc_id: '',
+      usuario_id: '',
+      id: '',
+      fecha_retiro: '',
+      importe_fac: '',
+      fl_ct: '',
+      nro_recibo_proveedor: '',
       cancelado: '',
     },
     defaultItem: {
-      fechaIngresoAut: '',
-      cliente: '',
-      sucursal: '',
-      empleado: '',
-      nroCotizacion: '',
-      fechaRetiro: '',
-      importeFac: '',
-      flct: '',
-      nroRecibo: '',
+      fecha_ingreso_autorizacion: '',
+      clie_id: '',
+      suc_id: '',
+      usuario_id: '',
+      id: '',
+      fecha_retiro: '',
+      importe_fac: '',
+      fl_ct: '',
+      nro_recibo_proveedor: '',
       cancelado: '',
     },
   }),
+
+  async fetch() {
+    this.pedidos = await this.$http.$get('http://127.0.0.1:8000/api/pedido')
+  },
 
   computed: {
     formTitle() {
@@ -200,66 +204,10 @@ export default {
     },
   },
 
-  created() {
-    this.initialize()
-  },
 
   methods: {
     initialize() {
-      this.pedidos = [
-        {
-          fechaIngresoAut: '10/12/20',
-          cliente: 'Juan Carlos',
-          obraSocial: 'Pami',
-          sucursal: 'Floresta',
-          empleado: 'Nico Ravielli',
-          nroCotizacion: '5',
-          fechaRetiro: '12/12/20',
-          importeFac: '$' + '2346',
-          flCt: 'fl',
-          nroRecibo: '2345',
-          cancelado: 'No',
-        },
-        {
-          fechaIngresoAut: '09/10/20',
-          cliente: 'Gaston Perez',
-          obraSocial: 'OSDE',
-          sucursal: 'Floresta',
-          empleado: 'Maria Arriada',
-          nroCotizacion: '8',
-          fechaRetiro: '13/10/20',
-          importeFac: '$' + '1236',
-          flCt: 'ct',
-          nroRecibo: '2399',
-          cancelado: 'No',
-        },
-        {
-          fechaIngresoAut: '02/08/20',
-          cliente: 'Matias Fisher',
-          obraSocial: 'Pami',
-          sucursal: 'Floresta',
-          empleado: 'Maria Arriada',
-          nroCotizacion: '32',
-          fechaRetiro: '04/08/20',
-          importeFac: '$' + '6091',
-          flCt: 'ct',
-          nroRecibo: '2401',
-          cancelado: 'No',
-        },
-        {
-          fechaIngresoAut: '09/11/20',
-          cliente: 'Victoria Royo',
-          obraSocial: 'Osecac',
-          sucursal: 'Floresta',
-          empleado: 'Nico Ravielli',
-          nroCotizacion: '8',
-          fechaRetiro: '10/11/20',
-          importeFac: '$' + '578',
-          flCt: 'ct',
-          nroRecibo: '2000',
-          cancelado: 'No',
-        },
-      ]
+      this.$fetch()
     },
 
     editItem(item) {

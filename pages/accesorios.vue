@@ -37,7 +37,7 @@
                   <v-row>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.nroArt"
+                        v-model="editedItem.nroArticulo"
                         label="Nro Articulo"
                       ></v-text-field>
                     </v-col>
@@ -49,7 +49,7 @@
                     </v-col>
                      <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.proveedor"
+                        v-model="editedItem.proveedor_id"
                         label="Proveedor"
                       ></v-text-field>
                     </v-col>
@@ -115,28 +115,32 @@ export default {
         text: 'Numero Articulo',
         align: 'start',
         sortable: true,
-        value: 'nroArt',
+        value: 'nroArticulo',
       },
       { text: 'Descripcion', value: 'descripcion' },
-      { text: 'Proveedor', value: 'proveedor', sortable: true },
+      { text: 'Proveedor', value: 'proveedor_id', sortable: true },
       { text: 'Precio', value: 'precio'},
       { text: 'Actions', value: 'actions', sortable: false },
     ],
-    pagos: [],
+    accesorios: [],
     editedIndex: -1,
     editedItem: {
-      nroArt: 0,
+      nroArticulo: 0,
       descripcion: '',
-      proveedor: '',
+      proveedor_id: '',
       precio: 0,
     },
     defaultItem: {
-      nroArt: 0,
+      nroArticulo: 0,
       descripcion: '',
-      proveedor: '',
+      proveedor_id: '',
       precio: 0,
     },
   }),
+
+  async fetch() {
+    this.accesorios = await this.$http.$get('http://127.0.0.1:8000/api/accesorio')
+  },
 
   computed: {
     formTitle() {
@@ -161,21 +165,21 @@ export default {
     initialize() {
       this.clientes = [
         {
-          nroArt: 12,
+          nroArticulo: 12,
           descripcion: 'Cabezal',
-          proveedor: 'Health Bros.',
+          proveedor_id: 'Health Bros.',
           precio: 500,
         },
         {
-          nroArt: 67,
+          nroArticulo: 67,
           descripcion: 'Pedal',
-          proveedor: 'MediCare',
+          proveedor_id: 'MediCare',
           precio: 7567,
         },
         {
-          nroArt: 90,
+          nroArticulo: 90,
           descripcion: 'Plantilla',
-          proveedor: 'HerbaLife',
+          proveedor_id: 'HerbaLife',
           precio: 9999,
         },
         
@@ -183,19 +187,19 @@ export default {
     },
 
     editItem(item) {
-      this.editedIndex = this.pagos.indexOf(item)
+      this.editedIndex = this.accesorios.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialog = true
     },
 
     deleteItem(item) {
-      this.editedIndex = this.pagos.indexOf(item)
+      this.editedIndex = this.accesorios.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialogDelete = true
     },
 
     deleteItemConfirm() {
-      this.pagos.splice(this.editedIndex, 1)
+      this.accesorios.splice(this.editedIndex, 1)
       this.closeDelete()
     },
 
@@ -217,9 +221,9 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.pagos[this.editedIndex], this.editedItem)
+        Object.assign(this.accesorios[this.editedIndex], this.editedItem)
       } else {
-        this.pagos.push(this.editedItem)
+        this.accesorios.push(this.editedItem)
       }
       this.close()
     },

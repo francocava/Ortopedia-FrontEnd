@@ -11,7 +11,7 @@
     </v-card-title>
     <v-data-table
       :headers="headers"
-      :items="pagos"
+      :items="cobros"
       :search="search"
       sort-by="monto"
       class="elevation-1"
@@ -43,14 +43,14 @@
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.formaDePago"
+                        v-model="editedItem.forma_pago_id"
                         label="Forma de Pago"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.nroCot"
-                        label="nroCot"
+                        v-model="editedItem.pedido_id"
+                        label="pedido_id"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4"> </v-col>
@@ -112,26 +112,30 @@ export default {
         sortable: true,
         value: 'monto',
       },
-      { text: 'Forma de pago', value: 'formaDePago' },
-      { text: 'Cliente', value: 'cliente' },
-      { text: 'Nro Cotizacion', value: 'nroCot' },
+      { text: 'Forma de pago', value: 'forma_pago_id' },
+      { text: 'Cliente', value: 'cliente_id' },
+      { text: 'Nro Cotizacion', value: 'pedido_id' },
       { text: 'Actions', value: 'actions', sortable: false },
     ],
-    pagos: [],
+    cobros: [],
     editedIndex: -1,
     editedItem: {
       monto: 0,
-      formaDePago: '',
-      cliente: '',
-      nroCot: 0,
+      forma_pago_id: '',
+      cliente_id: '',
+      pedido_id: 0,
     },
     defaultItem: {
       monto: 0,
-      formaDePago: '',
-      cliente: '',
-      nroCot: 0,
+      forma_pago_id: '',
+      cliente_id: '',
+      pedido_id: 0,
     },
   }),
+
+  async fetch() {
+    this.cobros = await this.$http.$get('http://127.0.0.1:8000/api/cobro')
+  },
 
   computed: {
     formTitle() {
@@ -148,48 +152,26 @@ export default {
     },
   },
 
-  created() {
-    this.initialize()
-  },
 
   methods: {
     initialize() {
-      this.pagos = [
-        {
-          monto: '$' + '8950',
-          formaDePago: 'Efectivo',
-          cliente: 'Juan Carlos',
-          nroCot: 45,
-        },
-        {
-          monto: '$' + '5670',
-          formaDePago: 'Tarjeta de Credito',
-          cliente: 'Victoria Royo',
-          nroCot: 32,
-        },
-        {
-          monto: '$' + '345',
-          formaDePago: 'Tarjeta de Credito',
-          cliente: 'Matias Fisher',
-          nroCot: 9,
-        },
-      ]
+      this.$fetch()
     },
 
     editItem(item) {
-      this.editedIndex = this.pagos.indexOf(item)
+      this.editedIndex = this.cobros.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialog = true
     },
 
     deleteItem(item) {
-      this.editedIndex = this.pagos.indexOf(item)
+      this.editedIndex = this.cobros.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialogDelete = true
     },
 
     deleteItemConfirm() {
-      this.pagos.splice(this.editedIndex, 1)
+      this.cobros.splice(this.editedIndex, 1)
       this.closeDelete()
     },
 
@@ -211,9 +193,9 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.pagos[this.editedIndex], this.editedItem)
+        Object.assign(this.cobros[this.editedIndex], this.editedItem)
       } else {
-        this.pagos.push(this.editedItem)
+        this.cobros.push(this.editedItem)
       }
       this.close()
     },
