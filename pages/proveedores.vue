@@ -98,6 +98,7 @@ export default {
         align: 'start',
         value: 'nombre',
       },
+      { text: 'Actions', value: 'actions', sortable: false },
     ],
     editedIndex: -1,
     editedItem: {

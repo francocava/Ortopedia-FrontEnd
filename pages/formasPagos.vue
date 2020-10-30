@@ -98,6 +98,7 @@ export default {
         align: 'start',
         value: 'forma',
       },
+      { text: 'Actions', value: 'actions', sortable: false },
     ],
     pagos: [],
     editedIndex: -1,
