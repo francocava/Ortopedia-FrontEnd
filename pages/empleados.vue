@@ -11,7 +11,7 @@
     </v-card-title>
     <v-data-table
       :headers="headers"
-      :items="clientes"
+      :items="empleados"
       :search="search"
       sort-by="nombre"
       class="elevation-1"
@@ -49,13 +49,13 @@
                     </v-col>
                      <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.rol"
-                        label="Rol"
+                        v-model="editedItem.rol_id"
+                        label="rol_id"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.contacto"
+                        v-model="editedItem.usuario"
                         label="Usuario"
                       ></v-text-field>
                     </v-col>
@@ -118,23 +118,29 @@ export default {
         value: 'nombre',
       },
       { text: 'Apellido', value: 'apellido' },
-      { text: 'Rol', value: 'rol', sortable: true },
-      { text: 'Usuario', value: 'contacto'},
+      { text: 'Rol', value: 'rol_id', sortable: true },
+      { text: 'Usuario', value: 'usuario'},
       { text: 'Actions', value: 'actions', sortable: false },
     ],
-    pagos: [],
+    empleados: [],
     editedIndex: -1,
     editedItem: {
       nombre: '',
       apellido: '',
-      rol: '',
+      rol_id: '',
+      usuario: '',
     },
     defaultItem: {
       nombre: '',
       apellido: '',
-      rol:'',
+      rol_id:'',
+      usuario: '',
     },
   }),
+
+  async fetch() {
+    this.empleados = await this.$http.$get('http://127.0.0.1:8000/api/usuario')
+  },
 
   computed: {
     formTitle() {
@@ -151,45 +157,27 @@ export default {
     },
   },
 
-  created() {
-    this.initialize()
-  },
+  
 
   methods: {
     initialize() {
-      this.clientes = [
-        {
-          nombre: 'Micaela',
-          apellido: 'Rodriguez',
-          rol: 'Admin',
-        },
-        {
-          nombre: 'Tomas',
-          apellido: 'Rodriguez',
-          rol: 'User',
-        },
-        {
-          nombre: 'Juan',
-          apellido: 'Carlos',
-          rol: 'User',
-        },
-      ]
+      this.$fetch()
     },
 
     editItem(item) {
-      this.editedIndex = this.pagos.indexOf(item)
+      this.editedIndex = this.empleados.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialog = true
     },
 
     deleteItem(item) {
-      this.editedIndex = this.pagos.indexOf(item)
+      this.editedIndex = this.empleados.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialogDelete = true
     },
 
     deleteItemConfirm() {
-      this.pagos.splice(this.editedIndex, 1)
+      this.empleados.splice(this.editedIndex, 1)
       this.closeDelete()
     },
 
@@ -211,9 +199,9 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.pagos[this.editedIndex], this.editedItem)
+        Object.assign(this.empleados[this.editedIndex], this.editedItem)
       } else {
-        this.pagos.push(this.editedItem)
+        this.empleados.push(this.editedItem)
       }
       this.close()
     },

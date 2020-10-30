@@ -43,20 +43,20 @@
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.formaDePago"
+                        v-model="editedItem.forma_pago_id"
                         label="Forma de Pago"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.proveedor"
-                        label="proveedor"
+                        v-model="editedItem.proveedor_id"
+                        label="proveedor_id"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.proveedor"
-                        label="proveedor"
+                        v-model="editedItem.proveedor_id"
+                        label="proveedor_id"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4"> </v-col>
@@ -118,26 +118,30 @@ export default {
         sortable: true,
         value: 'monto',
       },
-      { text: 'Forma de pago', value: 'formaDePago' },
-      { text: 'Cliente', value: 'cliente' },
-      { text: 'Proveedor', value: 'proveedor' },
+      { text: 'Forma de pago', value: 'forma_pago_id' },
+      { text: 'Nro Cotizacion', value: 'pedido_id' },
+      { text: 'Proveedor', value: 'proveedor_id' },
       { text: 'Actions', value: 'actions', sortable: false },
     ],
     pagos: [],
     editedIndex: -1,
     editedItem: {
       monto: 0,
-      formaDePago: '',
-      cliente: '',
-      proveedor: '',
+      forma_pago_id: '',
+      pedido_id: '',
+      proveedor_id: '',
     },
     defaultItem: {
       monto: 0,
-      formaDePago: '',
-      cliente: '',
-      proveedor: '',
+      forma_pago_id: '',
+      pedido_id: '',
+      proveedor_id: '',
     },
   }),
+
+  async fetch() {
+    this.pagos = await this.$http.$get('http://127.0.0.1:8000/api/pago')
+  },
 
   computed: {
     formTitle() {
@@ -154,32 +158,10 @@ export default {
     },
   },
 
-  created() {
-    this.initialize()
-  },
 
   methods: {
     initialize() {
-      this.pagos = [
-        {
-          monto: '$' + '8950',
-          formaDePago: 'Efectivo',
-          cliente: 'Juan Carlos',
-          proveedor: 'Insumos S.A',
-        },
-        {
-          monto: '$' + '5670',
-          formaDePago: 'Tarjeta de Credito',
-          cliente: 'Victoria Royo',
-          proveedor: 'Medicus',
-        },
-        {
-          monto: '$' + '345',
-          formaDePago: 'Tarjeta de Credito',
-          cliente: 'Matias Fisher',
-          proveedor: 'Health Bros',
-        },
-      ]
+      this.$fetch()
     },
 
     editItem(item) {

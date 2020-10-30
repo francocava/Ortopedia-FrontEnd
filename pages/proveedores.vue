@@ -11,7 +11,7 @@
     </v-card-title>
     <v-data-table
       :headers="headers"
-      :items="pagos"
+      :items="proveedores"
       :search="search"
       sort-by="monto"
       class="elevation-1"
@@ -107,7 +107,13 @@ export default {
     defaultItem: {
       nombre: '',
     },
+
+    proveedores:[],
   }),
+
+  async fetch() {
+    this.proveedores = await this.$http.$get('http://127.0.0.1:8000/api/proveedor')
+  },
 
   computed: {
     formTitle() {
@@ -124,36 +130,26 @@ export default {
     },
   },
 
-  created() {
-    this.initialize()
-  },
 
   methods: {
     initialize() {
-      this.pagos = [
-        {
-          nombre: 'Health Bros.',
-        },
-        {
-          nombre: 'MediCare',
-        },
-      ]
+      this.$fetch()
     },
 
     editItem(item) {
-      this.editedIndex = this.pagos.indexOf(item)
+      this.editedIndex = this.proveedores.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialog = true
     },
 
     deleteItem(item) {
-      this.editedIndex = this.pagos.indexOf(item)
+      this.editedIndex = this.proveedores.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialogDelete = true
     },
 
     deleteItemConfirm() {
-      this.pagos.splice(this.editedIndex, 1)
+      this.proveedores.splice(this.editedIndex, 1)
       this.closeDelete()
     },
 
@@ -175,9 +171,9 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.pagos[this.editedIndex], this.editedItem)
+        Object.assign(this.proveedores[this.editedIndex], this.editedItem)
       } else {
-        this.pagos.push(this.editedItem)
+        this.proveedores.push(this.editedItem)
       }
       this.close()
     },

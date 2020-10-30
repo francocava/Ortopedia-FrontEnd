@@ -143,7 +143,7 @@ export default {
       { text: 'Número Afiliado', value: 'dni', sortable: true },
       { text: 'Actions', value: 'actions', sortable: false },
     ],
-    pagos: [],
+    clientes: [],
     editedIndex: -1,
     editedItem: {
       nombre: '',
@@ -161,6 +161,10 @@ export default {
     },
   }),
 
+  async fetch() {
+    this.clientes = await this.$http.$get('http://127.0.0.1:8000/api/cliente')
+  },
+
   computed: {
     formTitle() {
       return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
@@ -176,57 +180,26 @@ export default {
     },
   },
 
-  created() {
-    this.initialize()
-  },
 
   methods: {
     initialize() {
-      this.clientes = [
-        {
-          nombre: 'Micaela',
-          apellido: 'Rodriguez',
-          dni: '17998356',
-          contacto: '',
-          telefono: '49496060',
-          obraSocial: 'Osecac',
-          numeroAfiliado: '101010',
-        },
-        {
-          nombre: 'Tomas',
-          apellido: 'Rodriguez',
-          dni: '17888356',
-          contacto: 'Mariela',
-          telefono: '43439090',
-          obraSocial: 'Pami',
-          numeroAfiliado: '96969',
-        },
-        {
-          nombre: 'Juan',
-          apellido: 'Carlos',
-          dni: '14888678',
-          contacto: '',
-          telefono: '239402',
-          obraSocial: 'OSSBA',
-          numeroAfiliado: '324456',
-        },
-      ]
+      this.$fetch()
     },
 
     editItem(item) {
-      this.editedIndex = this.pagos.indexOf(item)
+      this.editedIndex = this.clientes.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialog = true
     },
 
     deleteItem(item) {
-      this.editedIndex = this.pagos.indexOf(item)
+      this.editedIndex = this.clientes.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialogDelete = true
     },
 
     deleteItemConfirm() {
-      this.pagos.splice(this.editedIndex, 1)
+      this.clientes.splice(this.editedIndex, 1)
       this.closeDelete()
     },
 
@@ -248,9 +221,9 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.pagos[this.editedIndex], this.editedItem)
+        Object.assign(this.clientes[this.editedIndex], this.editedItem)
       } else {
-        this.pagos.push(this.editedItem)
+        this.clientes.push(this.editedItem)
       }
       this.close()
     },
