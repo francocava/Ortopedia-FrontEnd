@@ -138,12 +138,10 @@ export default {
       this.$fetch()
     },
 
-    async editItem(item) {
+    editItem(item) {
       this.editedIndex = this.sucursales.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialog = true
-
-      console.log(this.editedItem)
     },
 
     deleteItem(item) {
