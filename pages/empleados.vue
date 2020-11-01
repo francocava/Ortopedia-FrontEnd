@@ -127,14 +127,12 @@ export default {
     editedItem: {
       nombre: '',
       apellido: '',
-      rol_id: '',
-      usuario: '',
+      rol_id: '', //hay que ver el tema de las password (por si hay que cambiarla y cuando se genera)
     },
     defaultItem: {
       nombre: '',
       apellido: '',
       rol_id:'',
-      usuario: '',
     },
   }),
 
@@ -197,12 +195,25 @@ export default {
       })
     },
 
-    save() {
+    async save() {
+
+      try {
+        const res = await this.$http.$put(
+          `http://127.0.0.1:8000/api/usuario/${this.editedItem.id}`,
+          this.editedItem
+        )
+        console.log(res)
+
       if (this.editedIndex > -1) {
         Object.assign(this.empleados[this.editedIndex], this.editedItem)
       } else {
         this.empleados.push(this.editedItem)
       }
+
+      } catch (error) {
+        console.log(error)
+      }
+      
       this.close()
     },
   },

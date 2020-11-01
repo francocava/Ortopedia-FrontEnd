@@ -5,14 +5,14 @@
     <v-card-text>
       <v-form ref="form" v-model="valid" lazy-validation>
         <v-text-field
-          v-model="nombre"
+          v-model="form.nombre"
           :rules="nombreRules"
           label="Nombre"
           required
         ></v-text-field>
 
         <v-text-field
-          v-model="apellido"
+          v-model="form.apellido"
           :rules="apellidoRules"
           label="Apellido"
           required
@@ -20,21 +20,29 @@
 
         <v-text-field
           type="number"
-          v-model="dni"
+          v-model="form.dni"
           :rules="dniRules"
           label="DNI"
           required
         ></v-text-field>
 
         <v-text-field
-          v-model="contacto"
+          v-model="form.contacto"
           label="Contacto"
         ></v-text-field>
 
         <v-text-field
           type="number"
+          v-model="form.telefono"
           :rules="dniRules"
           label="Teléfono"
+          required
+        ></v-text-field>
+
+        <v-text-field
+          type="number"
+          v-model="form.nroAfiliado"
+          label="Numero Afiliado"
           required
         ></v-text-field>
 
@@ -45,13 +53,6 @@
           label="Obra Social"
           required
         ></v-select>
-
-        <v-text-field
-          type="number"
-          :rules="dniRules"
-          label="Número afiliado"
-          required
-        ></v-text-field>
 
         <v-btn
           :disabled="!valid"
@@ -70,26 +71,42 @@
 export default {
   data: () => ({
     valid: true,
-    nombre: '',
-    contacto: '',
+
+    form: {
+      nombre: '',
+      contacto: '',
+      apellido: '',
+      dni: '',
+      telefono: '',
+      obra_id: '',
+      nroAfiliado: '', //que onda las obras socialesss
+    },
+
     nombreRules: [
       (v) => !!v || 'Falta el nombre del cliente',
       (v) => (v && v.length <= 15) || 'Nombre muy largo',
     ],
-    apellido: '',
     apellidoRules: [
       (v) => !!v || 'Falta el apellido del cliente',
       (v) => (v && v.length <= 25) || 'Apellido muy largo',
     ],
-    dni: '',
+    
     dniRules: [(v) => !!v || 'Falta el DNI del cliente'],
     select: null,
-    items: ['Osecac', 'Pami', 'Osbba', 'Swiss Medical'],
+    items: ['Osecac', 'Pami', 'Osbba', 'Swiss Medical'], //No se como hacer con esto
   }),
 
   methods: {
-    validate() {
+    async validate() {
       this.$refs.form.validate()
+
+      try {
+        const res = await this.$http.$post('http://127.0.0.1:8000/api/cliente', this.form )
+        console.log(res)
+        this.$refs.form.reset()
+      } catch (error) {
+        console.log(error)
+      }
     },
   },
 }

@@ -169,12 +169,25 @@ export default {
       })
     },
 
-    save() {
+    async save() {
+
+      try {
+        const res = await this.$http.$put(
+          `http://127.0.0.1:8000/api/proveedor/${this.editedItem.id}`,
+          this.editedItem
+        )
+        console.log(res)
+
       if (this.editedIndex > -1) {
         Object.assign(this.proveedores[this.editedIndex], this.editedItem)
       } else {
         this.proveedores.push(this.editedItem)
       }
+
+      } catch (error) {
+        console.log(error)
+      }
+
       this.close()
     },
   },

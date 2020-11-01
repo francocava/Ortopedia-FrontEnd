@@ -5,14 +5,14 @@
     <v-card-text>
       <v-form ref="form" v-model="valid" lazy-validation>
         <v-text-field
-          v-model="nombre"
+          v-model="form.nombre"
           :rules="nombreRules"
           label="Nombre"
           required
         ></v-text-field>
 
         <v-text-field
-          v-model="apellido"
+          v-model="form.apellido"
           :rules="apellidoRules"
           label="Apellido"
           required
@@ -36,7 +36,7 @@
         <v-select
           v-model="select"
           :items="items"
-          :rules="[(v) => !!v || 'Item is required']"
+          :rules="[(v) => !!v || 'Falta el rol']"
           label="Rol"
           required
         ></v-select>
@@ -58,26 +58,35 @@
 export default {
   data: () => ({
     valid: true,
-    nombre: '',
-    contacto: '',
+
+    form: {
+      nombre: '',
+      apellido: '', //no se que onda con el rol
+    },
     nombreRules: [
       (v) => !!v || 'Falta el nombre del empleado',
       (v) => (v && v.length <= 15) || 'Nombre muy largo',
     ],
-    apellido: '',
     apellidoRules: [
       (v) => !!v || 'Falta el apellido del empleado',
       (v) => (v && v.length <= 25) || 'Apellido muy largo',
     ],
-    dni: '',
-    dniRules: [(v) => !!v || 'Falta el Rol'],
     select: null,
     items: ['Admin', 'Usuario'],
   }),
 
   methods: {
-    validate() {
+    async validate() {
       this.$refs.form.validate()
+
+      try {
+        const res = await this.$http.$post('http://127.0.0.1:8000/api/ususario', this.form )
+        console.log(res)
+        this.$refs.form.reset()
+      } catch (error) {
+        console.log(error)
+      }
+
     },
   },
 }

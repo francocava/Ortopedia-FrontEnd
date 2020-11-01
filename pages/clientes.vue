@@ -152,12 +152,16 @@ export default {
       contacto: '',
       telefono: 0,
       obraSocial: '',
+      nroAfiliado: 0,
     },
     defaultItem: {
       nombre: '',
       apellido: '',
       dni: 0,
+      contacto: '',
+      telefono: 0,
       obraSocial: '',
+      nroAfiliado: 0,
     },
   }),
 
@@ -219,12 +223,24 @@ export default {
       })
     },
 
-    save() {
+    async save() {
+      try {
+        const res = await this.$http.$put(
+          `http://127.0.0.1:8000/api/cliente/${this.editedItem.id}`,
+          this.editedItem
+        )
+        console.log(res)
+
       if (this.editedIndex > -1) {
         Object.assign(this.clientes[this.editedIndex], this.editedItem)
       } else {
         this.clientes.push(this.editedItem)
       }
+
+      } catch (error) {
+        console.log(error)
+      }
+
       this.close()
     },
   },
