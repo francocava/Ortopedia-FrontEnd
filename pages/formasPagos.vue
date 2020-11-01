@@ -174,12 +174,25 @@ export default {
       })
     },
 
-    save() {
+    async save() {
+
+      try {
+        const res = await this.$http.$put(
+          `http://127.0.0.1:8000/api/formaPago/${this.editedItem.id}`,
+          this.editedItem
+        )
+        console.log(res)
+
       if (this.editedIndex > -1) {
         Object.assign(this.formasPago[this.editedIndex], this.editedItem)
       } else {
         this.formasPago.push(this.editedItem)
       }
+
+      } catch (error) {
+        console.log(error)
+      }
+
       this.close()
     },
   },

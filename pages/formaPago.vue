@@ -5,7 +5,7 @@
     <v-card-text>
       <v-form ref="form" v-model="valid" lazy-validation>
         <v-text-field
-          v-model="forma"
+          v-model="form.tipo"
           :rules="formaRules"
           label="Tipo"
           required
@@ -28,7 +28,9 @@
 export default {
   data: () => ({
     valid: true,
-    forma: '',
+    form: {
+      tipo: '',
+    },
     formaRules: [
       (v) => !!v || 'Completar',
       (v) => (v && v.length <= 35) || 'Muy largo',
@@ -36,8 +38,16 @@ export default {
   }),
 
   methods: {
-    validate() {
+    async validate() {
       this.$refs.form.validate()
+
+      try {
+        const res = await this.$http.$post('http://127.0.0.1:8000/api/formaPago', this.form )
+        console.log(res)
+        this.$refs.form.reset()
+      } catch (error) {
+        console.log(error)
+      }
     },
   },
 }
