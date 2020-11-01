@@ -5,7 +5,7 @@
     <v-card-text>
       <v-form ref="form" v-model="valid" lazy-validation>
         <v-text-field
-          v-model="nombre"
+          v-model="form.nombre"
           :rules="nombreRules"
           label="Nombre"
           required
@@ -28,7 +28,9 @@
 export default {
   data: () => ({
     valid: true,
-    nombre: '',
+    form: {
+      nombre: '',
+    },
     nombreRules: [
       (v) => !!v || 'Falta el nombre de la sucursal',
       (v) => (v && v.length <= 50) || 'Nombre muy largo',
@@ -36,8 +38,19 @@ export default {
   }),
 
   methods: {
-    validate() {
-      this.$refs.form.validate()
+    async validate() {
+      if (!this.$refs.form.validate()) {
+        return 
+      }
+
+      try {
+        const res = await this.$http.$post('http://127.0.0.1:8000/api/sucursal', this.form )
+        console.log(res)
+        this.$refs.form.reset()
+      } catch (error) {
+        console.log(error)
+      }
+      
     },
   },
 }

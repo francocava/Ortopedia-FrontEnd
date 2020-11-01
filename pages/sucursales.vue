@@ -108,12 +108,14 @@ export default {
       nombre: '',
     },
 
-    sucursales:[],
+    sucursales: [],
   }),
 
   async fetch() {
-    this.sucursales = await this.$http.$get('http://127.0.0.1:8000/api/sucursal')
-    console.log(this.sucursales);
+    this.sucursales = await this.$http.$get(
+      'http://127.0.0.1:8000/api/sucursal'
+    )
+    console.log(this.sucursales)
   },
 
   computed: {
@@ -136,10 +138,12 @@ export default {
       this.$fetch()
     },
 
-    editItem(item) {
+    async editItem(item) {
       this.editedIndex = this.sucursales.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialog = true
+
+      console.log(this.editedItem)
     },
 
     deleteItem(item) {
@@ -169,12 +173,25 @@ export default {
       })
     },
 
-    save() {
-      if (this.editedIndex > -1) {
-        Object.assign(this.sucursales[this.editedIndex], this.editedItem)
-      } else {
-        this.sucursales.push(this.editedItem)
+    async save() {
+      try {
+        const res = await this.$http.$put(
+          `http://127.0.0.1:8000/api/sucursal/${this.editedItem.id}`,
+          this.editedItem
+        )
+        console.log(res)
+        
+        if (this.editedIndex > -1) {
+          Object.assign(this.sucursales[this.editedIndex], this.editedItem)
+        } else {
+          this.sucursales.push(this.editedItem)
+        }
+
+
+      } catch (error) {
+        console.log(error)
       }
+
       this.close()
     },
   },
