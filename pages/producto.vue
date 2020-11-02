@@ -5,15 +5,9 @@
     <v-card-text>
       <v-form ref="form" v-model="valid" lazy-validation>
         <v-text-field
-          v-model="nombre"
-          :rules="nombreRules"
-          label="Nombre"
-          required
-        ></v-text-field>
-
-        <v-text-field
-          v-model="descripcion"
+          v-model="form.descripcion"
           label="Descripción"
+          :rules="nombreRules"
         ></v-text-field>
 
         <v-select
@@ -26,7 +20,7 @@
         ></v-select>
 
         <v-text-field
-          v-model="proveedor"
+          v-model="form.proveedor_id"
           :rules="proveedorRules"
           label="Proveedor"
           required
@@ -34,7 +28,7 @@
 
         <v-text-field
           type="number"
-          v-model="precio"
+          v-model="fomr.precio"
           :rules="precioRules"
           label="Precio"
           required
@@ -42,7 +36,7 @@
 
         <v-text-field
           type="number"
-          v-model="nroArt"
+          v-model="form.nroArticulo"
           label="Número de Articulo"
         ></v-text-field>
 
@@ -63,27 +57,38 @@
 export default {
   data: () => ({
     valid: true,
-    nombre: '',
-    descripcion: '',
-    nroArt: '',
+    form: {
+      descripcion: '',
+      nroArticulo: '',
+      proveedor_id: '', //
+      precio: '',
+    },
+    
     nombreRules: [
       (v) => !!v || 'Falta el nombre del producto',
       (v) => (v && v.length <= 50) || 'Nombre muy largo',
     ],
-    proveedor: '',
+    
     proveedorRules: [
       (v) => !!v || 'Falta el nombre del proveedor',
       (v) => (v && v.length <= 30) || 'Muy largo',
     ],
     items: ['Osecac', 'Pami', 'Osbba', 'Swiss Medical'],
-    precio: '',
+    
     precioRules: [(v) => !!v || 'Falta el precio'],
     select: null,
   }),
 
   methods: {
-    validate() {
+    async validate() {
       this.$refs.form.validate()
+      try {
+        const res = await this.$http.$post('http://127.0.0.1:8000/api/producto', this.form )
+        console.log(res)
+        this.$refs.form.reset()
+      } catch (error) {
+        console.log(error)
+      }
     },
   },
 }

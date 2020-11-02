@@ -5,14 +5,14 @@
     <v-card-text>
       <v-form ref="form" v-model="valid" lazy-validation>
         <v-text-field
-          v-model="nombre"
+          v-model="form.nombre"
           :rules="nombreRules"
           label="Nombre"
           required
         ></v-text-field>
 
         <v-text-field
-          v-model="descripcion"
+          v-model="form.descripcion"
           label="Descripción"
         ></v-text-field>
 
@@ -34,7 +34,7 @@
 
         <v-text-field
           type="number"
-          v-model="precio"
+          v-model="form.precio"
           :rules="precioRules"
           label="Precio"
           required
@@ -42,7 +42,7 @@
 
         <v-text-field
           type="number"
-          v-model="nroArt"
+          v-model="form.nroArticulo"
           label="Número de Articulo"
         ></v-text-field>
 
@@ -63,27 +63,41 @@
 export default {
   data: () => ({
     valid: true,
-    nombre: '',
-    descripcion: '',
-    nroArt: '',
+    form: {
+      nombre: '',
+      descripcion: '',
+      nroArticulo: '',
+      precio: '',
+      proveedor_id: '', //hmmmmmm
+      //como hacemos con los productos que son varios? El back espera una lista asi: 1,2,3 
+    },
     nombreRules: [
       (v) => !!v || 'Falta el nombre del producto',
       (v) => (v && v.length <= 50) || 'Nombre muy largo',
     ],
-    proveedor: '',
+    
     proveedorRules: [
       (v) => !!v || 'Falta el nombre del proveedor',
       (v) => (v && v.length <= 30) || 'Muy largo',
     ],
     items: ['Prov1', 'P2', 'p3', '4'],
-    precio: '',
+    
     precioRules: [(v) => !!v || 'Falta el precio'],
     select: null,
   }),
 
   methods: {
-    validate() {
+    async validate() {
       this.$refs.form.validate()
+
+      try {
+        const res = await this.$http.$post('http://127.0.0.1:8000/api/accesorio', this.form )
+        console.log(res)
+        this.$refs.form.reset()
+      } catch (error) {
+        console.log(error)
+      }
+
     },
   },
 }

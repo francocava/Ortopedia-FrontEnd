@@ -3,7 +3,7 @@
     <v-card-title>Cobro Nuevo</v-card-title>
 
     <v-card-text>
-      <v-form ref="form" v-model="valid" lazy-validation>
+      <v-form ref="form" v-model="form.monto" lazy-validation>
         <v-text-field
           type="number"
           :rules="montoRules"
@@ -14,7 +14,7 @@
 
         <v-text-field
           type="number"
-          v-model="nroCot"
+          v-model="form.pedido_id"
           :rules="montoRules"
           label="Nro Cotizacion (Pedido)"
           required
@@ -45,16 +45,30 @@
 export default {
   data: () => ({
     valid: true,
-    nroCot: '',
-    monto: '',
+    
+    form: {
+      pedido_id: '', //con este no hace falta porque lo ponen a manopla 
+      monto: '',
+      forma_pago_id:'', ///
+
+    },
     montoRules: [(v) => !!v || 'Falta el monto'],
     selectForma: null,
     formas: ['Debito', 'Credito', 'Efectivo' ],
   }),
 
   methods: {
-    validate() {
+    async validate() {
       this.$refs.form.validate()
+
+      try {
+        const res = await this.$http.$post('http://127.0.0.1:8000/api/cobro', this.form )
+        console.log(res)
+        this.$refs.form.reset()
+      } catch (error) {
+        console.log(error)
+      }
+
     },
   },
 }

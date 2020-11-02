@@ -163,27 +163,7 @@ export default {
 
   methods: {
     initialize() {
-      this.clientes = [
-        {
-          nroArticulo: 12,
-          descripcion: 'Cabezal',
-          proveedor_id: 'Health Bros.',
-          precio: 500,
-        },
-        {
-          nroArticulo: 67,
-          descripcion: 'Pedal',
-          proveedor_id: 'MediCare',
-          precio: 7567,
-        },
-        {
-          nroArticulo: 90,
-          descripcion: 'Plantilla',
-          proveedor_id: 'HerbaLife',
-          precio: 9999,
-        },
-        
-      ]
+      this.$fetch()
     },
 
     editItem(item) {
@@ -219,12 +199,25 @@ export default {
       })
     },
 
-    save() {
+    async save() {
+
+      try {
+        const res = await this.$http.$put(
+          `http://127.0.0.1:8000/api/accesorio/${this.editedItem.id}`,
+          this.editedItem
+        )
+        console.log(res)
+
       if (this.editedIndex > -1) {
         Object.assign(this.accesorios[this.editedIndex], this.editedItem)
       } else {
         this.accesorios.push(this.editedItem)
       }
+
+      } catch (error) {
+        console.log(error)
+      }
+
       this.close()
     },
   },

@@ -122,7 +122,7 @@ export default {
     editedItem: {
       monto: 0,
       forma_pago_id: '',
-      cliente_id: '',
+      cliente_id: '', //no se porque puse esto aca...
       pedido_id: 0,
     },
     defaultItem: {
@@ -191,13 +191,25 @@ export default {
       })
     },
 
-    save() {
+    async save() {
+      try {
+        const res = await this.$http.$put(
+          `http://127.0.0.1:8000/api/cobro/${this.editedItem.id}`,
+          this.editedItem
+        )
+        console.log(res)
+
       if (this.editedIndex > -1) {
         Object.assign(this.cobros[this.editedIndex], this.editedItem)
       } else {
         this.cobros.push(this.editedItem)
       }
       this.close()
+
+      } catch (error) {
+        console.log(error)
+      }
+
     },
   },
 }
