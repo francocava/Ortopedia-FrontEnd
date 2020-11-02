@@ -11,22 +11,22 @@
           required
         ></v-text-field>
 
-        <v-text-field
-          v-model="form.descripcion"
-          label="Descripción"
-        ></v-text-field>
-
         <v-select
-          v-model="select"
-          :items="items"
+          v-model="form.producto_id"
+          :items="productos"
+          item-value="id"
+          item-text="nombre"
           :rules="[(v) => !!v || 'Item is required']"
           label="Pertenece al producto"
           required
+          multiple
         ></v-select>
 
         <v-select
-          v-model="select"
-          :items="items"
+          v-model="form.proveedor_id"
+          :items="proveedores"
+          item-value="id"
+          item-text="nombre"
           :rules="[(v) => !!v || 'Item is required']"
           label="Proveedor"
           required
@@ -61,29 +61,34 @@
 
 <script>
 export default {
+  async fetch() {
+    this.productos = await this.$http.$get('http://127.0.0.1:8000/api/producto')
+    this.proveedores = await this.$http.$get(
+      'http://127.0.0.1:8000/api/proveedor'
+    )
+  },
+
   data: () => ({
     valid: true,
     form: {
       nombre: '',
-      descripcion: '',
       nroArticulo: '',
       precio: '',
-      proveedor_id: '', //hmmmmmm
-      //como hacemos con los productos que son varios? El back espera una lista asi: 1,2,3 
+      proveedor_id: null,
+      producto_id: null,
+      //como hacemos con los productos que son varios? El back espera una lista asi: 1,2,3
     },
+    productos: [],
+    proveedores: [],
     nombreRules: [
       (v) => !!v || 'Falta el nombre del producto',
       (v) => (v && v.length <= 50) || 'Nombre muy largo',
     ],
-    
     proveedorRules: [
       (v) => !!v || 'Falta el nombre del proveedor',
       (v) => (v && v.length <= 30) || 'Muy largo',
     ],
-    items: ['Prov1', 'P2', 'p3', '4'],
-    
     precioRules: [(v) => !!v || 'Falta el precio'],
-    select: null,
   }),
 
   methods: {
@@ -91,13 +96,15 @@ export default {
       this.$refs.form.validate()
 
       try {
-        const res = await this.$http.$post('http://127.0.0.1:8000/api/accesorio', this.form )
+        const res = await this.$http.$post(
+          'http://127.0.0.1:8000/api/accesorio',
+          this.form
+        )
         console.log(res)
         this.$refs.form.reset()
       } catch (error) {
         console.log(error)
       }
-
     },
   },
 }

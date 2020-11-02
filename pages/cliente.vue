@@ -47,8 +47,10 @@
         ></v-text-field>
 
         <v-select
-          v-model="select"
-          :items="items"
+          v-model="form.obra_id"
+          :items="obras"
+          item-value="id"
+          item-text="nombre"
           :rules="[(v) => !!v || 'Item is required']"
           label="Obra Social"
           required
@@ -69,6 +71,10 @@
 
 <script>
 export default {
+  async fetch() {
+    this.obras = await this.$http.$get('http://127.0.0.1:8000/api/obraSocial')
+  },
+
   data: () => ({
     valid: true,
 
@@ -78,8 +84,8 @@ export default {
       apellido: '',
       dni: '',
       telefono: '',
-      obra_id: '',
-      nroAfiliado: '', //que onda las obras socialesss
+      obra_id: null,
+      nroAfiliado: '',
     },
 
     nombreRules: [
@@ -90,10 +96,8 @@ export default {
       (v) => !!v || 'Falta el apellido del cliente',
       (v) => (v && v.length <= 25) || 'Apellido muy largo',
     ],
-    
     dniRules: [(v) => !!v || 'Falta el DNI del cliente'],
-    select: null,
-    items: ['Osecac', 'Pami', 'Osbba', 'Swiss Medical'], //No se como hacer con esto
+    obras: [],
   }),
 
   methods: {
