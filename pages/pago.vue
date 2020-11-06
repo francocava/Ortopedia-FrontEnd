@@ -3,8 +3,9 @@
     <v-card-title>Pago Nuevo</v-card-title>
 
     <v-card-text>
-      <v-form ref="form" v-model="form.monto" lazy-validation>
+      <v-form ref="form" lazy-validation>
         <v-text-field
+          v-model="form.monto"
           type="number"
           :rules="montoRules"
           label="Monto"
@@ -65,7 +66,7 @@ export default {
     valid: true,
     form: {
       pedido_id: null,
-      monto: 0,
+      monto: '',
       proveedor_id: null,
       forma_pago_id: null,
     },
