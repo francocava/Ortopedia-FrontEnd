@@ -12,7 +12,7 @@
         ></v-text-field>
 
         <v-select
-          v-model="form.producto_id"
+          v-model="form.productos"
           :items="productos"
           item-value="id"
           item-text="nombre"
@@ -75,7 +75,7 @@ export default {
       nroArticulo: '',
       precio: '',
       proveedor_id: null,
-      producto_id: null,
+      productos: [],
       //como hacemos con los productos que son varios? El back espera una lista asi: 1,2,3
     },
     productos: [],

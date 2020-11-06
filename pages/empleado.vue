@@ -35,7 +35,9 @@
 
         <v-select
           v-model="select"
-          :items="items"
+          :items="roles"
+          item-value="id"
+          item-text="nombre"
           :rules="[(v) => !!v || 'Falta el rol']"
           label="Rol"
           required
@@ -56,12 +58,16 @@
 
 <script>
 export default {
+  async fetch() {
+    this.roles = await this.$http.$get('http://127.0.0.1:8000/api/rol')
+  },
   data: () => ({
     valid: true,
 
     form: {
       nombre: '',
       apellido: '', //no se que onda con el rol
+      rol_id: null,
     },
     nombreRules: [
       (v) => !!v || 'Falta el nombre del empleado',
@@ -71,8 +77,7 @@ export default {
       (v) => !!v || 'Falta el apellido del empleado',
       (v) => (v && v.length <= 25) || 'Apellido muy largo',
     ],
-    select: null,
-    items: ['Admin', 'Usuario'],
+    roles: [],
   }),
 
   methods: {

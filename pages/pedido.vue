@@ -11,14 +11,14 @@
         ref="menuAutorizacion"
         v-model="menuAutorizacion"
         :close-on-content-click="false"
-        :return-value.sync="fechaAutorizacion"
+        :return-value.sync="form.fecha_ingreso_autorizacion"
         transition="scale-transition"
         offset-y
         min-width="290px"
       >
         <template v-slot:activator="{ on, attrs }">
           <v-text-field
-            v-model="fechaAutorizacion"
+            v-model="form.fecha_ingreso_autorizacion"
             label="Ingreso de Autorizacion"
             prepend-icon="mdi-calendar"
             readonly
@@ -27,7 +27,7 @@
           ></v-text-field>
         </template>
         <v-date-picker
-          v-model="fechaAutorizacion"
+          v-model="form.fecha_ingreso_autorizacion"
           no-title
           scrollable
         >
@@ -42,7 +42,7 @@
           <v-btn
             text
             color="primary"
-            @click="$refs.menuAutorizacion.save(fechaAutorizacion)"
+            @click="$refs.menuAutorizacion.save(form.fecha_ingreso_autorizacion)"
           >
             OK
           </v-btn>
@@ -53,14 +53,14 @@
         ref="menuRetiro"
         v-model="menuRetiro"
         :close-on-content-click="false"
-        :return-value.sync="fechaRetiro"
+        :return-value.sync="form.fecha_retiro"
         transition="scale-transition"
         offset-y
         min-width="290px"
       >
         <template v-slot:activator="{ on, attrs }">
           <v-text-field
-            v-model="fechaRetiro"
+            v-model="form.fecha_retiro"
             label="Retiro Estimado"
             prepend-icon="mdi-calendar"
             readonly
@@ -69,7 +69,7 @@
           ></v-text-field>
         </template>
         <v-date-picker
-          v-model="fechaRetiro"
+          v-model="form.fecha_retiro"
           no-title
           scrollable
         >
@@ -84,7 +84,7 @@
           <v-btn
             text
             color="primary"
-            @click="$refs.menuRetiro.save(fechaRetiro)"
+            @click="$refs.menuRetiro.save(form.fecha_retiro)"
           >
             OK
           </v-btn>
@@ -92,35 +92,43 @@
       </v-menu>
 
         <v-select
-          v-model="cliente"
-          :rules="[(v) => !!v || 'Elija un Cliente']"
-          :items="items"
+          v-model="form.clie_id"
+          :items="clientes"
+          item-value="id"
+          item-text="nombre"
           label="Cliente"
+          :rules="[(v) => !!v || 'Elija un Cliente']"
           required
         ></v-select>
 
         <v-select
-          v-model="producto"
-          :rules="[(v) => !!v || 'Elija al menos un Producto']"
-          :items="itemsProd"
-          label="Producto"
+          v-model="form.productos"
+          :items="productos"
+          item-value="id"
+          item-text="nombre"
+          :rules="[(v) => !!v || 'Item is required']"
+          label="Pertenece al producto"
           required
           multiple
         ></v-select>
 
         <v-select
-          v-model="accesorio"
+          v-model="form.accesorios"
           :rules="[]"
-          :items="itemsAcc"
+          :items="accesorios"
+          item-value="id"
+          item-text="nombre"
           label="Accesorio"
           required
           multiple
         ></v-select>
 
         <v-select
-          v-model="sucursal"
+          v-model="form.suc_id"
           :rules="[(v) => !!v || 'Elija una Sucursal']"
-          :items="items2"
+          :items="sucursales"
+          item-value="id"
+          item-text="nombre"
           label="Sucursal"
           required
         ></v-select>
@@ -149,17 +157,28 @@
 
 <script>
 export default {
+
+  async fetch() {
+    this.accesorios = await this.$http.$get('http://127.0.0.1:8000/api/accesorio')
+    this.sucursales = await this.$http.$get('http://127.0.0.1:8000/api/sucursal')
+    this.clientes = await this.$http.$get('http://127.0.0.1:8000/api/cliente')
+    this.productos = await this.$http.$get('http://127.0.0.1:8000/api/producto')
+    //this.flct = await this.$http.$get('http://127.0.0.1:8000/api/sucursal')
+  },
+
   data: () => ({
+    form: {
+      fecha_ingreso_autorizacion: new Date().toISOString().substr(0, 10),
+      fecha_retiro: new Date().toISOString().substr(0, 10),
+      productos:[],
+      accesorios:[],
+      cli_id: null,
+      suc_id: null,
+    },
     valid: true,
-    fechaAutorizacion: new Date().toISOString().substr(0, 10),
-    fechaRetiro: new Date().toISOString().substr(0, 10),
     menuAutorizacion: false,
     menuRetiro: false,
-    nombre: '',
-    producto:'',
-    accesorio:'',
-    cliente:'',
-    sucursal:'',
+    
     nombreRules: [
       (v) => !!v || 'Falta el nombre del cliente',
       (v) => (v && v.length <= 15) || 'Nombre muy largo',
@@ -170,16 +189,24 @@ export default {
       (v) => (v && v.length <= 25) || 'Apellido muy largo',
     ],
     select: null,
-    items: ['Gaston Cabrera', 'Alberto Raiker', 'Franco Bulgarelli', 'Milena Perez'],
-    itemsProd: ['Silla de Ruedas','Plantilla','Muleta'],
-    itemsAcc: ['Cabezal silla','Expansor'],
-    items2: ['Florida','Centro'],
-    items3: ['FL','CT'],
+    clientes:[],
+    productos:[],
+    accesorios:[],
+    sucursales:[],
+    flct:[],
   }),
 
   methods: {
-    validate() {
+    async validate() {
       this.$refs.form.validate()
+
+      try {
+        const res = await this.$http.$post('http://127.0.0.1:8000/api/pedido', this.form )
+        console.log(res)
+        this.$refs.form.reset()
+      } catch (error) {
+        console.log(error)
+      }
     },
   },
 }
@@ -187,6 +214,5 @@ export default {
 //la factura se agrega despues //despues del pedido me lleve a pedidos (lo mismo con todo los nuevos) this.router.to 
 //necesito una barra de busqueda para los clientes
 
-//Informes 4 v-card
 
 </script>

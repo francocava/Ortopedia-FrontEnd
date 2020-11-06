@@ -5,30 +5,35 @@
     <v-card-text>
       <v-form ref="form" v-model="valid" lazy-validation>
         <v-text-field
-          v-model="form.descripcion"
-          label="Descripción"
+          v-model="form.nombre"
+          label="Nombre"
           :rules="nombreRules"
         ></v-text-field>
 
         <v-select
-          v-model="select"
-          :items="items"
-          :rules="[(v) => !!v || 'Item is required']"
+          v-model="form.accesorios"
+          :items="accesorios"
+          item-value="id"
+          item-text="nombre"
+          :rules="[(v) => !!v || 'Ingrese los accesorios']"
           label="Accesorios"
           required
           multiple
         ></v-select>
 
-        <v-text-field
+        <v-select
           v-model="form.proveedor_id"
-          :rules="proveedorRules"
+          :items="proveedores"
+          item-value="id"
+          item-text="nombre"
+          :rules="[(v) => !!v || 'Item is required']"
           label="Proveedor"
           required
-        ></v-text-field>
+        ></v-select>
 
         <v-text-field
           type="number"
-          v-model="fomr.precio"
+          v-model="form.precio"
           :rules="precioRules"
           label="Precio"
           required
@@ -55,13 +60,22 @@
 
 <script>
 export default {
+
+  async fetch() {
+    this.accesorios = await this.$http.$get('http://127.0.0.1:8000/api/accesorio')
+    this.proveedores = await this.$http.$get(
+      'http://127.0.0.1:8000/api/proveedor'
+    )
+  },
+
   data: () => ({
     valid: true,
     form: {
-      descripcion: '',
+      nombre: '',
       nroArticulo: '',
       proveedor_id: '', //
       precio: '',
+      accesorios:[],
     },
     
     nombreRules: [
@@ -73,10 +87,9 @@ export default {
       (v) => !!v || 'Falta el nombre del proveedor',
       (v) => (v && v.length <= 30) || 'Muy largo',
     ],
-    items: ['Osecac', 'Pami', 'Osbba', 'Swiss Medical'],
-    
+    proveedores:[],
+    accesorios:[],
     precioRules: [(v) => !!v || 'Falta el precio'],
-    select: null,
   }),
 
   methods: {
