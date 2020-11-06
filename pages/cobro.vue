@@ -21,9 +21,11 @@
         ></v-text-field>
 
         <v-select
-          v-model="selectForma"
+          v-model="form.forma_pago_id"
           :items="formas"
-          :rules="[(v) => !!v || 'Item is required']"
+          item-value="id"
+          item-text="tipo"
+          :rules="[(v) => !!v || 'Ingrese forma de pago']"
           label="Forma de pago"
           required
         ></v-select>
@@ -43,18 +45,22 @@
 
 <script>
 export default {
+
+  async fetch() {
+    this.formas = await this.$http.$get('http://127.0.0.1:8000/api/formaPago')
+  },
+
   data: () => ({
     valid: true,
     
     form: {
-      pedido_id: '', //con este no hace falta porque lo ponen a manopla 
-      monto: '',
-      forma_pago_id:'', ///
+      pedido_id: null, //este va a manopla
+      monto: 0,
+      forma_pago_id: null, 
 
     },
     montoRules: [(v) => !!v || 'Falta el monto'],
-    selectForma: null,
-    formas: ['Debito', 'Credito', 'Efectivo' ],
+    formas: [],
   }),
 
   methods: {

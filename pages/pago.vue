@@ -3,7 +3,7 @@
     <v-card-title>Pago Nuevo</v-card-title>
 
     <v-card-text>
-      <v-form ref="form" v-model="valid" lazy-validation>
+      <v-form ref="form" v-model="form.monto" lazy-validation>
         <v-text-field
           type="number"
           :rules="montoRules"
@@ -12,8 +12,10 @@
         ></v-text-field>
 
         <v-select
-          v-model="selectProv"
+          v-model="form.proveedor_id"
           :items="proveedores"
+          item-value="id"
+          item-text="nombre"
           :rules="[(v) => !!v || 'Item is required']"
           label="Proveedor"
           required
@@ -21,16 +23,18 @@
 
         <v-text-field
           type="number"
-          v-model="nroCot"
+          v-model="form.pedido_id"
           :rules="montoRules"
           label="Nro Cotizacion (Pedido)"
           required
         ></v-text-field>
 
         <v-select
-          v-model="selectForma"
+          v-model="form.forma_pago_id"
           :items="formas"
-          :rules="[(v) => !!v || 'Item is required']"
+          item-value="id"
+          item-text="tipo"
+          :rules="[(v) => !!v || 'Ingrese forma de pago']"
           label="Forma de pago"
           required
         ></v-select>
@@ -50,20 +54,37 @@
 
 <script>
 export default {
+
+  async fetch() {
+    this.formas = await this.$http.$get('http://127.0.0.1:8000/api/formaPago')
+    this.proveedores = await this.$http.$get('http://127.0.0.1:8000/api/proveedor')
+  },
+
+
   data: () => ({
     valid: true,
-    nroCot: '',
-    monto: '',
+    form: {
+      pedido_id: null,
+      monto: 0,
+      proveedor_id: null,
+      forma_pago_id: null,
+    },
+
     montoRules: [(v) => !!v || 'Falta el monto'],
-    selectProv: null,
-    selectForma: null,
-    proveedores: ['Osecac', 'Pami', 'Osbba', 'Swiss Medical'],
-    formas: ['Debito', 'Credito', 'Efectivo' ],
+    proveedores: [],
+    formas: [],
   }),
 
   methods: {
-    validate() {
+    async validate() {
       this.$refs.form.validate()
+      try {
+        const res = await this.$http.$post('http://127.0.0.1:8000/api/pago', this.form )
+        console.log(res)
+        this.$refs.form.reset()
+      } catch (error) {
+        console.log(error)
+      }
     },
   },
 }

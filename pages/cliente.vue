@@ -51,7 +51,7 @@
           :items="obras"
           item-value="id"
           item-text="nombre"
-          :rules="[(v) => !!v || 'Item is required']"
+          :rules="[(v) => !!v || 'Ingresar obra social']"
           label="Obra Social"
           required
         ></v-select>
