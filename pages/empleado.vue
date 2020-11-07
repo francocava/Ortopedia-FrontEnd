@@ -34,7 +34,7 @@
         ></v-text-field> -->
 
         <v-select
-          v-model="select"
+          v-model="form.rol_id"
           :items="roles"
           item-value="id"
           item-text="nombre"
@@ -66,7 +66,7 @@ export default {
 
     form: {
       nombre: '',
-      apellido: '', //no se que onda con el rol
+      apellido: '', 
       rol_id: null,
     },
     nombreRules: [
@@ -85,7 +85,7 @@ export default {
       this.$refs.form.validate()
 
       try {
-        const res = await this.$http.$post('http://127.0.0.1:8000/api/ususario', this.form )
+        const res = await this.$http.$post('http://127.0.0.1:8000/api/usuario', this.form )
         console.log(res)
         this.$refs.form.reset()
       } catch (error) {
