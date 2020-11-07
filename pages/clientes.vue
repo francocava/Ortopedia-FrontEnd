@@ -139,7 +139,7 @@ export default {
       { text: 'DNI', value: 'dni', sortable: true },
       { text: 'Contacto', value: 'contacto'},
       { text: 'Teléfono', value: 'dni', sortable: true },
-      { text: 'Obra Social', value: 'obraSocial', sortable: true },
+      { text: 'Obra Social', value: 'obra_social.nombre', sortable: true },
       { text: 'Número Afiliado', value: 'dni', sortable: true },
       { text: 'Actions', value: 'actions', sortable: false },
     ],

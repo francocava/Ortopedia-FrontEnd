@@ -118,7 +118,7 @@ export default {
         value: 'nombre',
       },
       { text: 'Apellido', value: 'apellido' },
-      { text: 'Rol', value: 'rol_id', sortable: true },
+      { text: 'Rol', value: 'rol.nombre', sortable: true },
       { text: 'Usuario', value: 'usuario'},
       { text: 'Actions', value: 'actions', sortable: false },
     ],

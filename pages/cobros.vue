@@ -112,8 +112,8 @@ export default {
         sortable: true,
         value: 'monto',
       },
-      { text: 'Forma de pago', value: 'forma_pago_id' },
-      { text: 'Cliente', value: 'cliente_id' },
+      { text: 'Forma de pago', value: 'forma_pago.tipo' },
+      { text: 'Cliente', value: 'cliente_id' }, //apa la papa este se trae de pedido
       { text: 'Nro Cotizacion', value: 'pedido_id' },
       { text: 'Actions', value: 'actions', sortable: false },
     ],
@@ -122,7 +122,7 @@ export default {
     editedItem: {
       monto: 0,
       forma_pago_id: '',
-      cliente_id: '', //no se porque puse esto aca...
+      cliente_id: '', //se trae de pedido, por ahora tira un error
       pedido_id: 0,
     },
     defaultItem: {
@@ -135,6 +135,7 @@ export default {
 
   async fetch() {
     this.cobros = await this.$http.$get('http://127.0.0.1:8000/api/cobro')
+    console.log(cobros)
   },
 
   computed: {

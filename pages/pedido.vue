@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-title>Pedido Nuevo
+    <v-card-title>Proforma Nueva
       <v-spacer></v-spacer>
     <v-btn>Nuevo Cliente</v-btn>
     </v-card-title>
@@ -95,7 +95,7 @@
           v-model="form.clie_id"
           :items="clientes"
           item-value="id"
-          item-text="nombre"
+          item-text= "nombre"
           label="Cliente"
           :rules="[(v) => !!v || 'Elija un Cliente']"
           required
@@ -107,7 +107,7 @@
           item-value="id"
           item-text="nombre"
           :rules="[(v) => !!v || 'Item is required']"
-          label="Pertenece al producto"
+          label="Productos"
           required
           multiple
         ></v-select>
@@ -135,7 +135,7 @@
 
         <v-select
           v-model="select"
-          :items="items3"
+          :items="flct"
           :rules="[(v) => !!v || 'Elija alguna']"
           label="FL/CT"
           required
@@ -193,7 +193,7 @@ export default {
     productos:[],
     accesorios:[],
     sucursales:[],
-    flct:[],
+    flct:['fl','ct'],
   }),
 
   methods: {

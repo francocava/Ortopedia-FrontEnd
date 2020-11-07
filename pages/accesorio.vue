@@ -76,7 +76,6 @@ export default {
       precio: '',
       proveedor_id: null,
       productos: [],
-      //como hacemos con los productos que son varios? El back espera una lista asi: 1,2,3
     },
     productos: [],
     proveedores: [],
@@ -94,6 +93,7 @@ export default {
   methods: {
     async validate() {
       this.$refs.form.validate()
+      console.log(this.form)
 
       try {
         const res = await this.$http.$post(

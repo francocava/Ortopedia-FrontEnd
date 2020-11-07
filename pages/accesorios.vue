@@ -11,7 +11,7 @@
     </v-card-title>
     <v-data-table
       :headers="headers"
-      :items="clientes"
+      :items="accesorios"
       :search="search"
       sort-by="nombre"
       class="elevation-1"
@@ -43,8 +43,8 @@
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.descripcion"
-                        label="Descripcion"
+                        v-model="editedItem.nombre"
+                        label="nombre"
                       ></v-text-field>
                     </v-col>
                      <v-col cols="12" sm="6" md="4">
@@ -117,8 +117,8 @@ export default {
         sortable: true,
         value: 'nroArticulo',
       },
-      { text: 'Descripcion', value: 'descripcion' },
-      { text: 'Proveedor', value: 'proveedor_id', sortable: true },
+      { text: 'Nombre', value: 'nombre' },
+      { text: 'Proveedor', value: 'proveedor.nombre', sortable: true },
       { text: 'Precio', value: 'precio'},
       { text: 'Actions', value: 'actions', sortable: false },
     ],
@@ -126,16 +126,17 @@ export default {
     editedIndex: -1,
     editedItem: {
       nroArticulo: 0,
-      descripcion: '',
+      nombre: '',
       proveedor_id: '',
       precio: 0,
     },
     defaultItem: {
       nroArticulo: 0,
-      descripcion: '',
-      proveedor_id: '',
+      nombre: '',
+      proveedor_id: '', //Ver como hacer que te muestre el nombre
       precio: 0,
     },
+    accesorios:[],
   }),
 
   async fetch() {
@@ -157,9 +158,7 @@ export default {
     },
   },
 
-  created() {
-    this.initialize()
-  },
+  
 
   methods: {
     initialize() {

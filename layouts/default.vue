@@ -117,7 +117,7 @@ export default {
         {
           //icon: 'mdi-file-powerpoint-box-outline',
           icon: 'mdi-format-paragraph',
-          title: 'Crear Pedido',
+          title: 'Crear Proforma',
           to: '/pedido',
         },
         {

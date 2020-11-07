@@ -43,8 +43,8 @@
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.descripcion"
-                        label="Descripcion"
+                        v-model="editedItem.nombre"
+                        label="nombre"
                       ></v-text-field>
                     </v-col>
                      <v-col cols="12" sm="6" md="4">
@@ -117,8 +117,8 @@ export default {
         sortable: true,
         value: 'nroArticulo',
       },
-      { text: 'Descripcion', value: 'descripcion' },
-      { text: 'Proveedor', value: 'proveedor_id', sortable: true },
+      { text: 'Nombre', value: 'nombre' },
+      { text: 'Proveedor', value: 'proveedor.nombre', sortable: true },
       { text: 'Precio', value: 'precio'},
       { text: 'Actions', value: 'actions', sortable: false },
     ],
@@ -126,13 +126,13 @@ export default {
     editedIndex: -1,
     editedItem: {
       nroArticulo: 0,
-      descripcion: '',
+      nombre: '',
       proveedor_id: '',
       precio: 0,
     },
     defaultItem: {
       nroArticulo: 0,
-      descripcion: '',
+      nombre: '',
       proveedor_id: '', //Ver como hacer que te muestre el nombre
       precio: 0,
     },
@@ -198,13 +198,27 @@ export default {
       })
     },
 
-    save() {
+    async save() {
+
+      try {
+        const res = await this.$http.$put(
+          `http://127.0.0.1:8000/api/producto/${this.editedItem.id}`,
+          this.editedItem
+        )
+        console.log(res)
+
+
       if (this.editedIndex > -1) {
         Object.assign(this.productos[this.editedIndex], this.editedItem)
       } else {
         this.productos.push(this.editedItem)
       }
       this.close()
+
+      } catch (error) {
+        console.log(error)
+      }
+
     },
   },
 }
