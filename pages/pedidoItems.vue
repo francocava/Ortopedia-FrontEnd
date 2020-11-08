@@ -11,22 +11,20 @@
     </v-card-title>
     <v-data-table
       :headers="headers"
-      :items="pedidos"
+      :items="items"
       :search="search"
-      sort-by="monto"
+      sort-by="nombre"
       class="elevation-1"
     >
       <template v-slot:top>
         <v-toolbar flat>
-          <v-toolbar-title>Pedidos</v-toolbar-title>
+          <v-toolbar-title>Items de pedidos</v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
-          <v-spacer></v-spacer>
-
           <v-spacer></v-spacer>
           <v-dialog v-model="dialog" max-width="500px">
             <template v-slot:activator="{ on, attrs }">
               <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on" to='/pedido'>
-                Nueva
+                Nuevo
               </v-btn>
             </template>
             <v-card>
@@ -39,57 +37,32 @@
                   <v-row>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.fecha_ingreso_autorizacion"
-                        label="Fecha Ingreso"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.clie_id"
-                        label="Cliente"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.suc_id"
-                        label="Sucursal"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.id"
+                        v-model="editedItem.pedido_id"
                         label="Nro Cotizacion"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="4">
+                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.fecha_retiro"
-                        label="Fecha Retiro"
+                        v-model="editedItem.producto_id"
+                        label="Producto"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.importe_fac"
-                        label="Importe Factura"
+                        v-model="editedItem.accesorio_id"
+                        label="Accesorio"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.fl_ct"
-                        label="FL/CT"
-                      ></v-text-field>
-                    </v-col>
-
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.nro_recibo_proveedor"
-                        label="Nro Recibo"
+                        v-model="editedItem.precio_item"
+                        label="precio_item"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.cancelado"
-                        label="Cancelado"
+                        v-model="editedItem.porcentaje_os"
+                        label="Porcentaje"
                       ></v-text-field>
                     </v-col>
                   </v-row>
@@ -144,48 +117,44 @@ export default {
     dialog: false,
     dialogDelete: false,
     headers: [
-      { text: 'Nro Cotizacion', value: 'id', sortable: true },
-      { text: 'Fecha Ingreso', align: 'start', sortable: true, value: 'fecha_ingreso_autorizacion' },
-      { text: 'OS', value: 'obraSocial', sortable: true },
-      { text: 'Sucursal', value: 'suc_id', sortable: false },
-      { text: 'Empleado', value: 'usuario_id', sortable: false },
-      { text: 'Fecha Retiro', value: 'fecha_retiro', sortable: false },
-      { text: 'Importe', value: 'importe_fac' },
-      { text: 'FL/CT', value: 'fl_ct', sortable: false },
-      { text: 'Nro Recibo', value: 'nro_recibo_proveedor', sortable: false },
-      { text: 'Cancelado', value: 'cancelado', sortable: false },
+      {
+        text: 'Numero Cotizacion',
+        align: 'start',
+        sortable: true,
+        value: 'pedido_id',
+      },
+      { text: 'Producto', value: 'producto.nombre', sortable: true },
+      { text: 'Accesorio', value: 'accesorio.nombre', sortable: true },
+      { text: 'Precio', value: 'precio_item'},
+      { text: 'Porcentaje Cobertura', value: 'porcentaje_os', sortable: true },
+      { text: 'Precio Final', value: 'precio_final', sortable: true },
       { text: 'Actions', value: 'actions', sortable: false },
     ],
-    pedidos: [],
     editedIndex: -1,
     editedItem: {
-      fecha_ingreso_autorizacion: '',
-      clie_id: '',
-      suc_id: '',
-      usuario_id: '',
-      id: '',
-      fecha_retiro: '',
-      importe_fac: '',
-      fl_ct: '',
-      nro_recibo_proveedor: '',
-      cancelado: '',
+      pedido_id: 0,
+      proveedor_id: null,
+      precio_item: 0,
+      porcentaje_os:'',
+      precio_final:0,
+      producto_id: null,
+      accesorio_id: null,
     },
     defaultItem: {
-      fecha_ingreso_autorizacion: '',
-      clie_id: '',
-      suc_id: '',
-      usuario_id: '',
-      id: '',
-      fecha_retiro: '',
-      importe_fac: '',
-      fl_ct: '',
-      nro_recibo_proveedor: '',
-      cancelado: '',
+      pedido_id: 0,
+      proveedor_id: null,
+      precio_item: 0,
+      porcentaje_os:'',
+      precio_final:0,
+      producto_id: null,
+      accesorio_id: null,
     },
+    items:[],
+
   }),
 
   async fetch() {
-    this.pedidos = await this.$http.$get('http://127.0.0.1:8000/api/pedido')
+    this.items = await this.$http.$get('http://127.0.0.1:8000/api/pedidoItem')
   },
 
   computed: {
@@ -203,6 +172,7 @@ export default {
     },
   },
 
+  
 
   methods: {
     initialize() {
@@ -210,19 +180,19 @@ export default {
     },
 
     editItem(item) {
-      this.editedIndex = this.pedidos.indexOf(item)
+      this.editedIndex = this.items.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialog = true
     },
 
     deleteItem(item) {
-      this.editedIndex = this.pedidos.indexOf(item)
+      this.editedIndex = this.items.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialogDelete = true
     },
 
     deleteItemConfirm() {
-      this.pedidos.splice(this.editedIndex, 1)
+      this.items.splice(this.editedIndex, 1)
       this.closeDelete()
     },
 
@@ -246,22 +216,23 @@ export default {
 
       try {
         const res = await this.$http.$put(
-          `http://127.0.0.1:8000/api/pedido/${this.editedItem.id}`,
+          `http://127.0.0.1:8000/api/pedidoItem/${this.editedItem.id}`,
           this.editedItem
         )
         console.log(res)
 
+
       if (this.editedIndex > -1) {
-        Object.assign(this.pedidos[this.editedIndex], this.editedItem)
+        Object.assign(this.items[this.editedIndex], this.editedItem)
       } else {
-        this.pedidos.push(this.editedItem)
+        this.items.push(this.editedItem)
       }
+      this.close()
 
       } catch (error) {
         console.log(error)
       }
 
-      this.close()
     },
   },
 }
