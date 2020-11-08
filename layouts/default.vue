@@ -52,7 +52,10 @@
             :to="child.to"
           >
             <v-list-item-content>
-              <v-list-item-title v-text="child.title" class="ml-14"></v-list-item-title>
+              <v-list-item-title
+                v-text="child.title"
+                class="ml-14"
+              ></v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list-group>
@@ -60,16 +63,17 @@
 
       <template v-slot:append>
         <v-list>
-          <v-list-item>
-            <v-list-item-action
-              @click.stop="$vuetify.theme.dark = !$vuetify.theme.dark"
-            >
+          <v-list-item @click.stop="$vuetify.theme.dark = !$vuetify.theme.dark">
+            <v-list-item-action>
               <v-icon v-if="!$vuetify.theme.dark">mdi-weather-sunny</v-icon>
               <v-icon v-else>mdi-weather-night</v-icon>
             </v-list-item-action>
 
             <v-list-item-content>
-              <v-list-item-title v-if="$vuetify.theme.dark" v-text="'Modo Oscuro'" />
+              <v-list-item-title
+                v-if="$vuetify.theme.dark"
+                v-text="'Modo Oscuro'"
+              />
               <v-list-item-title v-else v-text="'Modo Claro'" />
             </v-list-item-content>
           </v-list-item>

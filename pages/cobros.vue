@@ -135,7 +135,6 @@ export default {
 
   async fetch() {
     this.cobros = await this.$http.$get('http://127.0.0.1:8000/api/cobro')
-    console.log(cobros)
   },
 
   computed: {
