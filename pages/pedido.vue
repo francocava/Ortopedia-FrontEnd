@@ -133,20 +133,26 @@
           required
         ></v-select>
 
-        <v-select
+        <!-- <v-select
           v-model="select"
           :items="flct"
           :rules="[(v) => !!v || 'Elija alguna']"
           label="FL/CT"
           required
-        ></v-select>
+        ></v-select> -->
+
+        <v-text-field
+            v-model="form.fl_ct"
+            :rules="nombreRules"
+            label="FL/CT"
+            required
+          ></v-text-field>
 
         <v-btn
           :disabled="!valid"
           color="success"
           class="mr-4"
           @click="validate"
-          to="/pedidos"
         >
           Enviar
         </v-btn>
@@ -163,7 +169,6 @@ export default {
     this.sucursales = await this.$http.$get('http://127.0.0.1:8000/api/sucursal')
     this.clientes = await this.$http.$get('http://127.0.0.1:8000/api/cliente')
     this.productos = await this.$http.$get('http://127.0.0.1:8000/api/producto')
-    //this.flct = await this.$http.$get('http://127.0.0.1:8000/api/sucursal')
   },
 
   data: () => ({
@@ -174,6 +179,13 @@ export default {
       accesorios:[],
       cli_id: null,
       suc_id: null,
+      fl_ct:'',
+      usuario_id: 1, //pongo 1 por defecto pero tendria que sacar este dato de la sesion
+      //fac_id
+      //estado_id
+      //importe_fac
+      //nro_recibo_proveedor
+
     },
     valid: true,
     menuAutorizacion: false,
@@ -193,7 +205,6 @@ export default {
     productos:[],
     accesorios:[],
     sucursales:[],
-    flct:['fl','ct'],
   }),
 
   methods: {
@@ -211,7 +222,6 @@ export default {
   },
 }
 
-//la factura se agrega despues //despues del pedido me lleve a pedidos (lo mismo con todo los nuevos) this.router.to 
 //necesito una barra de busqueda para los clientes
 
 
