@@ -146,9 +146,9 @@ export default {
     headers: [
       { text: 'Nro Cotizacion', value: 'id', sortable: true },
       { text: 'Fecha Ingreso', align: 'start', sortable: true, value: 'fecha_ingreso_autorizacion' },
-      { text: 'OS', value: 'obraSocial', sortable: true },
-      { text: 'Sucursal', value: 'suc_id', sortable: false },
-      { text: 'Empleado', value: 'usuario_id', sortable: false },
+      { text: 'OS', value: 'cliente.obra_id', sortable: true },
+      { text: 'Sucursal', value: 'sucursal.nombre', sortable: false },
+      { text: 'Empleado', value: 'usuario.usuario', sortable: false },
       { text: 'Fecha Retiro', value: 'fecha_retiro', sortable: false },
       { text: 'Importe', value: 'importe_fac' },
       { text: 'FL/CT', value: 'fl_ct', sortable: false },

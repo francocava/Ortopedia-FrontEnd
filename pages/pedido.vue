@@ -177,8 +177,8 @@ export default {
       fecha_retiro: new Date().toISOString().substr(0, 10),
       productos:[],
       accesorios:[],
-      cli_id: null,
-      suc_id: null,
+      cliente_id: null,
+      sucursal_id: null,
       fl_ct:'',
       usuario_id: 1, //pongo 1 por defecto pero tendria que sacar este dato de la sesion
       //fac_id
