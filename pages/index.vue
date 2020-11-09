@@ -45,13 +45,13 @@
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.clie_id"
+                        v-model="editedItem.cliente_id"
                         label="Cliente"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.suc_id"
+                        v-model="editedItem.sucursal_id"
                         label="Sucursal"
                       ></v-text-field>
                     </v-col>
@@ -128,6 +128,7 @@
       </template>
       <template v-slot:item.actions="{ item }">
         <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
+        <v-icon small class="mr-2" @click="adjuntarFactura(item)"> mdi-alpha-f-circle-outline </v-icon>
         <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
       </template>
       <template v-slot:no-data>
@@ -146,7 +147,8 @@ export default {
     headers: [
       { text: 'Nro Cotizacion', value: 'id', sortable: true },
       { text: 'Fecha Ingreso', align: 'start', sortable: true, value: 'fecha_ingreso_autorizacion' },
-      { text: 'OS', value: 'cliente.obra_id', sortable: true },
+      { text: 'Cliente', value: 'cliente.apellido', sortable: true },
+      { text: 'OS', value: 'cliente.obra_social.nombre', sortable: true },
       { text: 'Sucursal', value: 'sucursal.nombre', sortable: false },
       { text: 'Empleado', value: 'usuario.usuario', sortable: false },
       { text: 'Fecha Retiro', value: 'fecha_retiro', sortable: false },
@@ -224,6 +226,10 @@ export default {
     deleteItemConfirm() {
       this.pedidos.splice(this.editedIndex, 1)
       this.closeDelete()
+    },
+
+    adjuntarFactura(item) {
+      //
     },
 
     close() {

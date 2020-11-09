@@ -49,6 +49,12 @@
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
+                        v-model="editedItem.cliente_id"
+                        label="Cliente"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
                         v-model="editedItem.pedido_id"
                         label="pedido_id"
                       ></v-text-field>
@@ -113,7 +119,7 @@ export default {
         value: 'monto',
       },
       { text: 'Forma de pago', value: 'forma_pago.tipo' },
-      { text: 'Cliente', value: 'cliente_id' }, //apa la papa este se trae de pedido
+      { text: 'Cliente', value: 'pedido.cliente.apellido' }, 
       { text: 'Nro Cotizacion', value: 'pedido_id' },
       { text: 'Actions', value: 'actions', sortable: false },
     ],
@@ -122,7 +128,7 @@ export default {
     editedItem: {
       monto: 0,
       forma_pago_id: '',
-      cliente_id: '', //se trae de pedido, por ahora tira un error
+      cliente_id: '', 
       pedido_id: 0,
     },
     defaultItem: {

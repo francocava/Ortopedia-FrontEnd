@@ -156,7 +156,7 @@ export default {
             { title: 'Clientes', to: '/clientes' },
             { title: 'Pagos', to: '/pagos' },
             { title: 'Cobros', to: '/cobros' },
-            { title: 'Facturas', to: '' },
+            { title: 'Facturas', to: '/facturas' },
             { title: 'Productos', to: '/productos' },
             { title: 'Accesorios', to: '/accesorios' },
             { title: 'Obras Sociales', to: '/obras-sociales' },

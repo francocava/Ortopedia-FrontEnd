@@ -67,13 +67,13 @@
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.obraSocial"
+                        v-model="editedItem.obra_id"
                         label="Obra Social"
                       ></v-text-field>
                     </v-col>
                      <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.numeroAfiliado"
+                        v-model="editedItem.nroAfiliado"
                         label="Afiliado"
                       ></v-text-field>
                     </v-col>
@@ -151,7 +151,7 @@ export default {
       dni: 0,
       contacto: '',
       telefono: 0,
-      obraSocial: '',
+      obra_id: '',
       nroAfiliado: 0,
     },
     defaultItem: {
@@ -160,7 +160,7 @@ export default {
       dni: 0,
       contacto: '',
       telefono: 0,
-      obraSocial: '',
+      obra_id: '',
       nroAfiliado: 0,
     },
   }),
