@@ -1,7 +1,7 @@
 export default function ({ $http }) {
   const token = localStorage.getItem('token')
   $http.setToken(token, 'Bearer')
-  $http.setBaseURL('')
+  $http.setBaseURL('http://127.0.0.1:8000/api/')
 
   $http.onRequest((config) => {
     console.log('Making request to ' + config.url)
