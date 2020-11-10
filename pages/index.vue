@@ -114,6 +114,49 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
+
+          <v-dialog v-model="dialogAjuntar" max-width="500px">
+            <v-card>
+              <!-- <v-card-title>
+                <span class="headline">{{ formTitle }}</span>
+              </v-card-title> -->
+
+              <v-card-text>
+                <v-container>
+                  <v-row>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="editedItem.fecha_ingreso_autorizacion"
+                        label="Fecha"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="editedItem.importe"
+                        label="Importe"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        label="FL/CT"
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </v-card-text>
+
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="blue darken-1" text @click="close">
+                  Cancelar
+                </v-btn>
+                <v-btn color="blue darken-1" text @click="save">
+                  Guardar
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+
           <v-dialog v-model="dialogDelete" max-width="500px">
             <v-card>
               <v-card-title class="headline"
@@ -134,10 +177,10 @@
         </v-toolbar>
       </template>
       <template v-slot:item.actions="{ item }">
-        <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
         <v-icon small class="mr-2" @click="adjuntarFactura(item)">
           mdi-alpha-f-circle-outline
         </v-icon>
+        <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
         <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
       </template>
       <template v-slot:no-data>
@@ -153,6 +196,7 @@ export default {
     search: '',
     dialog: false,
     dialogDelete: false,
+    dialogAjuntar: false,
     headers: [
       { text: 'Nro Cotizacion', value: 'id', sortable: true },
       {
@@ -246,6 +290,9 @@ export default {
         La idea es que aca me muestre una pantalla como la de edit pero para
         adjuntar una factura (crearla). Se activa cuando tocas el boton de f al lado del de edit.
       */
+      this.editedIndex = this.pedidos.indexOf(item)
+      this.editedItem = Object.assign({}, item)
+      this.dialogAjuntar = true
     },
 
     close() {
