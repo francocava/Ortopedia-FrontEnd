@@ -48,7 +48,7 @@
 export default {
 
   async fetch() {
-    this.formas = await this.$http.$get('http://127.0.0.1:8000/api/formaPago')
+    this.formas = await this.$http.$get('formaPago')
   },
 
   data: () => ({
@@ -69,7 +69,7 @@ export default {
       this.$refs.form.validate()
 
       try {
-        const res = await this.$http.$post('http://127.0.0.1:8000/api/cobro', this.form )
+        const res = await this.$http.$post('cobro', this.form )
         console.log(res)
         this.$refs.form.reset()
       } catch (error) {

@@ -59,7 +59,7 @@
 <script>
 export default {
   async fetch() {
-    this.roles = await this.$http.$get('http://127.0.0.1:8000/api/rol')
+    this.roles = await this.$http.$get('rol')
   },
   data: () => ({
     valid: true,
@@ -85,7 +85,7 @@ export default {
       this.$refs.form.validate()
 
       try {
-        const res = await this.$http.$post('http://127.0.0.1:8000/api/usuario', this.form )
+        const res = await this.$http.$post('usuario', this.form )
         console.log(res)
         this.$refs.form.reset()
       } catch (error) {

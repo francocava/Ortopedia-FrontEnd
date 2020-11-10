@@ -113,7 +113,7 @@ export default {
   }),
 
   async fetch() {
-    this.formasPago = await this.$http.$get('http://127.0.0.1:8000/api/formaPago')
+    this.formasPago = await this.$http.$get('formaPago')
     console.log(this.formasPago);
   },
 
@@ -178,7 +178,7 @@ export default {
 
       try {
         const res = await this.$http.$put(
-          `http://127.0.0.1:8000/api/formaPago/${this.editedItem.id}`,
+          `formaPago/${this.editedItem.id}`,
           this.editedItem
         )
         console.log(res)

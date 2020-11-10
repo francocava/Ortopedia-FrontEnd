@@ -75,7 +75,7 @@
 <script>
 export default {
   async fetch() {
-    this.obras = await this.$http.$get('http://127.0.0.1:8000/api/obraSocial')
+    this.obras = await this.$http.$get('obraSocial')
   },
 
   data: () => ({
@@ -115,7 +115,7 @@ export default {
 
       try {
         const res = await this.$http.$post(
-          'http://127.0.0.1:8000/api/cliente',
+          'cliente',
           this.form
         )
 

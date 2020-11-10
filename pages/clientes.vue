@@ -166,7 +166,7 @@ export default {
   }),
 
   async fetch() {
-    this.clientes = await this.$http.$get('http://127.0.0.1:8000/api/cliente')
+    this.clientes = await this.$http.$get('cliente')
   },
 
   computed: {
@@ -226,7 +226,7 @@ export default {
     async save() {
       try {
         const res = await this.$http.$put(
-          `http://127.0.0.1:8000/api/cliente/${this.editedItem.id}`,
+          `cliente/${this.editedItem.id}`,
           this.editedItem
         )
         console.log(res)

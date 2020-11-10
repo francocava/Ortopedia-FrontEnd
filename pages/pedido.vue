@@ -165,10 +165,10 @@
 export default {
 
   async fetch() {
-    this.accesorios = await this.$http.$get('http://127.0.0.1:8000/api/accesorio')
-    this.sucursales = await this.$http.$get('http://127.0.0.1:8000/api/sucursal')
-    this.clientes = await this.$http.$get('http://127.0.0.1:8000/api/cliente')
-    this.productos = await this.$http.$get('http://127.0.0.1:8000/api/producto')
+    this.accesorios = await this.$http.$get('accesorio')
+    this.sucursales = await this.$http.$get('sucursal')
+    this.clientes = await this.$http.$get('cliente')
+    this.productos = await this.$http.$get('producto')
   },
 
   data: () => ({
@@ -212,7 +212,7 @@ export default {
       this.$refs.form.validate()
 
       try {
-        const res = await this.$http.$post('http://127.0.0.1:8000/api/pedido', this.form )
+        const res = await this.$http.$post('pedido', this.form )
         console.log(res)
         this.$refs.form.reset()
       } catch (error) {

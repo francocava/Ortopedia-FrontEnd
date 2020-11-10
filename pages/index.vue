@@ -201,7 +201,7 @@ export default {
   }),
 
   async fetch() {
-    this.pedidos = await this.$http.$get('http://127.0.0.1:8000/api/pedido')
+    this.pedidos = await this.$http.$get('pedido')
   },
 
   computed: {
@@ -263,10 +263,8 @@ export default {
 
     async save() {
       try {
-        const token = localStorage.getItem('token')
-        this.$http.setToken(token, 'Bearer')
         const res = await this.$http.$put(
-          `http://127.0.0.1:8000/api/pedido/${this.editedItem.id}`,
+          `pedido/${this.editedItem.id}`,
           this.editedItem
         )
 

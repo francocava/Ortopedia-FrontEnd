@@ -62,9 +62,9 @@
 <script>
 export default {
   async fetch() {
-    this.productos = await this.$http.$get('http://127.0.0.1:8000/api/producto')
+    this.productos = await this.$http.$get('producto')
     this.proveedores = await this.$http.$get(
-      'http://127.0.0.1:8000/api/proveedor'
+      'proveedor'
     )
   },
 
@@ -97,7 +97,7 @@ export default {
 
       try {
         const res = await this.$http.$post(
-          'http://127.0.0.1:8000/api/accesorio',
+          'accesorio',
           this.form
         )
         console.log(res)

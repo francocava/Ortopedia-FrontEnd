@@ -140,7 +140,7 @@ export default {
   }),
 
   async fetch() {
-    this.pagos = await this.$http.$get('http://127.0.0.1:8000/api/pago')
+    this.pagos = await this.$http.$get('pago')
   },
 
   computed: {

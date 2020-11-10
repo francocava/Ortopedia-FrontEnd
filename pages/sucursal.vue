@@ -44,7 +44,7 @@ export default {
       }
 
       try {
-        const res = await this.$http.$post('http://127.0.0.1:8000/api/sucursal', this.form )
+        const res = await this.$http.$post('sucursal', this.form )
         console.log(res)
         this.$refs.form.reset()
       } catch (error) {

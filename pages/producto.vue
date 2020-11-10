@@ -62,9 +62,9 @@
 export default {
 
   async fetch() {
-    this.accesorios = await this.$http.$get('http://127.0.0.1:8000/api/accesorio')
+    this.accesorios = await this.$http.$get('accesorio')
     this.proveedores = await this.$http.$get(
-      'http://127.0.0.1:8000/api/proveedor'
+      'proveedor'
     )
   },
 
@@ -96,7 +96,7 @@ export default {
     async validate() {
       this.$refs.form.validate()
       try {
-        const res = await this.$http.$post('http://127.0.0.1:8000/api/producto', this.form )
+        const res = await this.$http.$post('producto', this.form )
         console.log(res)
         this.$refs.form.reset()
       } catch (error) {

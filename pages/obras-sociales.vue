@@ -114,7 +114,7 @@ export default {
   }),
 
   async fetch() {
-    this.obras = await this.$http.$get('http://127.0.0.1:8000/api/obraSocial')
+    this.obras = await this.$http.$get('obraSocial')
     console.log(this.obras);
   },
 
@@ -175,7 +175,7 @@ export default {
 
       try {
         const res = await this.$http.$put(
-          `http://127.0.0.1:8000/api/obraSocial/${this.editedItem.id}`,
+          `obraSocial/${this.editedItem.id}`,
           this.editedItem
         )
         console.log(res)
