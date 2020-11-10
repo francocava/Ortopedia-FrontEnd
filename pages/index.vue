@@ -25,7 +25,14 @@
           <v-spacer></v-spacer>
           <v-dialog v-model="dialog" max-width="500px">
             <template v-slot:activator="{ on, attrs }">
-              <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on" to='/pedido'>
+              <v-btn
+                color="primary"
+                dark
+                class="mb-2"
+                v-bind="attrs"
+                v-on="on"
+                to="/pedido"
+              >
                 Nueva
               </v-btn>
             </template>
@@ -128,7 +135,9 @@
       </template>
       <template v-slot:item.actions="{ item }">
         <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
-        <v-icon small class="mr-2" @click="adjuntarFactura(item)"> mdi-alpha-f-circle-outline </v-icon>
+        <v-icon small class="mr-2" @click="adjuntarFactura(item)">
+          mdi-alpha-f-circle-outline
+        </v-icon>
         <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
       </template>
       <template v-slot:no-data>
@@ -146,7 +155,12 @@ export default {
     dialogDelete: false,
     headers: [
       { text: 'Nro Cotizacion', value: 'id', sortable: true },
-      { text: 'Fecha Ingreso', align: 'start', sortable: true, value: 'fecha_ingreso_autorizacion' },
+      {
+        text: 'Fecha Ingreso',
+        align: 'start',
+        sortable: true,
+        value: 'fecha_ingreso_autorizacion',
+      },
       { text: 'Cliente', value: 'cliente.apellido', sortable: true },
       { text: 'OS', value: 'cliente.obra_social.nombre', sortable: true },
       { text: 'Sucursal', value: 'sucursal.nombre', sortable: false },
@@ -205,7 +219,6 @@ export default {
     },
   },
 
-
   methods: {
     initialize() {
       this.$fetch()
@@ -249,20 +262,19 @@ export default {
     },
 
     async save() {
-
       try {
+        const token = localStorage.getItem('token')
+        this.$http.setToken(token, 'Bearer')
         const res = await this.$http.$put(
           `http://127.0.0.1:8000/api/pedido/${this.editedItem.id}`,
           this.editedItem
         )
-        console.log(res)
 
-      if (this.editedIndex > -1) {
-        Object.assign(this.pedidos[this.editedIndex], this.editedItem)
-      } else {
-        this.pedidos.push(this.editedItem)
-      }
-
+        if (this.editedIndex > -1) {
+          Object.assign(this.pedidos[this.editedIndex], this.editedItem)
+        } else {
+          this.pedidos.push(this.editedItem)
+        }
       } catch (error) {
         console.log(error)
       }

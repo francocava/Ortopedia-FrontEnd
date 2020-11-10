@@ -4,6 +4,7 @@
     <v-card-text>
       <v-form ref="form" v-model="valid" lazy-validation>
         <v-text-field
+          v-model="form.usuario"
           label="Usuario"
           outlined
           required
@@ -11,6 +12,7 @@
         >
         </v-text-field>
         <v-text-field
+          v-model="form.password"
           type="password"
           label="Contraseña"
           outlined
@@ -26,8 +28,6 @@
             color="success"
             class="mr-4"
             @click="validate"
-            to="/pedido"
-            
           >
             Entrar
           </v-btn>
@@ -42,18 +42,30 @@ export default {
   layout: 'login',
   data: () => ({
     valid: true,
+    form: {
+      usuario: '',
+      password: '',
+    },
   }),
   methods: {
-    validate() {
+    async validate() {
       this.$refs.form.validate()
+
+      try {
+        const res = await this.$http.$post(
+          'http://localhost:8000/api/token',
+          this.form
+        )
+
+        localStorage.setItem('token', res.token)
+
+        this.$router.push('/')
+
+      } catch (error) {
+        console.log(error)
+        console.log(error.response)
+      }
     },
   },
 }
-
-
-//el :to se saltea las validaciones
-
-
 </script>
-
-
