@@ -23,7 +23,14 @@
           <v-spacer></v-spacer>
           <v-dialog v-model="dialog" max-width="500px">
             <template v-slot:activator="{ on, attrs }">
-              <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on" to='/sucursal'>
+              <v-btn
+                color="primary"
+                dark
+                class="mb-2"
+                v-bind="attrs"
+                v-on="on"
+                to="/sucursal"
+              >
                 Nueva
               </v-btn>
             </template>
@@ -112,10 +119,7 @@ export default {
   }),
 
   async fetch() {
-    this.sucursales = await this.$http.$get(
-      'sucursal'
-    )
-    console.log(this.sucursales)
+    this.sucursales = await this.$http.$get('sucursal')
   },
 
   computed: {
@@ -150,9 +154,17 @@ export default {
       this.dialogDelete = true
     },
 
-    deleteItemConfirm() {
-      this.sucursales.splice(this.editedIndex, 1)
-      this.closeDelete()
+    async deleteItemConfirm() {
+      try {
+        const res = await this.$http.$delete(`sucursal/${this.editedItem.id}`)
+
+        this.sucursales.splice(this.editedIndex, 1)
+
+        this.closeDelete()
+      } catch (error) {
+        console.log(error)
+        console.log(error.response)
+      }
     },
 
     close() {
@@ -177,20 +189,18 @@ export default {
           `sucursal/${this.editedItem.id}`,
           this.editedItem
         )
-        console.log(res)
-        
+
         if (this.editedIndex > -1) {
           Object.assign(this.sucursales[this.editedIndex], this.editedItem)
         } else {
           this.sucursales.push(this.editedItem)
         }
 
-
+        this.close()
       } catch (error) {
         console.log(error)
+        console.log(error.response)
       }
-
-      this.close()
     },
   },
 }
