@@ -242,7 +242,10 @@ export default {
     },
 
     adjuntarFactura(item) {
-      //
+      /*
+        La idea es que aca me muestre una pantalla como la de edit pero para
+        adjuntar una factura (crearla). Se activa cuando tocas el boton de f al lado del de edit.
+      */
     },
 
     close() {
