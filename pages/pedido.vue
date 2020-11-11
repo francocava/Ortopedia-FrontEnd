@@ -93,7 +93,7 @@
       </v-menu>
 
         <v-select
-          v-model="form.clie_id"
+          v-model="form.cliente_id"
           :items="clientes"
           item-value="id"
           item-text= "nombre"
@@ -125,7 +125,7 @@
         ></v-select>
 
         <v-select
-          v-model="form.suc_id"
+          v-model="form.sucursal_id"
           :rules="[(v) => !!v || 'Elija una Sucursal']"
           :items="sucursales"
           item-value="id"
@@ -182,7 +182,7 @@ export default {
       fecha_retiro: new Date().toISOString().substr(0, 10),
       productos:[],
       accesorios:[],
-      cliente_id: null,
+      cliente_id: null, 
       sucursal_id: null,
       usuario_id: 1, //pongo 1 por defecto pero tendria que sacar este dato de la sesion
       //fac_id

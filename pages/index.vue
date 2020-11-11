@@ -80,12 +80,6 @@
                         label="Importe Factura"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.fl_ct"
-                        label="FL/CT"
-                      ></v-text-field>
-                    </v-col>
 
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
@@ -283,9 +277,17 @@ export default {
       this.dialogDelete = true
     },
 
-    deleteItemConfirm() {
-      this.pedidos.splice(this.editedIndex, 1)
-      this.closeDelete()
+    async deleteItemConfirm() {
+      try {
+        const res = await this.$http.$delete(`pedido/${this.editedItem.id}`)
+
+        this.pedidos.splice(this.editedIndex, 1)
+
+        this.closeDelete()
+      } catch (error) {
+        console.log(error)
+        console.log(error.response)
+      }
     },
 
     adjuntarFactura(item) {
@@ -295,7 +297,7 @@ export default {
       */
       this.editedIndex = this.pedidos.indexOf(item)
       this.editedItem = Object.assign({}, item)
-      this.dialogAdjuntar = true
+      this.dialogAdjuntar = true 
     },
 
     close() {
