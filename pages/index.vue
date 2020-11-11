@@ -115,11 +115,10 @@
             </v-card>
           </v-dialog>
 
-          <v-dialog v-model="dialogAjuntar" max-width="500px">
+          <v-dialog v-model="dialogAdjuntar" max-width="500px">
             <v-card>
-              <!-- <v-card-title>
-                <span class="headline">{{ formTitle }}</span>
-              </v-card-title> -->
+              <v-card-title class="headline"
+                >Adjuntar Factura</v-card-title>
 
               <v-card-text>
                 <v-container>
@@ -138,6 +137,7 @@
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
+                        v-model="editedItem.fl_ct"
                         label="FL/CT"
                       ></v-text-field>
                     </v-col>
@@ -147,10 +147,10 @@
 
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="close">
+                <v-btn color="blue darken-1" text @click="closeAdjuntar">
                   Cancelar
                 </v-btn>
-                <v-btn color="blue darken-1" text @click="save">
+                <v-btn color="blue darken-1" text @click="saveFactura">
                   Guardar
                 </v-btn>
               </v-card-actions>
@@ -196,7 +196,7 @@ export default {
     search: '',
     dialog: false,
     dialogDelete: false,
-    dialogAjuntar: false,
+    dialogAdjuntar: false,
     headers: [
       { text: 'Nro Cotizacion', value: 'id', sortable: true },
       {
@@ -261,6 +261,9 @@ export default {
     dialogDelete(val) {
       val || this.closeDelete()
     },
+    dialogAdjuntar(val) {
+      val || this.closeAdjuntar()
+    },
   },
 
   methods: {
@@ -292,7 +295,7 @@ export default {
       */
       this.editedIndex = this.pedidos.indexOf(item)
       this.editedItem = Object.assign({}, item)
-      this.dialogAjuntar = true
+      this.dialogAdjuntar = true
     },
 
     close() {
@@ -309,6 +312,32 @@ export default {
         this.editedItem = Object.assign({}, this.defaultItem)
         this.editedIndex = -1
       })
+    },
+
+    closeAdjuntar() {
+      this.dialogAdjuntar = false
+      this.$nextTick(() => {
+        this.editedItem = Object.assign({}, this.defaultItem)
+        this.editedIndex = -1
+      })
+    },
+
+    async saveFactura() {
+      //this.$refs.form.validate()
+      //console.log(this.form)
+
+      try {
+        const res = await this.$http.$post(
+          'factura',
+          this.editedItem
+        )
+        console.log(res)
+        //this.$refs.form.reset()
+      } catch (error) {
+        console.log(error)
+      }
+
+      this.closeAdjuntar()
     },
 
     async save() {
