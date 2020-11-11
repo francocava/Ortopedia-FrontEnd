@@ -177,9 +177,17 @@ export default {
       this.dialogDelete = true
     },
 
-    deleteItemConfirm() {
-      this.accesorios.splice(this.editedIndex, 1)
-      this.closeDelete()
+    async deleteItemConfirm() {
+      try {
+        const res = await this.$http.$delete(`accesorio/${this.editedItem.id}`)
+
+        this.accesorios.splice(this.editedIndex, 1)
+
+        this.closeDelete()
+      } catch (error) {
+        console.log(error)
+        console.log(error.response)
+      }
     },
 
     close() {
