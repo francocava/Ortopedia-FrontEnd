@@ -1,4 +1,5 @@
 <template>
+<div>
   <v-card>
     <v-card-title>Cobro Nuevo</v-card-title>
 
@@ -11,7 +12,6 @@
           label="Monto"
           required
         ></v-text-field>
-
 
         <v-text-field
           type="number"
@@ -42,6 +42,10 @@
       </v-form>
     </v-card-text>
   </v-card>
+  <v-snackbar v-model="snackbar.display" :color="snackbar.color">
+      {{ snackbar.text }}
+    </v-snackbar>
+</div>
 </template>
 
 <script>
@@ -49,19 +53,28 @@ export default {
 
   async fetch() {
     this.formas = await this.$http.$get('formaPago')
+    //this.clientes = await this.$http.$get('cliente')
   },
 
   data: () => ({
     valid: true,
+
+    snackbar: {
+      display: false,
+      text: '',
+      color: 'black',
+    },
     
     form: {
       pedido_id: null, //este va a manopla
       monto: '',
       forma_pago_id: null, 
+      //cliente_id: null,
 
     },
     montoRules: [(v) => !!v || 'Falta el monto'],
     formas: [],
+    //clientes: [],
   }),
 
   methods: {
@@ -72,11 +85,21 @@ export default {
         const res = await this.$http.$post('cobro', this.form )
         console.log(res)
         this.$refs.form.reset()
+
+        this.showSnackbar('Cobro agregado con exito', 'success')
       } catch (error) {
         console.log(error)
+        this.showSnackbar(`Ocurrió un error: ${error.message}`, 'red')
       }
 
     },
+    showSnackbar(message, color) {
+      this.snackbar.display = true
+      this.snackbar.text = message
+      this.snackbar.color = color ?? 'black'
+    },
+
   },
+  
 }
 </script>

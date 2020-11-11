@@ -50,13 +50,13 @@
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
                         v-model="editedItem.proveedor_id"
-                        label="proveedor_id"
+                        label="Proveedor"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.proveedor_id"
-                        label="proveedor_id"
+                        v-model="editedItem.pedido_id"
+                        label="Nro Cotizacion"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4"> </v-col>
@@ -205,12 +205,24 @@ export default {
       })
     },
 
-    save() {
+    async save() {
+      try {
+        const res = await this.$http.$put(
+          `pago/${this.editedItem.id}`,
+          this.editedItem
+        )
+      console.log(res)
+      
       if (this.editedIndex > -1) {
         Object.assign(this.pagos[this.editedIndex], this.editedItem)
       } else {
-        this.pagos.push(this.editedItem)
+        this.facturas.pagos(this.editedItem)
       }
+
+      } catch (error) {
+        console.log(error)
+      }
+
       this.close()
     },
   },

@@ -49,12 +49,6 @@
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.cliente_id"
-                        label="Cliente"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
                         v-model="editedItem.pedido_id"
                         label="pedido_id"
                       ></v-text-field>

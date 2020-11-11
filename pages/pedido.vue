@@ -1,4 +1,5 @@
 <template>
+<div>
   <v-card>
     <v-card-title>Proforma Nueva
       <v-spacer></v-spacer>
@@ -141,13 +142,6 @@
           required
         ></v-select> -->
 
-        <v-text-field
-            v-model="form.fl_ct"
-            :rules="nombreRules"
-            label="FL/CT"
-            required
-          ></v-text-field>
-
         <v-btn
           :disabled="!valid"
           color="success"
@@ -159,6 +153,10 @@
       </v-form>
     </v-card-text>
   </v-card>
+  <v-snackbar v-model="snackbar.display" :color="snackbar.color">
+      {{ snackbar.text }}
+    </v-snackbar>
+</div>
 </template>
 
 <script>
@@ -172,6 +170,13 @@ export default {
   },
 
   data: () => ({
+
+    snackbar: {
+      display: false,
+      text: '',
+      color: 'black',
+    },
+
     form: {
       fecha_ingreso_autorizacion: new Date().toISOString().substr(0, 10),
       fecha_retiro: new Date().toISOString().substr(0, 10),
@@ -179,11 +184,8 @@ export default {
       accesorios:[],
       cliente_id: null,
       sucursal_id: null,
-      fl_ct:'',
       usuario_id: 1, //pongo 1 por defecto pero tendria que sacar este dato de la sesion
       //fac_id
-      //estado_id
-      //importe_fac
       //nro_recibo_proveedor
 
     },
@@ -215,11 +217,19 @@ export default {
         const res = await this.$http.$post('pedido', this.form )
         console.log(res)
         this.$refs.form.reset()
+        this.showSnackbar('Proforma agregada con exito', 'success')
       } catch (error) {
         console.log(error)
+        this.showSnackbar(`Ocurrió un error: ${error.message}`, 'red')
       }
     },
+    showSnackbar(message, color) {
+      this.snackbar.display = true
+      this.snackbar.text = message
+      this.snackbar.color = color ?? 'black'
+    },
   },
+  
 }
 
 //necesito una barra de busqueda para los clientes
