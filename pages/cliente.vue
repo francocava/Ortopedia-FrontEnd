@@ -39,7 +39,7 @@
 
           <v-text-field
             type="number"
-            v-model="form.nroAfiliado"
+            v-model="form.nro_afiliado"
             label="Numero Afiliado"
             required
           ></v-text-field>
@@ -94,7 +94,7 @@ export default {
       dni: '',
       telefono: '',
       obra_id: null,
-      nroAfiliado: '',
+      nro_afiliado: '',
     },
 
     nombreRules: [

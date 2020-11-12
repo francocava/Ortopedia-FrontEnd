@@ -85,7 +85,7 @@
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.nroAfiliado"
+                        v-model="editedItem.nro_afiliado"
                         label="Afiliado"
                       ></v-text-field>
                     </v-col>
@@ -152,7 +152,7 @@ export default {
       { text: 'Contacto', value: 'contacto' },
       { text: 'Teléfono', value: 'dni', sortable: true },
       { text: 'Obra Social', value: 'obra_social.nombre', sortable: true },
-      { text: 'Número Afiliado', value: 'dni', sortable: true },
+      { text: 'Número Afiliado', value: 'nro_afiliado', sortable: true },
       { text: 'Actions', value: 'actions', sortable: false },
     ],
     clientes: [],
@@ -165,7 +165,7 @@ export default {
       contacto: '',
       telefono: 0,
       obra_id: '',
-      nroAfiliado: 0,
+      nro_afiliado: 0,
     },
     defaultItem: {
       nombre: '',
@@ -174,7 +174,7 @@ export default {
       contacto: '',
       telefono: 0,
       obra_id: '',
-      nroAfiliado: 0,
+      nro_afiliado: 0,
     },
   }),
 

@@ -44,7 +44,7 @@
                   <v-row>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.nroArticulo"
+                        v-model="editedItem.nro_articulo"
                         label="Nro Articulo"
                       ></v-text-field>
                     </v-col>
@@ -127,7 +127,7 @@ export default {
         text: 'Numero Articulo',
         align: 'start',
         sortable: true,
-        value: 'nroArticulo',
+        value: 'nro_articulo',
       },
       { text: 'Nombre', value: 'nombre' },
       { text: 'Proveedor', value: 'proveedor.nombre', sortable: true },
@@ -137,13 +137,13 @@ export default {
     accesorios: [],
     editedIndex: -1,
     editedItem: {
-      nroArticulo: 0,
+      nro_articulo: 0,
       nombre: '',
       proveedor_id: '',
       precio: 0,
     },
     defaultItem: {
-      nroArticulo: 0,
+      nro_articulo: 0,
       nombre: '',
       proveedor_id: '', 
       precio: 0,

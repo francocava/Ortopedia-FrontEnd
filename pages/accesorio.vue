@@ -43,7 +43,7 @@
 
         <v-text-field
           type="number"
-          v-model="form.nroArticulo"
+          v-model="form.nro_articulo"
           label="Número de Articulo"
         ></v-text-field>
 
@@ -82,7 +82,7 @@ export default {
     valid: true,
     form: {
       nombre: '',
-      nroArticulo: '',
+      nro_articulo: '',
       precio: '',
       proveedor_id: null,
       productos: [],
