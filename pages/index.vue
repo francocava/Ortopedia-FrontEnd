@@ -179,6 +179,11 @@
           </v-dialog>
         </v-toolbar>
       </template>
+
+      <template v-slot:item.cancelado="{ item }">
+        <v-icon>{{ item.cancelado ? 'mdi-check-circle-outline' : 'mdi-alpha-x-circle-outline' }}</v-icon>
+      </template>
+
       <template v-slot:item.actions="{ item }">
         <v-icon small class="mr-2" @click="adjuntarFactura(item)">
           mdi-alpha-f-circle-outline
@@ -186,6 +191,7 @@
         <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
         <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
       </template>
+
       <template v-slot:no-data>
         <v-btn color="primary" @click="initialize"> Reset </v-btn>
       </template>
