@@ -23,7 +23,14 @@
           <v-spacer></v-spacer>
           <v-dialog v-model="dialog" max-width="500px">
             <template v-slot:activator="{ on, attrs }">
-              <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on" to='/empleado'>
+              <v-btn
+                color="primary"
+                dark
+                class="mb-2"
+                v-bind="attrs"
+                v-on="on"
+                to="/empleado"
+              >
                 Nuevo
               </v-btn>
             </template>
@@ -47,17 +54,16 @@
                         label="Apellido"
                       ></v-text-field>
                     </v-col>
-                     <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.rol_id"
-                        label="rol_id"
-                      ></v-text-field>
-                    </v-col>
                     <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.usuario"
-                        label="Usuario"
-                      ></v-text-field>
+                      <v-select
+                        v-model="editedItem.rol_id"
+                        :items="roles"
+                        item-value="id"
+                        item-text="nombre"
+                        :rules="[(v) => !!v || 'Falta el rol']"
+                        label="Rol"
+                        required
+                      ></v-select>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -119,10 +125,11 @@ export default {
       },
       { text: 'Apellido', value: 'apellido' },
       { text: 'Rol', value: 'rol.nombre', sortable: true },
-      { text: 'Usuario', value: 'usuario'},
+      { text: 'Usuario', value: 'usuario' },
       { text: 'Actions', value: 'actions', sortable: false },
     ],
     empleados: [],
+    roles: [],
     editedIndex: -1,
     editedItem: {
       nombre: '',
@@ -132,12 +139,13 @@ export default {
     defaultItem: {
       nombre: '',
       apellido: '',
-      rol_id:'',
+      rol_id: '',
     },
   }),
 
   async fetch() {
     this.empleados = await this.$http.$get('usuario')
+    this.roles = await this.$http.$get('rol')
   },
 
   computed: {
@@ -154,8 +162,6 @@ export default {
       val || this.closeDelete()
     },
   },
-
-  
 
   methods: {
     initialize() {
@@ -204,7 +210,6 @@ export default {
     },
 
     async save() {
-
       try {
         const res = await this.$http.$put(
           `usuario/${this.editedItem.id}`,
@@ -212,16 +217,15 @@ export default {
         )
         console.log(res)
 
-      if (this.editedIndex > -1) {
-        Object.assign(this.empleados[this.editedIndex], this.editedItem)
-      } else {
-        this.empleados.push(this.editedItem)
-      }
-
+        if (this.editedIndex > -1) {
+          Object.assign(this.empleados[this.editedIndex], this.editedItem)
+        } else {
+          this.empleados.push(this.editedItem)
+        }
       } catch (error) {
         console.log(error)
       }
-      
+
       this.close()
     },
   },

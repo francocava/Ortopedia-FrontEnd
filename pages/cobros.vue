@@ -23,8 +23,15 @@
           <v-spacer></v-spacer>
           <v-dialog v-model="dialog" max-width="500px">
             <template v-slot:activator="{ on, attrs }">
-              <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on" to='/cobro'>
-                Nuevo 
+              <v-btn
+                color="primary"
+                dark
+                class="mb-2"
+                v-bind="attrs"
+                v-on="on"
+                to="/cobro"
+              >
+                Nuevo
               </v-btn>
             </template>
             <v-card>
@@ -42,15 +49,20 @@
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
-                      <v-text-field
+                      <v-select
                         v-model="editedItem.forma_pago_id"
-                        label="Forma de Pago"
-                      ></v-text-field>
+                        :items="formas"
+                        item-value="id"
+                        item-text="tipo"
+                        :rules="[(v) => !!v || 'Ingrese forma de pago']"
+                        label="Forma de pago"
+                        required
+                      ></v-select>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
                         v-model="editedItem.pedido_id"
-                        label="pedido_id"
+                        label="Nro Cotizacion"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4"> </v-col>
@@ -113,16 +125,17 @@ export default {
         value: 'monto',
       },
       { text: 'Forma de pago', value: 'forma_pago.tipo' },
-      { text: 'Cliente', value: 'pedido.cliente.apellido' }, 
+      { text: 'Cliente', value: 'pedido.cliente.apellido' },
       { text: 'Nro Cotizacion', value: 'pedido_id' },
       { text: 'Actions', value: 'actions', sortable: false },
     ],
     cobros: [],
+    formas: [],
     editedIndex: -1,
     editedItem: {
       monto: 0,
       forma_pago_id: '',
-      cliente_id: '', 
+      cliente_id: '',
       pedido_id: 0,
     },
     defaultItem: {
@@ -135,6 +148,7 @@ export default {
 
   async fetch() {
     this.cobros = await this.$http.$get('cobro')
+    this.formas = await this.$http.$get('formaPago')
   },
 
   computed: {
@@ -151,7 +165,6 @@ export default {
       val || this.closeDelete()
     },
   },
-
 
   methods: {
     initialize() {
@@ -207,17 +220,15 @@ export default {
         )
         console.log(res)
 
-      if (this.editedIndex > -1) {
-        Object.assign(this.cobros[this.editedIndex], this.editedItem)
-      } else {
-        this.cobros.push(this.editedItem)
-      }
-      this.close()
-
+        if (this.editedIndex > -1) {
+          Object.assign(this.cobros[this.editedIndex], this.editedItem)
+        } else {
+          this.cobros.push(this.editedItem)
+        }
+        this.close()
       } catch (error) {
         console.log(error)
       }
-
     },
   },
 }

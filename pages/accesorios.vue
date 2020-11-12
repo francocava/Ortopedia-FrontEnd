@@ -23,7 +23,14 @@
           <v-spacer></v-spacer>
           <v-dialog v-model="dialog" max-width="500px">
             <template v-slot:activator="{ on, attrs }">
-              <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on" to='/accesorio'>
+              <v-btn
+                color="primary"
+                dark
+                class="mb-2"
+                v-bind="attrs"
+                v-on="on"
+                to="/accesorio"
+              >
                 Nuevo
               </v-btn>
             </template>
@@ -47,11 +54,16 @@
                         label="nombre"
                       ></v-text-field>
                     </v-col>
-                     <v-col cols="12" sm="6" md="4">
-                      <v-text-field
+                    <v-col cols="12" sm="6" md="4">
+                      <v-select
                         v-model="editedItem.proveedor_id"
+                        :items="proveedores"
+                        item-value="id"
+                        item-text="nombre"
+                        :rules="[(v) => !!v || 'Item is required']"
                         label="Proveedor"
-                      ></v-text-field>
+                        required
+                      ></v-select>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
@@ -119,7 +131,7 @@ export default {
       },
       { text: 'Nombre', value: 'nombre' },
       { text: 'Proveedor', value: 'proveedor.nombre', sortable: true },
-      { text: 'Precio', value: 'precio'},
+      { text: 'Precio', value: 'precio' },
       { text: 'Actions', value: 'actions', sortable: false },
     ],
     accesorios: [],
@@ -133,14 +145,16 @@ export default {
     defaultItem: {
       nroArticulo: 0,
       nombre: '',
-      proveedor_id: '', //Ver como hacer que te muestre el nombre
+      proveedor_id: '', 
       precio: 0,
     },
-    accesorios:[],
+    accesorios: [],
+    proveedores: [],
   }),
 
   async fetch() {
     this.accesorios = await this.$http.$get('accesorio')
+    this.proveedores = await this.$http.$get('proveedor')
   },
 
   computed: {
@@ -157,8 +171,6 @@ export default {
       val || this.closeDelete()
     },
   },
-
-  
 
   methods: {
     initialize() {
@@ -207,7 +219,6 @@ export default {
     },
 
     async save() {
-
       try {
         const res = await this.$http.$put(
           `accesorio/${this.editedItem.id}`,
@@ -215,12 +226,11 @@ export default {
         )
         console.log(res)
 
-      if (this.editedIndex > -1) {
-        Object.assign(this.accesorios[this.editedIndex], this.editedItem)
-      } else {
-        this.accesorios.push(this.editedItem)
-      }
-
+        if (this.editedIndex > -1) {
+          Object.assign(this.accesorios[this.editedIndex], this.editedItem)
+        } else {
+          this.accesorios.push(this.editedItem)
+        }
       } catch (error) {
         console.log(error)
       }

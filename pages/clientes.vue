@@ -23,7 +23,14 @@
           <v-spacer></v-spacer>
           <v-dialog v-model="dialog" max-width="500px">
             <template v-slot:activator="{ on, attrs }">
-              <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on" to='/cliente'>
+              <v-btn
+                color="primary"
+                dark
+                class="mb-2"
+                v-bind="attrs"
+                v-on="on"
+                to="/cliente"
+              >
                 Nuevo
               </v-btn>
             </template>
@@ -47,7 +54,7 @@
                         label="Apellido"
                       ></v-text-field>
                     </v-col>
-                     <v-col cols="12" sm="6" md="4">
+                    <v-col cols="12" sm="6" md="4">
                       <v-text-field
                         v-model="editedItem.dni"
                         label="DNI"
@@ -59,19 +66,24 @@
                         label="Contacto"
                       ></v-text-field>
                     </v-col>
-                     <v-col cols="12" sm="6" md="4">
+                    <v-col cols="12" sm="6" md="4">
                       <v-text-field
                         v-model="editedItem.telefono"
                         label="Telefono"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
-                      <v-text-field
+                      <v-select
                         v-model="editedItem.obra_id"
+                        :items="obras"
+                        item-value="id"
+                        item-text="nombre"
+                        :rules="[(v) => !!v || 'Ingresar obra social']"
                         label="Obra Social"
-                      ></v-text-field>
+                        required
+                      ></v-select>
                     </v-col>
-                     <v-col cols="12" sm="6" md="4">
+                    <v-col cols="12" sm="6" md="4">
                       <v-text-field
                         v-model="editedItem.nroAfiliado"
                         label="Afiliado"
@@ -137,13 +149,14 @@ export default {
       },
       { text: 'Apellido', value: 'apellido' },
       { text: 'DNI', value: 'dni', sortable: true },
-      { text: 'Contacto', value: 'contacto'},
+      { text: 'Contacto', value: 'contacto' },
       { text: 'Teléfono', value: 'dni', sortable: true },
       { text: 'Obra Social', value: 'obra_social.nombre', sortable: true },
       { text: 'Número Afiliado', value: 'dni', sortable: true },
       { text: 'Actions', value: 'actions', sortable: false },
     ],
     clientes: [],
+    obras: [],
     editedIndex: -1,
     editedItem: {
       nombre: '',
@@ -167,6 +180,7 @@ export default {
 
   async fetch() {
     this.clientes = await this.$http.$get('cliente')
+    this.obras = await this.$http.$get('obraSocial')
   },
 
   computed: {
@@ -183,7 +197,6 @@ export default {
       val || this.closeDelete()
     },
   },
-
 
   methods: {
     initialize() {
@@ -239,12 +252,11 @@ export default {
         )
         console.log(res)
 
-      if (this.editedIndex > -1) {
-        Object.assign(this.clientes[this.editedIndex], this.editedItem)
-      } else {
-        this.clientes.push(this.editedItem)
-      }
-
+        if (this.editedIndex > -1) {
+          Object.assign(this.clientes[this.editedIndex], this.editedItem)
+        } else {
+          this.clientes.push(this.editedItem)
+        }
       } catch (error) {
         console.log(error)
       }

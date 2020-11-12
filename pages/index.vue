@@ -51,16 +51,26 @@
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
-                      <v-text-field
+                      <v-select
                         v-model="editedItem.cliente_id"
+                        :items="clientes"
+                        item-value="id"
+                        item-text="apellido"
                         label="Cliente"
-                      ></v-text-field>
+                        :rules="[(v) => !!v || 'Elija un Cliente']"
+                        required
+                      ></v-select>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
-                      <v-text-field
+                      <v-select
                         v-model="editedItem.sucursal_id"
+                        :rules="[(v) => !!v || 'Elija una Sucursal']"
+                        :items="sucursales"
+                        item-value="id"
+                        item-text="nombre"
                         label="Sucursal"
-                      ></v-text-field>
+                        required
+                      ></v-select>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
@@ -111,8 +121,7 @@
 
           <v-dialog v-model="dialogAdjuntar" max-width="500px">
             <v-card>
-              <v-card-title class="headline"
-                >Adjuntar Factura</v-card-title>
+              <v-card-title class="headline">Adjuntar Factura</v-card-title>
 
               <v-card-text>
                 <v-container>
@@ -211,6 +220,8 @@ export default {
       { text: 'Actions', value: 'actions', sortable: false },
     ],
     pedidos: [],
+    sucursales: [],
+    clientes: [],
     editedIndex: -1,
     editedItem: {
       fecha_ingreso_autorizacion: '',
@@ -240,6 +251,8 @@ export default {
 
   async fetch() {
     this.pedidos = await this.$http.$get('pedido')
+    this.sucursales = await this.$http.$get('sucursal')
+    this.clientes = await this.$http.$get('cliente')
   },
 
   computed: {
@@ -297,7 +310,7 @@ export default {
       */
       this.editedIndex = this.pedidos.indexOf(item)
       this.editedItem = Object.assign({}, item)
-      this.dialogAdjuntar = true 
+      this.dialogAdjuntar = true
     },
 
     close() {
@@ -329,10 +342,7 @@ export default {
       //console.log(this.form)
 
       try {
-        const res = await this.$http.$post(
-          'factura',
-          this.editedItem
-        )
+        const res = await this.$http.$post('factura', this.editedItem)
         console.log(res)
         //this.$refs.form.reset()
       } catch (error) {

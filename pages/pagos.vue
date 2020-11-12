@@ -23,7 +23,14 @@
           <v-spacer></v-spacer>
           <v-dialog v-model="dialog" max-width="500px">
             <template v-slot:activator="{ on, attrs }">
-              <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on" to='/pagos'>
+              <v-btn
+                color="primary"
+                dark
+                class="mb-2"
+                v-bind="attrs"
+                v-on="on"
+                to="/pagos"
+              >
                 Nuevo Item
               </v-btn>
             </template>
@@ -42,16 +49,26 @@
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.forma_pago_id"
-                        label="Forma de Pago"
-                      ></v-text-field>
+                      <v-select
+                        v-model="editedItem.proveedor_id"
+                        :items="proveedores"
+                        item-value="id"
+                        item-text="nombre"
+                        :rules="[(v) => !!v || 'Item is required']"
+                        label="Proveedor"
+                        required
+                      ></v-select>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.proveedor_id"
-                        label="Proveedor"
-                      ></v-text-field>
+                      <v-select
+                        v-model="editedItem.forma_pago_id"
+                        :items="formasPagos"
+                        item-value="id"
+                        item-text="tipo"
+                        :rules="[(v) => !!v || 'Ingrese forma de pago']"
+                        label="Forma de pago"
+                        required
+                      ></v-select>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
@@ -124,6 +141,8 @@ export default {
       { text: 'Actions', value: 'actions', sortable: false },
     ],
     pagos: [],
+    formasPagos: [],
+    proveedores: [],
     editedIndex: -1,
     editedItem: {
       monto: 0,
@@ -141,6 +160,8 @@ export default {
 
   async fetch() {
     this.pagos = await this.$http.$get('pago')
+    this.formasPagos = await this.$http.$get('formaPago')
+    this.proveedores = await this.$http.$get('proveedor')
   },
 
   computed: {
@@ -157,7 +178,6 @@ export default {
       val || this.closeDelete()
     },
   },
-
 
   methods: {
     initialize() {
@@ -211,14 +231,13 @@ export default {
           `pago/${this.editedItem.id}`,
           this.editedItem
         )
-      console.log(res)
-      
-      if (this.editedIndex > -1) {
-        Object.assign(this.pagos[this.editedIndex], this.editedItem)
-      } else {
-        this.facturas.pagos(this.editedItem)
-      }
+        console.log(res)
 
+        if (this.editedIndex > -1) {
+          Object.assign(this.pagos[this.editedIndex], this.editedItem)
+        } else {
+          this.facturas.pagos(this.editedItem)
+        }
       } catch (error) {
         console.log(error)
       }
