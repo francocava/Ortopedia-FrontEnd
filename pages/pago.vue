@@ -1,4 +1,5 @@
 <template>
+<div>
   <v-card>
     <v-card-title>Pago Nuevo</v-card-title>
 
@@ -51,6 +52,10 @@
       </v-form>
     </v-card-text>
   </v-card>
+  <v-snackbar v-model="snackbar.display" :color="snackbar.color">
+      {{ snackbar.text }}
+    </v-snackbar>
+</div>
 </template>
 
 <script>
@@ -71,6 +76,12 @@ export default {
       forma_pago_id: null,
     },
 
+    snackbar: {
+      display: false,
+      text: '',
+      color: 'black',
+    },
+
     montoRules: [(v) => !!v || 'Falta el monto'],
     proveedores: [],
     formas: [],
@@ -83,9 +94,16 @@ export default {
         const res = await this.$http.$post('pago', this.form )
         console.log(res)
         this.$refs.form.reset()
+        this.showSnackbar('Pago agregado con exito', 'success')
       } catch (error) {
         console.log(error)
+        this.showSnackbar(`Ocurrió un error: ${error.message}`, 'red')
       }
+    },
+    showSnackbar(message, color) {
+      this.snackbar.display = true
+      this.snackbar.text = message
+      this.snackbar.color = color ?? 'black'
     },
   },
 }
