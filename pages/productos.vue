@@ -15,6 +15,9 @@
       :search="search"
       sort-by="nombre"
       class="elevation-1"
+      show-expand
+      :single-expand= true
+      :expanded-sync="accesoriosExpandidos"
     >
       <template v-slot:top>
         <v-toolbar flat>
@@ -106,9 +109,30 @@
         </v-toolbar>
       </template>
 
-      <template v-slot:item.precio="{ item }">
-        ${{item.precio}}
+      <template v-slot:item.data-table-expand="{ item, expand, isExpanded }">
+        <v-icon
+          @click="
+            getAccesorios(item)
+            expand(!isExpanded)
+          "
+          >mdi-arrow-down-drop-circle-outline</v-icon
+        >
       </template>
+      <template v-slot:expanded-item="{ headers }">
+        <v-card>
+        <v-list dense>
+          <v-list-item-group color="primary">
+            <v-list-item v-for="(accesorio, i) in accesoriosExpandidos" :key="i">
+              <v-list-item-content>
+                <v-list-item-title v-text="accesorio.nombre"></v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-item-group>
+        </v-list>
+        </v-card>
+      </template>
+
+      <template v-slot:item.precio="{ item }"> ${{ item.precio }} </template>
 
       <template v-slot:item.actions="{ item }">
         <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
@@ -137,6 +161,7 @@ export default {
       { text: 'Nombre', value: 'nombre' },
       { text: 'Proveedor', value: 'proveedor.nombre', sortable: true },
       { text: 'Precio', value: 'precio' },
+      { text: 'Accesorios', align: 'center', value: 'data-table-expand' },
       { text: 'Actions', value: 'actions', sortable: false },
     ],
     productos: [],
@@ -155,6 +180,7 @@ export default {
     },
     productos: [],
     proveedores: [],
+    accesoriosExpandidos: [],
   }),
 
   async fetch() {
@@ -221,6 +247,16 @@ export default {
         this.editedItem = Object.assign({}, this.defaultItem)
         this.editedIndex = -1
       })
+    },
+
+    async getAccesorios(item) {
+      this.editedIndex = this.productos.indexOf(item)
+      this.editedItem = Object.assign({}, item)
+
+      this.accesoriosExpandidos = await this.$http.$get(
+        `producto/${this.editedItem.id}`,
+        this.editedItem
+      )
     },
 
     async save() {
