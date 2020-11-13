@@ -15,6 +15,9 @@
       :search="search"
       sort-by="nombre"
       class="elevation-1"
+      show-expand
+      :single-expand= true
+      :expanded-sync="productosExpandidos"
     >
       <template v-slot:top>
         <v-toolbar flat>
@@ -105,6 +108,30 @@
           </v-dialog>
         </v-toolbar>
       </template>
+
+      <template v-slot:item.data-table-expand="{ item, expand, isExpanded }">
+        <v-icon
+          @click="
+            getProductos(item)
+            expand(!isExpanded)
+          "
+          >mdi-arrow-down-drop-circle-outline</v-icon
+        >
+      </template>
+      <template v-slot:expanded-item="{ headers }">
+        <v-card>
+        <v-list dense>
+          <v-list-item-group color="primary">
+            <v-list-item v-for="(producto, i) in productosExpandidos" :key="i">
+              <v-list-item-content>
+                <v-list-item-title v-text="producto.nombre"></v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-item-group>
+        </v-list>
+        </v-card>
+      </template>
+
       <template v-slot:item.actions="{ item }">
         <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
         <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
@@ -132,9 +159,12 @@ export default {
       { text: 'Nombre', value: 'nombre' },
       { text: 'Proveedor', value: 'proveedor.nombre', sortable: true },
       { text: 'Precio', value: 'precio' },
+      { text: 'Productos', align: 'center', value: 'data-table-expand' },
       { text: 'Actions', value: 'actions', sortable: false },
     ],
     accesorios: [],
+    proveedores: [],
+    productosExpandidos: [],
     editedIndex: -1,
     editedItem: {
       nro_articulo: 0,
@@ -148,13 +178,12 @@ export default {
       proveedor_id: '', 
       precio: 0,
     },
-    accesorios: [],
-    proveedores: [],
   }),
 
   async fetch() {
     this.accesorios = await this.$http.$get('accesorio')
     this.proveedores = await this.$http.$get('proveedor')
+    this.productos = await this.$http.$get('producto')
   },
 
   computed: {
@@ -216,6 +245,16 @@ export default {
         this.editedItem = Object.assign({}, this.defaultItem)
         this.editedIndex = -1
       })
+    },
+
+    async getProductos(item) {
+      this.editedIndex = this.accesorios.indexOf(item)
+      this.editedItem = Object.assign({}, item)
+
+      this.productosExpandidos = await this.$http.$get(
+        `accesorio/${this.editedItem.id}`,
+        this.editedItem
+      )
     },
 
     async save() {
