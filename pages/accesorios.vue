@@ -16,7 +16,7 @@
       sort-by="nombre"
       class="elevation-1"
       show-expand
-      :single-expand= true
+      :single-expand="true"
       :expanded-sync="productosExpandidos"
     >
       <template v-slot:top>
@@ -89,10 +89,11 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
+
           <v-dialog v-model="dialogDelete" max-width="500px">
             <v-card>
               <v-card-title class="headline"
-                >Estas seguro que queres eliminar el item?</v-card-title
+                >Estas seguro que queres eliminar el accesorio?</v-card-title
               >
               <v-card-actions>
                 <v-spacer></v-spacer>
@@ -100,6 +101,27 @@
                   >Cancelar</v-btn
                 >
                 <v-btn color="blue darken-1" text @click="deleteItemConfirm"
+                  >OK</v-btn
+                >
+                <v-spacer></v-spacer>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+
+          <v-dialog v-model="dialogDeleteProducto" max-width="500px">
+            <v-card>
+              <v-card-title class="headline"
+                >Eliminar el producto?</v-card-title
+              >
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="blue darken-1" text @click="closeDeleteProducto"
+                  >Cancelar</v-btn
+                >
+                <v-btn
+                  color="blue darken-1"
+                  text
+                  @click="deleteItemConfirmProducto"
                   >OK</v-btn
                 >
                 <v-spacer></v-spacer>
@@ -118,17 +140,32 @@
           >mdi-arrow-down-drop-circle-outline</v-icon
         >
       </template>
+
       <template v-slot:expanded-item="{ headers }">
         <v-card>
-        <v-list dense>
-          <v-list-item-group color="primary">
-            <v-list-item v-for="(producto, i) in productosExpandidos" :key="i">
-              <v-list-item-content>
-                <v-list-item-title v-text="producto.nombre"></v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list-item-group>
-        </v-list>
+          <v-list dense>
+            <v-list-item-group color="primary">
+              <v-list-item
+                v-for="(producto, i) in productosExpandidos"
+                :key="i"
+              >
+                <v-list-item-icon>
+                  <v-icon @click="deleteItemProducto(producto)"
+                    >mdi-delete</v-icon
+                  >
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title
+                    v-text="producto.nombre"
+                  ></v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-title>Agregar Producto</v-list-item-title>
+                <v-icon>mdi-plus</v-icon>
+              </v-list-item>
+            </v-list-item-group>
+          </v-list>
         </v-card>
       </template>
 
@@ -149,6 +186,7 @@ export default {
     search: '',
     dialog: false,
     dialogDelete: false,
+    dialogDeleteProducto: false,
     headers: [
       {
         text: 'Numero Articulo',
@@ -171,12 +209,14 @@ export default {
       nombre: '',
       proveedor_id: '',
       precio: 0,
+      productos: [],
     },
     defaultItem: {
       nro_articulo: 0,
       nombre: '',
-      proveedor_id: '', 
+      proveedor_id: '',
       precio: 0,
+      productos: [],
     },
   }),
 
@@ -199,6 +239,9 @@ export default {
     dialogDelete(val) {
       val || this.closeDelete()
     },
+    dialogDeleteProducto(val) {
+      val || this.closeDeleteProducto()
+    },
   },
 
   methods: {
@@ -218,6 +261,17 @@ export default {
       this.dialogDelete = true
     },
 
+    deleteItemProducto(producto) {
+      //console.log(this.editedItem)
+      const deleteIndex = this.editedItem.productos.findIndex(
+        (element) => (element.id = producto.id)
+      )
+      this.editedItem.productos.splice(deleteIndex, 1)
+      //console.log(this.editedItem)
+
+      this.dialogDeleteProducto = true
+    },
+
     async deleteItemConfirm() {
       try {
         const res = await this.$http.$delete(`accesorio/${this.editedItem.id}`)
@@ -228,6 +282,20 @@ export default {
       } catch (error) {
         console.log(error)
         console.log(error.response)
+      }
+    },
+
+    async deleteItemConfirmProducto() {
+      //console.info('item', this.editedItem)
+      try {
+        const res = await this.$http.$put(
+          `accesorio/${this.editedItem.id}`,
+          this.editedItem
+        )
+
+        this.closeDeleteProducto()
+      } catch (error) {
+        console.log(error)
       }
     },
 
@@ -247,6 +315,11 @@ export default {
       })
     },
 
+    closeDeleteProducto() {
+      this.dialogDeleteProducto = false
+    },
+
+    /*
     async getProductos(item) {
       this.editedIndex = this.accesorios.indexOf(item)
       this.editedItem = Object.assign({}, item)
@@ -255,6 +328,22 @@ export default {
         `accesorio/${this.editedItem.id}`,
         this.editedItem
       )
+    },
+    */
+
+    async getProductos(item) {
+      this.editedIndex = this.accesorios.indexOf(item)
+      this.editedItem = Object.assign({}, item)
+
+      const accesorioConProductos = await this.$http.$get(
+        `accesorio/${this.editedItem.id}`,
+        this.editedItem
+      )
+
+      this.productosExpandidos = accesorioConProductos.productos
+
+      this.editedItem.productos = this.productosExpandidos
+      //console.info(this.editedItem)
     },
 
     async save() {

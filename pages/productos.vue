@@ -89,6 +89,7 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
+
           <v-dialog v-model="dialogDelete" max-width="500px">
             <v-card>
               <v-card-title class="headline"
@@ -106,6 +107,7 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
+
           <v-dialog v-model="dialogDeleteAccesorio" max-width="500px">
             <v-card>
               <v-card-title class="headline"
@@ -148,7 +150,9 @@
                 :key="i"
               >
                 <v-list-item-icon>
-                  <v-icon @click="deleteItemAccesorio(accesorio)">mdi-delete</v-icon>
+                  <v-icon @click="deleteItemAccesorio(accesorio)"
+                    >mdi-delete</v-icon
+                  >
                 </v-list-item-icon>
                 <v-list-item-content>
                   <v-list-item-title
@@ -210,7 +214,7 @@ export default {
     defaultItem: {
       nro_articulo: 0,
       nombre: '',
-      proveedor_id: '', //Ver como hacer que te muestre el nombre
+      proveedor_id: '',
       precio: 0,
       accesorios: [],
     },
@@ -264,11 +268,13 @@ export default {
       //console.info(item)
       /* this.editedIndex = this.productos.indexOf(item)
       this.editedItem = Object.assign({}, item) */
-      //this.editItem = 
+      //this.editItem =
 
       console.log(this.editedItem)
-      const deleteIndex = this.editedItem.accesorios.findIndex(element => element.id = accesorio.id ) 
-      this.editedItem.accesorios.splice(deleteIndex,1)
+      const deleteIndex = this.editedItem.accesorios.findIndex(
+        (element) => (element.id = accesorio.id)
+      )
+      this.editedItem.accesorios.splice(deleteIndex, 1)
       console.log(this.editedItem)
 
       this.dialogDeleteAccesorio = true
@@ -334,7 +340,6 @@ export default {
 
       this.editedItem.accesorios = this.accesoriosExpandidos
       console.info(this.editedItem)
-
     },
 
     async save() {
