@@ -128,6 +128,46 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
+
+          <v-dialog v-model="dialogAgregarAccesorio" max-width="500px">
+            <v-card>
+              <v-card-title class="headline">Agregar Accesorio</v-card-title>
+
+              <v-card-text>
+                <v-container>
+                  <v-row>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-select
+                        v-model="editedItem.accesorios"
+                        :items="todosLosAccesorios"
+                        item-value="id"
+                        item-text="nombre"
+                        :rules="[(v) => !!v || 'Seleccionar accesorio/s']"
+                        label="Accesorios"
+                        required
+                        multiple
+                        return-object
+                      ></v-select>
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </v-card-text>
+
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="blue darken-1" text @click="closeAgregarAccesorio"
+                  >Cancelar</v-btn
+                >
+                <v-btn
+                  color="blue darken-1"
+                  text
+                  @click="agregarItemConfirmAccesorio"
+                  >OK</v-btn
+                >
+                <v-spacer></v-spacer>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
         </v-toolbar>
       </template>
 
@@ -162,7 +202,7 @@
               </v-list-item>
               <v-list-item>
                 <v-list-item-title>Agregar Accesorio</v-list-item-title>
-                <v-icon>mdi-plus</v-icon>
+                <v-icon @click="agregarAccesorio">mdi-plus</v-icon>
               </v-list-item>
             </v-list-item-group>
           </v-list>
@@ -189,6 +229,7 @@ export default {
     dialog: false,
     dialogDelete: false,
     dialogDeleteAccesorio: false,
+    dialogAgregarAccesorio: false,
     headers: [
       {
         text: 'Numero Articulo',
@@ -220,13 +261,13 @@ export default {
     },
     proveedores: [],
     accesoriosExpandidos: [],
-    accesorios: [],
+    todosLosAccesorios: [],
   }),
 
   async fetch() {
     this.productos = await this.$http.$get('producto')
     this.proveedores = await this.$http.$get('proveedor')
-    this.accesorios = await this.$http.$get('accesorio')
+    this.todosLosAccesorios = await this.$http.$get('accesorio')
   },
 
   computed: {
@@ -244,6 +285,9 @@ export default {
     },
     dialogDeleteAccesorio(val) {
       val || this.closeDeleteAccesorio()
+    },
+    dialogAgregarAccesorio(val) {
+      val || this.closeAgregarAccesorio()
     },
   },
 
@@ -280,6 +324,32 @@ export default {
       this.dialogDeleteAccesorio = true
     },
 
+    agregarAccesorio() {
+      this.dialogAgregarAccesorio = true
+      console.log('item',this.editedItem)
+    },
+
+    async agregarItemConfirmAccesorio() {
+      
+      //console.log('item',this.productosParaAgregar)
+      console.log('item',this.editedItem)
+
+      //this.editedItem.productos 
+
+      
+      try {
+        const res = await this.$http.$put(
+          `producto/${this.editedItem.id}`,
+          this.editedItem
+        )
+
+        this.closeAgregarAccesorio()
+      } catch (error) {
+        console.log(error)
+      }
+      
+
+    },
     async deleteItemConfirm() {
       try {
         const res = await this.$http.$delete(`producto/${this.editedItem.id}`)
@@ -326,6 +396,11 @@ export default {
     closeDeleteAccesorio() {
       this.dialogDeleteAccesorio = false
     },
+
+    closeAgregarAccesorio() {
+      this.dialogAgregarAccesorio = false
+    },
+
 
     async getAccesorios(item) {
       this.editedIndex = this.productos.indexOf(item)
