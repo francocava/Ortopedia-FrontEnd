@@ -3,7 +3,7 @@
   <v-card>
     <v-card-title>Proforma Nueva
       <v-spacer></v-spacer>
-    <v-btn>Nuevo Cliente</v-btn>
+    <v-btn to="/cliente">Nuevo Cliente</v-btn>
     </v-card-title>
 
     <v-card-text>
@@ -96,7 +96,7 @@
           v-model="form.cliente_id"
           :items="clientes"
           item-value="id"
-          item-text= "nombre"
+          item-text= "apellido"
           label="Cliente"
           :rules="[(v) => !!v || 'Elija un Cliente']"
           required
