@@ -113,6 +113,7 @@
               <v-card-title class="headline"
                 >Eliminar el producto?</v-card-title
               >
+
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="blue darken-1" text @click="closeDeleteProducto"
@@ -122,6 +123,46 @@
                   color="blue darken-1"
                   text
                   @click="deleteItemConfirmProducto"
+                  >OK</v-btn
+                >
+                <v-spacer></v-spacer>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+
+          <v-dialog v-model="dialogAgregarProducto" max-width="500px">
+            <v-card>
+              <v-card-title class="headline">Agregar Producto</v-card-title>
+
+              <v-card-text>
+                <v-container>
+                  <v-row>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-select
+                        v-model="editedItem.productos"
+                        :items="todosLosProductos"
+                        item-value="id"
+                        item-text="nombre"
+                        :rules="[(v) => !!v || 'Seleccionar producto/s']"
+                        label="Productos"
+                        required
+                        multiple
+                        return-object
+                      ></v-select>
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </v-card-text>
+
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="blue darken-1" text @click="closeAgregarProducto"
+                  >Cancelar</v-btn
+                >
+                <v-btn
+                  color="blue darken-1"
+                  text
+                  @click="agregarItemConfirmProducto"
                   >OK</v-btn
                 >
                 <v-spacer></v-spacer>
@@ -162,7 +203,7 @@
               </v-list-item>
               <v-list-item>
                 <v-list-item-title>Agregar Producto</v-list-item-title>
-                <v-icon>mdi-plus</v-icon>
+                <v-icon @click="agregarProducto">mdi-plus</v-icon>
               </v-list-item>
             </v-list-item-group>
           </v-list>
@@ -187,6 +228,7 @@ export default {
     dialog: false,
     dialogDelete: false,
     dialogDeleteProducto: false,
+    dialogAgregarProducto: false,
     headers: [
       {
         text: 'Numero Articulo',
@@ -203,6 +245,8 @@ export default {
     accesorios: [],
     proveedores: [],
     productosExpandidos: [],
+    todosLosProductos: [],
+    productosParaAgregar: [],
     editedIndex: -1,
     editedItem: {
       nro_articulo: 0,
@@ -223,7 +267,7 @@ export default {
   async fetch() {
     this.accesorios = await this.$http.$get('accesorio')
     this.proveedores = await this.$http.$get('proveedor')
-    this.productos = await this.$http.$get('producto')
+    this.todosLosProductos = await this.$http.$get('producto')
   },
 
   computed: {
@@ -241,6 +285,9 @@ export default {
     },
     dialogDeleteProducto(val) {
       val || this.closeDeleteProducto()
+    },
+    dialogAgregarProducto(val) {
+      val || this.closeAgregarProducto()
     },
   },
 
@@ -270,6 +317,33 @@ export default {
       //console.log(this.editedItem)
 
       this.dialogDeleteProducto = true
+    },
+
+    agregarProducto() {
+      this.dialogAgregarProducto = true
+      console.log('item',this.editedItem)
+    },
+
+    async agregarItemConfirmProducto() {
+      
+      //console.log('item',this.productosParaAgregar)
+      console.log('item',this.editedItem)
+
+      //this.editedItem.productos 
+
+      
+      try {
+        const res = await this.$http.$put(
+          `accesorio/${this.editedItem.id}`,
+          this.editedItem
+        )
+
+        this.closeAgregarProducto()
+      } catch (error) {
+        console.log(error)
+      }
+      
+
     },
 
     async deleteItemConfirm() {
@@ -319,17 +393,9 @@ export default {
       this.dialogDeleteProducto = false
     },
 
-    /*
-    async getProductos(item) {
-      this.editedIndex = this.accesorios.indexOf(item)
-      this.editedItem = Object.assign({}, item)
-
-      this.productosExpandidos = await this.$http.$get(
-        `accesorio/${this.editedItem.id}`,
-        this.editedItem
-      )
+    closeAgregarProducto() {
+      this.dialogAgregarProducto = false
     },
-    */
 
     async getProductos(item) {
       this.editedIndex = this.accesorios.indexOf(item)
@@ -341,7 +407,6 @@ export default {
       )
 
       this.productosExpandidos = accesorioConProductos.productos
-
       this.editedItem.productos = this.productosExpandidos
       //console.info(this.editedItem)
     },
