@@ -52,18 +52,13 @@ export default {
       this.$refs.form.validate()
 
       try {
-        const res = await this.$http.$post(
-          'http://localhost:8000/api/token',
-          this.form
-        )
+        const res = await this.$http.$post('token', this.form)
 
         localStorage.setItem('token', res.token)
 
         this.$router.push('/')
-
       } catch (error) {
-        console.log(error)
-        console.log(error.response)
+        console.error(error.response ?? error)
       }
     },
   },
