@@ -46,6 +46,11 @@ export default {
     '@nuxt/http',
   ],
 
+  // Router configuration
+  router: {
+    middleware: ['token'],
+  },
+
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {},
 

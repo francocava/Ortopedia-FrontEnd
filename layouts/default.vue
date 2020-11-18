@@ -78,8 +78,8 @@
             </v-list-item-content>
           </v-list-item>
 
-          <v-list-item to="/login">
-            <v-list-item-action @click.stop="miniVariant = !miniVariant">
+          <v-list-item @click.stop="logout">
+            <v-list-item-action>
               <v-icon>mdi-logout</v-icon>
             </v-list-item-action>
 
@@ -171,6 +171,19 @@ export default {
       right: true,
       title: 'Ortopedia',
     }
+  },
+  methods: {
+    async logout() {
+      try {
+        await this.$http.$post('logout')
+
+        localStorage.removeItem('token')
+
+        this.$router.push('/login')
+      } catch (error) {
+        console.error(error.response ?? error)
+      }
+    },
   },
 }
 </script>

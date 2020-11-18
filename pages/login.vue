@@ -56,6 +56,8 @@ export default {
 
         localStorage.setItem('token', res.token)
 
+        this.$http.setToken(res.token, 'Bearer')
+
         this.$router.push('/')
       } catch (error) {
         console.error(error.response ?? error)

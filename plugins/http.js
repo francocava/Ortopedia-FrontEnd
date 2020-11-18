@@ -2,6 +2,7 @@ export default function ({ $http }) {
   const token = localStorage.getItem('token')
   $http.setToken(token, 'Bearer')
   $http.setBaseURL('http://localhost:8000/api/')
+  // $http.setBaseURL('https://api.opticaortopediafloresta.com.ar/api/')
 
   $http.onRequest((config) => {
     console.log('Making request to ' + config.url)
