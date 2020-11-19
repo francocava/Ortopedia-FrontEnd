@@ -132,13 +132,13 @@
 
           <v-dialog v-model="dialogAgregarProducto" max-width="500px">
             <v-card>
-              <v-card-title class="headline">Agregar Producto</v-card-title>
+              <v-card-title class="headline">Editar Productos</v-card-title>
 
               <v-card-text>
                 <v-container>
                   <v-row>
                     <v-col cols="12" sm="6" md="4">
-                      <v-select
+                      <v-combobox
                         v-model="editedItem.productos"
                         :items="todosLosProductos"
                         item-value="id"
@@ -148,7 +148,7 @@
                         required
                         multiple
                         return-object
-                      ></v-select>
+                      ></v-combobox>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -184,26 +184,26 @@
 
       <template v-slot:expanded-item="{ headers }">
         <v-card>
-          <v-list dense>
+          <v-list nav dense outlined>
             <v-list-item-group color="primary">
               <v-list-item
                 v-for="(producto, i) in productosExpandidos"
                 :key="i"
               >
-                <v-list-item-icon>
+                <!-- <v-list-item-icon>
                   <v-icon @click="deleteItemProducto(producto)"
                     >mdi-delete</v-icon
                   >
-                </v-list-item-icon>
+                </v-list-item-icon> -->
                 <v-list-item-content>
                   <v-list-item-title
                     v-text="producto.nombre"
                   ></v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
-              <v-list-item>
-                <v-list-item-title>Agregar Producto</v-list-item-title>
-                <v-icon @click="agregarProducto">mdi-plus</v-icon>
+              <v-list-item @click="agregarProducto">
+                <v-list-item-title>Editar</v-list-item-title>
+                <v-icon >mdi-plus</v-icon>
               </v-list-item>
             </v-list-item-group>
           </v-list>
