@@ -136,7 +136,7 @@
               <v-card-text>
                 <v-container>
                   <v-row>
-                    <v-col cols="12" sm="6" md="4">
+                    <v-col cols="12">
                       <v-combobox
                         v-model="editedItem.accesorios"
                         :items="todosLosAccesorios"
@@ -189,7 +189,7 @@
                 v-for="(accesorio, i) in accesoriosExpandidos"
                 :key="i"
               >
-<!--                 <v-list-item-icon>
+                <!-- <v-list-item-icon>
                   <v-icon @click="deleteItemAccesorio(accesorio)"
                     >mdi-delete</v-icon
                   >
@@ -326,17 +326,15 @@ export default {
 
     agregarAccesorio() {
       this.dialogAgregarAccesorio = true
-      console.log('item',this.editedItem)
+      console.log('item', this.editedItem)
     },
 
     async agregarItemConfirmAccesorio() {
-      
       //console.log('item',this.productosParaAgregar)
-      console.log('item',this.editedItem)
+      console.log('item', this.editedItem)
 
-      //this.editedItem.productos 
+      //this.editedItem.productos
 
-      
       try {
         const res = await this.$http.$put(
           `producto/${this.editedItem.id}`,
@@ -347,8 +345,6 @@ export default {
       } catch (error) {
         console.log(error)
       }
-      
-
     },
     async deleteItemConfirm() {
       try {
@@ -400,7 +396,6 @@ export default {
     closeAgregarAccesorio() {
       this.dialogAgregarAccesorio = false
     },
-
 
     async getAccesorios(item) {
       this.editedIndex = this.productos.indexOf(item)
