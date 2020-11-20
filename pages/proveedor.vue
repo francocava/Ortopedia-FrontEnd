@@ -58,7 +58,7 @@ export default {
         this.showSnackbar('Forma de pago agregada con exito', 'success')
       } catch (error) {
         console.log(error)
-        this.showSnackbar(`Ocurrió un error: ${error.message}`, 'red')
+        this.showSnackbar(`Ocurrió un error: ${error.response.message ?? error.message}`, 'red')
       }
     },
     showSnackbar(message, color) {
