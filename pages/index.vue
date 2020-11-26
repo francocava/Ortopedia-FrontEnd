@@ -138,12 +138,12 @@
                         label="Importe"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="4">
+<!--                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
                         v-model="editedItem.fl_ct"
                         label="FL/CT"
                       ></v-text-field>
-                    </v-col>
+                    </v-col> -->
                   </v-row>
                 </v-container>
               </v-card-text>
@@ -220,7 +220,7 @@ export default {
       { text: 'Empleado', value: 'usuario.usuario', sortable: false },
       { text: 'Fecha Retiro', value: 'fecha_retiro', sortable: false },
       { text: 'Importe', value: 'importe' },
-      { text: 'FL/CT', value: 'factura.fl_ct', sortable: false },
+      //{ text: 'FL/CT', value: 'factura.fl_ct', sortable: false },
       { text: 'Nro Recibo', value: 'nro_recibo_proveedor', sortable: false },
       { text: 'Cancelado', value: 'cancelado', sortable: false },
       { text: 'Actions', value: 'actions', sortable: false },
@@ -237,7 +237,7 @@ export default {
       id: '',
       fecha_retiro: '',
       importe: '',
-      fl_ct: '',
+      //fl_ct: '',
       nro_recibo_proveedor: '',
       cancelado: '',
     },
@@ -249,7 +249,7 @@ export default {
       id: '',
       fecha_retiro: '',
       importe_fac: '',
-      fl_ct: '',
+      //fl_ct: '',
       nro_recibo_proveedor: '',
       cancelado: '',
     },
