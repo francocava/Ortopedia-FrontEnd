@@ -50,9 +50,7 @@
           <v-text-field
             type="number"
             v-model="form.precio"
-            :rules="precioRules"
             label="Precio"
-            required
           ></v-text-field>
 
           <v-text-field
@@ -110,7 +108,6 @@ export default {
       (v) => !!v || 'Falta el nombre del proveedor',
       (v) => (v && v.length <= 30) || 'Muy largo',
     ],
-    precioRules: [(v) => !!v || 'Falta el precio'],
   }),
 
   methods: {

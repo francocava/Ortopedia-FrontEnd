@@ -47,9 +47,7 @@
           <v-text-field
             type="number"
             v-model="form.precio"
-            :rules="precioRules"
             label="Precio"
-            required
           ></v-text-field>
 
           <v-text-field
@@ -109,7 +107,6 @@ export default {
     proveedores: [],
     accesorios: [],
     searchAccesorio: null,
-    precioRules: [(v) => !!v || 'Falta el precio'],
   }),
 
   methods: {
