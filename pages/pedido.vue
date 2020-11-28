@@ -9,7 +9,7 @@
 
       <v-card-text>
         <v-form ref="form" v-model="valid" lazy-validation>
-          <v-menu
+<!--           <v-menu
             ref="menuAutorizacion"
             v-model="menuAutorizacion"
             :close-on-content-click="false"
@@ -81,7 +81,7 @@
                 OK
               </v-btn>
             </v-date-picker>
-          </v-menu>
+          </v-menu> -->
 
           <v-combobox
             v-model="form.cliente"

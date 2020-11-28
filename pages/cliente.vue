@@ -31,7 +31,6 @@
           <v-text-field
             type="number"
             v-model="form.telefono"
-            :rules="telefonoRules"
             label="Teléfono"
           ></v-text-field>
 
@@ -103,7 +102,7 @@ export default {
       (v) => (v && v.length <= 25) || 'Apellido muy largo',
     ],
     //dniRules: [(v) => !!v || 'Falta el DNI del cliente'],
-    telefonoRules: [(v) => !!v || 'Falta el telefono del cliente'],
+    //telefonoRules: [(v) => !!v || 'Falta el telefono del cliente'],
   }),
 
   methods: {
