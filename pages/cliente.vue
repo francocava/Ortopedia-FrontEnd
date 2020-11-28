@@ -24,7 +24,6 @@
             v-model="form.dni"
             :rules="dniRules"
             label="DNI"
-            required
           ></v-text-field>
 
           <v-text-field v-model="form.contacto" label="Contacto"></v-text-field>
@@ -34,14 +33,12 @@
             v-model="form.telefono"
             :rules="telefonoRules"
             label="Teléfono"
-            required
           ></v-text-field>
 
           <v-text-field
             type="number"
             v-model="form.nro_afiliado"
             label="Numero Afiliado"
-            required
           ></v-text-field>
 
           <v-select
@@ -105,7 +102,7 @@ export default {
       (v) => !!v || 'Falta el apellido del cliente',
       (v) => (v && v.length <= 25) || 'Apellido muy largo',
     ],
-    dniRules: [(v) => !!v || 'Falta el DNI del cliente'],
+    //dniRules: [(v) => !!v || 'Falta el DNI del cliente'],
     telefonoRules: [(v) => !!v || 'Falta el telefono del cliente'],
   }),
 
