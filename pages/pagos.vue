@@ -76,7 +76,12 @@
                         label="Nro Cotizacion"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="4"> </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="editedItem.nro_confirmacion"
+                        label="Nro Confirmacion"
+                      ></v-text-field>
+                    </v-col>
                   </v-row>
                 </v-container>
               </v-card-text>
@@ -138,6 +143,7 @@ export default {
       { text: 'Forma de pago', value: 'forma_pago.tipo' },
       { text: 'Nro Cotizacion', value: 'pedido_id' },
       { text: 'Proveedor', value: 'proveedor.nombre' },
+      { text: 'Nro Confirmacion', value: 'nro_confirmacion' },
       { text: 'Actions', value: 'actions', sortable: false },
     ],
     pagos: [],
@@ -149,12 +155,14 @@ export default {
       forma_pago_id: '',
       pedido_id: '',
       proveedor_id: '',
+      nro_confirmacion: '',
     },
     defaultItem: {
       monto: 0,
       forma_pago_id: '',
       pedido_id: '',
       proveedor_id: '',
+      nro_confirmacion: '',
     },
   }),
 

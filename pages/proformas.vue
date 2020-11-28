@@ -208,12 +208,8 @@ export default {
     dialogAdjuntar: false,
     headers: [
       { text: 'Nro Cotizacion', value: 'id', sortable: true },
-      {
-        text: 'Fecha Ingreso',
-        align: 'start',
-        sortable: true,
-        value: 'fecha_ingreso_autorizacion',
-      },
+      { text: 'Creacion', value: 'created_at'},
+      { text: 'Fecha Autorizacion', align: 'start', sortable: true, value: 'fecha_ingreso_autorizacion'},
       { text: 'Cliente', value: 'cliente.apellido', sortable: true },
       { text: 'OS', value: 'cliente.obra_social.nombre', sortable: true },
       { text: 'Sucursal', value: 'sucursal.nombre', sortable: false },

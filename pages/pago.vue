@@ -31,6 +31,12 @@
           required
         ></v-text-field>
 
+        <v-text-field
+          type="number"
+          v-model="form.nro_confirmacion"
+          label="Nro Confirmacion (Proveedor)"
+        ></v-text-field>
+
         <v-select
           v-model="form.forma_pago_id"
           :items="formas"
@@ -74,6 +80,7 @@ export default {
       monto: '',
       proveedor_id: null,
       forma_pago_id: null,
+      nro_confirmacion: null,
     },
 
     snackbar: {
