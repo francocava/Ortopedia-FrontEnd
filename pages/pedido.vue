@@ -161,6 +161,11 @@
             required
           ></v-select>
 
+          <v-text-field
+            v-model="form.observaciones"
+            label="Observaciones"
+          ></v-text-field>
+
           <!-- <v-select
           v-model="select"
           :items="flct"
@@ -209,6 +214,7 @@ export default {
       accesorios: [],
       cliente: null,
       sucursal_id: null,
+      observaciones: null,
       usuario_id: 1, //pongo 1 por defecto pero tendria que sacar este dato de la sesion
       //fac_id
       //nro_recibo_proveedor

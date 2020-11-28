@@ -151,6 +151,7 @@ export default {
           icon: 'mdi-file-outline',
           title: 'Ver',
           items: [
+            { title: 'Proformas', to: '/proformas' },
             { title: 'Pedidos', to: '/' },
             { title: 'Items', to: '/pedidoItems' },
             { title: 'Clientes', to: '/clientes' },
