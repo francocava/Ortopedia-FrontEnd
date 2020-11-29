@@ -125,6 +125,11 @@ export default {
           to: '/pedido',
         },
         {
+          icon: 'mdi-cart-arrow-down',
+          title: 'Pedido Directo',
+          to: '/',
+        },
+        {
           icon: 'mdi-clipboard-text-outline',
           title: 'Informes',
           to: '/informes',
@@ -133,7 +138,7 @@ export default {
       items: [
         {
           icon: 'mdi-plus-outline',
-          title: 'Nuevo',
+          title: 'Alta',
           items: [
             { title: 'Cliente', to: '/cliente' },
             { title: 'Producto', to: '/producto' },

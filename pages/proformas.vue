@@ -121,7 +121,7 @@
 
           <v-dialog v-model="dialogAdjuntar" max-width="500px">
             <v-card>
-              <v-card-title class="headline">Adjuntar Factura</v-card-title>
+              <v-card-title class="headline">Confirmar Proforma</v-card-title>
 
               <v-card-text>
                 <v-container>
@@ -129,21 +129,15 @@
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
                         v-model="editedItem.fecha_ingreso_autorizacion"
-                        label="Fecha"
+                        label="Fecha Ingreso Autorizacion"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.importe"
-                        label="Importe"
+                        v-model="editedItem.fecha_retiro"
+                        label="Fecha Retiro"
                       ></v-text-field>
                     </v-col>
-<!--                     <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.fl_ct"
-                        label="FL/CT"
-                      ></v-text-field>
-                    </v-col> -->
                   </v-row>
                 </v-container>
               </v-card-text>
@@ -186,7 +180,7 @@
 
       <template v-slot:item.actions="{ item }">
         <v-icon small class="mr-2" @click="adjuntarFactura(item)">
-          mdi-alpha-f-circle-outline
+          mdi-check-outline
         </v-icon>
         <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
         <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
@@ -207,18 +201,15 @@ export default {
     dialogDelete: false,
     dialogAdjuntar: false,
     headers: [
-      { text: 'Nro Cotizacion', value: 'id', sortable: true },
+      { text: 'Nro Cotizacion', value: 'id', sortable: true , align: 'start'},
       { text: 'Creacion', value: 'created_at'},
-      { text: 'Fecha Autorizacion', align: 'start', sortable: true, value: 'fecha_ingreso_autorizacion'},
       { text: 'Cliente', value: 'cliente.apellido', sortable: true },
       { text: 'OS', value: 'cliente.obra_social.nombre', sortable: true },
       { text: 'Sucursal', value: 'sucursal.nombre', sortable: false },
       { text: 'Empleado', value: 'usuario.usuario', sortable: false },
-      { text: 'Fecha Retiro', value: 'fecha_retiro', sortable: false },
       { text: 'Importe', value: 'importe' },
-      //{ text: 'FL/CT', value: 'factura.fl_ct', sortable: false },
       { text: 'Nro Recibo', value: 'nro_recibo_proveedor', sortable: false },
-      { text: 'Cancelado', value: 'cancelado', sortable: false },
+      { text: 'Items', value: 'cancelado', sortable: false },
       { text: 'Actions', value: 'actions', sortable: false },
     ],
     pedidos: [],
