@@ -127,7 +127,7 @@ export default {
         {
           icon: 'mdi-cart-arrow-down',
           title: 'Pedido Directo',
-          to: '/',
+          to: '/pedidoDirecto',
         },
         {
           icon: 'mdi-clipboard-text-outline',
