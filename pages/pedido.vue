@@ -166,14 +166,6 @@
             label="Observaciones"
           ></v-text-field>
 
-          <!-- <v-select
-          v-model="select"
-          :items="flct"
-          :rules="[(v) => !!v || 'Elija alguna']"
-          label="FL/CT"
-          required
-        ></v-select> -->
-
           <v-btn
             :disabled="!valid"
             color="success"
@@ -215,6 +207,7 @@ export default {
       cliente: null,
       sucursal_id: null,
       observaciones: null,
+      confirmado: false,
       usuario_id: 1, //pongo 1 por defecto pero tendria que sacar este dato de la sesion
       //fac_id
       //nro_recibo_proveedor

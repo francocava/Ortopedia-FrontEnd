@@ -119,7 +119,7 @@
             </v-card>
           </v-dialog>
 
-          <v-dialog v-model="dialogAdjuntar" max-width="500px">
+          <v-dialog v-model="dialogConfirmar" max-width="500px">
             <v-card>
               <v-card-title class="headline">Confirmar Proforma</v-card-title>
 
@@ -144,11 +144,11 @@
 
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="closeAdjuntar">
+                <v-btn color="blue darken-1" text @click="closeConfirmar">
                   Cancelar
                 </v-btn>
-                <v-btn color="blue darken-1" text @click="saveFactura">
-                  Guardar
+                <v-btn color="blue darken-1" text @click="saveConfirmar">
+                  Confirmar
                 </v-btn>
               </v-card-actions>
             </v-card>
@@ -175,11 +175,15 @@
       </template>
 
       <template v-slot:item.cancelado="{ item }">
-        <v-icon>{{ item.cancelado ? 'mdi-check-circle-outline' : 'mdi-alpha-x-circle-outline' }}</v-icon>
+        <v-icon>{{
+          item.cancelado
+            ? 'mdi-check-circle-outline'
+            : 'mdi-alpha-x-circle-outline'
+        }}</v-icon>
       </template>
 
       <template v-slot:item.actions="{ item }">
-        <v-icon small class="mr-2" @click="adjuntarFactura(item)">
+        <v-icon small class="mr-2" @click="confirmarProforma(item)">
           mdi-check-outline
         </v-icon>
         <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
@@ -199,10 +203,10 @@ export default {
     search: '',
     dialog: false,
     dialogDelete: false,
-    dialogAdjuntar: false,
+    dialogConfirmar: false,
     headers: [
-      { text: 'Nro Cotizacion', value: 'id', sortable: true , align: 'start'},
-      { text: 'Creacion', value: 'created_at'},
+      { text: 'Nro Cotizacion', value: 'id', sortable: true, align: 'start' },
+      { text: 'Creacion', value: 'created_at' },
       { text: 'Cliente', value: 'cliente.apellido', sortable: true },
       { text: 'OS', value: 'cliente.obra_social.nombre', sortable: true },
       { text: 'Sucursal', value: 'sucursal.nombre', sortable: false },
@@ -210,6 +214,7 @@ export default {
       { text: 'Importe', value: 'importe' },
       { text: 'Nro Recibo', value: 'nro_recibo_proveedor', sortable: false },
       { text: 'Items', value: 'cancelado', sortable: false },
+      { text: 'Observaciones', value: 'cancelado', sortable: false },
       { text: 'Actions', value: 'actions', sortable: false },
     ],
     pedidos: [],
@@ -227,6 +232,7 @@ export default {
       //fl_ct: '',
       nro_recibo_proveedor: '',
       cancelado: '',
+      confirmado: '',
     },
     defaultItem: {
       fecha_ingreso_autorizacion: '',
@@ -239,6 +245,7 @@ export default {
       //fl_ct: '',
       nro_recibo_proveedor: '',
       cancelado: '',
+      confirmado: '',
     },
   }),
 
@@ -261,8 +268,8 @@ export default {
     dialogDelete(val) {
       val || this.closeDelete()
     },
-    dialogAdjuntar(val) {
-      val || this.closeAdjuntar()
+    dialogConfirmar(val) {
+      val || this.closeConfirmar()
     },
   },
 
@@ -283,6 +290,12 @@ export default {
       this.dialogDelete = true
     },
 
+    confirmarProforma(item) {
+      this.editedIndex = this.pedidos.indexOf(item)
+      this.editedItem = Object.assign({}, item)
+      this.dialogConfirmar = true
+    },
+
     async deleteItemConfirm() {
       try {
         const res = await this.$http.$delete(`pedido/${this.editedItem.id}`)
@@ -294,16 +307,6 @@ export default {
         console.log(error)
         console.log(error.response)
       }
-    },
-
-    adjuntarFactura(item) {
-      /*
-        La idea es que aca me muestre una pantalla como la de edit pero para
-        adjuntar una factura (crearla). Se activa cuando tocas el boton de f al lado del de edit.
-      */
-      this.editedIndex = this.pedidos.indexOf(item)
-      this.editedItem = Object.assign({}, item)
-      this.dialogAdjuntar = true
     },
 
     close() {
@@ -322,27 +325,30 @@ export default {
       })
     },
 
-    closeAdjuntar() {
-      this.dialogAdjuntar = false
+    closeConfirmar() {
+      this.dialogConfirmar = false
       this.$nextTick(() => {
         this.editedItem = Object.assign({}, this.defaultItem)
         this.editedIndex = -1
       })
     },
 
-    async saveFactura() {
-      //this.$refs.form.validate()
-      //console.log(this.form)
-
+    async saveConfirmar() {
+      this.editedItem.confirmado = true
+      console.log(this.editedItem)
       try {
-        const res = await this.$http.$post('factura', this.editedItem)
-        console.log(res)
-        //this.$refs.form.reset()
+        const res = await this.$http.$put(
+          `pedido/${this.editedItem.id}`,
+          this.editedItem
+        )
+
+        this.pedidos.splice(this.editedIndex, 1)
+
+        this.closeConfirmar()
       } catch (error) {
         console.log(error)
+        console.log(error.response)
       }
-
-      this.closeAdjuntar()
     },
 
     async save() {
