@@ -157,10 +157,10 @@
             </v-card>
           </v-dialog>
 
-          <v-dialog v-model="dialogDelete" max-width="500px">
+          <v-dialog v-model="dialogDelete" max-width="530px">
             <v-card>
               <v-card-title class="headline"
-                >Estas seguro que queres eliminar el item?</v-card-title
+                >Estas seguro que queres eliminar la proforma?</v-card-title
               >
               <v-card-actions>
                 <v-spacer></v-spacer>
@@ -248,7 +248,6 @@ export default {
       { text: 'Empleado', value: 'usuario.usuario', sortable: false },
       { text: 'Importe', value: 'importe' },
       { text: 'Nro Recibo', value: 'nro_recibo_proveedor', sortable: false },
-      { text: 'conf', value: 'confirmado', sortable: false },
       { text: 'Items', value: 'data-table-expand', sortable: false },
       { text: 'Obs.', value: 'observaciones', sortable: false },
       { text: 'Actions', value: 'actions', sortable: false },
@@ -286,7 +285,7 @@ export default {
   }),
 
   async fetch() {
-    this.pedidos = await this.$http.$get('pedido')
+    this.pedidos = await this.$http.$get(`pedido/1`)
     this.sucursales = await this.$http.$get('sucursal')
     this.clientes = await this.$http.$get('cliente')
   },

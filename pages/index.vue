@@ -160,10 +160,10 @@
             </v-card>
           </v-dialog>
 
-          <v-dialog v-model="dialogDelete" max-width="500px">
+          <v-dialog v-model="dialogDelete" max-width="525px">
             <v-card>
               <v-card-title class="headline"
-                >Estas seguro que queres eliminar el item?</v-card-title
+                >Estas seguro que queres eliminar el pedido?</v-card-title
               >
               <v-card-actions>
                 <v-spacer></v-spacer>
