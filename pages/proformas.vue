@@ -15,6 +15,9 @@
       :search="search"
       sort-by="monto"
       class="elevation-1"
+      show-expand
+      :single-expand="true"
+      :expanded.sync="expandido"
     >
       <template v-slot:top>
         <v-toolbar flat>
@@ -171,6 +174,19 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
+
+          <v-dialog v-model="dialogObservaciones" max-width="500px">
+            <v-card>
+              <v-card-title class="headline">Observaciones</v-card-title>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="blue darken-1" text @click="closeObservaciones"
+                  >OK</v-btn
+                >
+                <v-spacer></v-spacer>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
         </v-toolbar>
       </template>
 
@@ -180,6 +196,10 @@
             ? 'mdi-check-circle-outline'
             : 'mdi-alpha-x-circle-outline'
         }}</v-icon>
+      </template>
+
+      <template v-slot:item.observaciones="{ item }">
+        <v-icon @click="mostrarObservaciones(item)"> mdi-card-text-outline </v-icon>
       </template>
 
       <template v-slot:item.actions="{ item }">
@@ -193,6 +213,20 @@
       <template v-slot:no-data>
         <v-btn color="primary" @click="initialize"> Reset </v-btn>
       </template>
+
+      <!--        <template v-slot:item.data-table-expand="{ item, expand, isExpanded }">
+        <v-icon
+          >mdi-arrow-down-drop-circle-outline</v-icon
+        >
+      </template> 
+
+      <template v-slot:expanded-item="{ headers, item }">
+        <v-card>
+          <v-card-text>
+          <td :colspan="headers.length">More info about {{ item.observaciones }}</td>
+          </v-card-text>
+        </v-card> 
+      </template> -->
     </v-data-table>
   </v-card>
 </template>
@@ -204,6 +238,7 @@ export default {
     dialog: false,
     dialogDelete: false,
     dialogConfirmar: false,
+    dialogObservaciones: false,
     headers: [
       { text: 'Nro Cotizacion', value: 'id', sortable: true, align: 'start' },
       { text: 'Creacion', value: 'created_at' },
@@ -213,13 +248,16 @@ export default {
       { text: 'Empleado', value: 'usuario.usuario', sortable: false },
       { text: 'Importe', value: 'importe' },
       { text: 'Nro Recibo', value: 'nro_recibo_proveedor', sortable: false },
-      { text: 'Items', value: 'cancelado', sortable: false },
-      { text: 'Observaciones', value: 'cancelado', sortable: false },
+      { text: 'conf', value: 'confirmado', sortable: false },
+      { text: 'Items', value: 'data-table-expand', sortable: false },
+      { text: 'Obs.', value: 'observaciones', sortable: false },
       { text: 'Actions', value: 'actions', sortable: false },
     ],
     pedidos: [],
+    pedidosSinConfirmar: [],
     sucursales: [],
     clientes: [],
+    expandido: [],
     editedIndex: -1,
     editedItem: {
       fecha_ingreso_autorizacion: '',
@@ -229,7 +267,6 @@ export default {
       id: '',
       fecha_retiro: '',
       importe: '',
-      //fl_ct: '',
       nro_recibo_proveedor: '',
       cancelado: '',
       confirmado: '',
@@ -242,7 +279,6 @@ export default {
       id: '',
       fecha_retiro: '',
       importe_fac: '',
-      //fl_ct: '',
       nro_recibo_proveedor: '',
       cancelado: '',
       confirmado: '',
@@ -271,6 +307,9 @@ export default {
     dialogConfirmar(val) {
       val || this.closeConfirmar()
     },
+    dialogObservaciones(val) {
+      val || this.closeObservaciones()
+    },
   },
 
   methods: {
@@ -294,6 +333,12 @@ export default {
       this.editedIndex = this.pedidos.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialogConfirmar = true
+    },
+
+    mostrarObservaciones(item) {
+      this.editedIndex = this.pedidos.indexOf(item)
+      this.editedItem = Object.assign({}, item)
+      this.dialogObservaciones = true
     },
 
     async deleteItemConfirm() {
@@ -327,6 +372,14 @@ export default {
 
     closeConfirmar() {
       this.dialogConfirmar = false
+      this.$nextTick(() => {
+        this.editedItem = Object.assign({}, this.defaultItem)
+        this.editedIndex = -1
+      })
+    },
+
+    closeObservaciones() {
+      this.dialogObservaciones = false
       this.$nextTick(() => {
         this.editedItem = Object.assign({}, this.defaultItem)
         this.editedIndex = -1

@@ -138,7 +138,7 @@
                         label="Importe"
                       ></v-text-field>
                     </v-col>
-<!--                     <v-col cols="12" sm="6" md="4">
+                    <!--                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
                         v-model="editedItem.fl_ct"
                         label="FL/CT"
@@ -177,11 +177,34 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
+
+          <v-dialog v-model="dialogObservaciones" max-width="500px">
+            <v-card>
+              <v-card-title class="headline">Observaciones</v-card-title>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="blue darken-1" text @click="closeObservaciones"
+                  >OK</v-btn
+                >
+                <v-spacer></v-spacer>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
         </v-toolbar>
       </template>
 
+      <template v-slot:item.observaciones="{ item }">
+        <v-icon @click="mostrarObservaciones(item)">
+          mdi-card-text-outline
+        </v-icon>
+      </template>
+
       <template v-slot:item.cancelado="{ item }">
-        <v-icon>{{ item.cancelado ? 'mdi-check-circle-outline' : 'mdi-alpha-x-circle-outline' }}</v-icon>
+        <v-icon>{{
+          item.cancelado
+            ? 'mdi-check-circle-outline'
+            : 'mdi-alpha-x-circle-outline'
+        }}</v-icon>
       </template>
 
       <template v-slot:item.actions="{ item }">
@@ -206,6 +229,7 @@ export default {
     dialog: false,
     dialogDelete: false,
     dialogAdjuntar: false,
+    dialogObservaciones: false,
     headers: [
       { text: 'Nro Cotizacion', value: 'id', sortable: true },
       {
@@ -220,8 +244,9 @@ export default {
       { text: 'Empleado', value: 'usuario.usuario', sortable: false },
       { text: 'Fecha Retiro', value: 'fecha_retiro', sortable: false },
       { text: 'Importe', value: 'importe' },
-      //{ text: 'FL/CT', value: 'factura.fl_ct', sortable: false },
       { text: 'Nro Recibo', value: 'nro_recibo_proveedor', sortable: false },
+      { text: 'Items', value: 'cancelado', sortable: false },
+      { text: 'Obs.', value: 'observaciones', sortable: false },
       { text: 'Cancelado', value: 'cancelado', sortable: false },
       { text: 'Actions', value: 'actions', sortable: false },
     ],
@@ -237,7 +262,6 @@ export default {
       id: '',
       fecha_retiro: '',
       importe: '',
-      //fl_ct: '',
       nro_recibo_proveedor: '',
       cancelado: '',
     },
@@ -249,7 +273,6 @@ export default {
       id: '',
       fecha_retiro: '',
       importe_fac: '',
-      //fl_ct: '',
       nro_recibo_proveedor: '',
       cancelado: '',
     },
@@ -277,6 +300,9 @@ export default {
     dialogAdjuntar(val) {
       val || this.closeAdjuntar()
     },
+    dialogObservaciones(val) {
+      val || this.closeObservaciones()
+    },
   },
 
   methods: {
@@ -294,6 +320,12 @@ export default {
       this.editedIndex = this.pedidos.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialogDelete = true
+    },
+
+    mostrarObservaciones(item) {
+      this.editedIndex = this.pedidos.indexOf(item)
+      this.editedItem = Object.assign({}, item)
+      this.dialogObservaciones = true
     },
 
     async deleteItemConfirm() {
@@ -337,6 +369,14 @@ export default {
 
     closeAdjuntar() {
       this.dialogAdjuntar = false
+      this.$nextTick(() => {
+        this.editedItem = Object.assign({}, this.defaultItem)
+        this.editedIndex = -1
+      })
+    },
+
+    closeObservaciones() {
+      this.dialogObservaciones = false
       this.$nextTick(() => {
         this.editedItem = Object.assign({}, this.defaultItem)
         this.editedIndex = -1
