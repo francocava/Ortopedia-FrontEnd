@@ -26,7 +26,9 @@
               <v-list-item>
                 <v-list-item-content>
                   <v-list-item-title>
-                    No se encuentra el accesorio "<strong>{{ searchAccesorio }}</strong
+                    No se encuentra el accesorio "<strong>{{
+                      searchAccesorio
+                    }}</strong
                     >".
                   </v-list-item-title>
                 </v-list-item-content>
@@ -55,6 +57,12 @@
             v-model="form.nro_articulo"
             label="Número de Articulo"
           ></v-text-field>
+
+          <v-textarea
+            v-model="form.descripcion"
+            label="Descripcion"
+            outlined
+          ></v-textarea>
 
           <v-btn
             :disabled="!valid"
@@ -92,6 +100,7 @@ export default {
       nro_articulo: '',
       proveedor_id: '', //
       precio: '',
+      descripcion: '',
       accesorios: [],
     },
 

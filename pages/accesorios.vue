@@ -169,7 +169,32 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
+          <v-dialog v-model="dialogDescripciones" max-width="500px">
+            <v-card>
+              <v-card-title class="headline">Descripcion</v-card-title>
+              <v-row>
+                <v-col>
+                  <v-card-text class="mx-5">
+                    {{ editedItem.descripcion }}
+                  </v-card-text>
+                </v-col>
+              </v-row>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="blue darken-1" text @click="closeDescripciones"
+                  >OK</v-btn
+                >
+                <v-spacer></v-spacer>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
         </v-toolbar>
+      </template>
+
+      <template v-slot:item.descripcion="{ item }">
+        <v-icon @click="mostrarDescripcion(item)">
+          mdi-card-text-outline
+        </v-icon>
       </template>
 
       <template v-slot:item.data-table-expand="{ item, expand, isExpanded }">
@@ -203,7 +228,7 @@
               </v-list-item>
               <v-list-item @click="agregarProducto">
                 <v-list-item-title>Editar</v-list-item-title>
-                <v-icon >mdi-plus</v-icon>
+                <v-icon>mdi-plus</v-icon>
               </v-list-item>
             </v-list-item-group>
           </v-list>
@@ -229,6 +254,7 @@ export default {
     dialogDelete: false,
     dialogDeleteProducto: false,
     dialogAgregarProducto: false,
+    dialogDescripciones: false,
     headers: [
       {
         text: 'Numero Articulo',
@@ -239,6 +265,7 @@ export default {
       { text: 'Nombre', value: 'nombre' },
       { text: 'Proveedor', value: 'proveedor.nombre', sortable: true },
       { text: 'Precio', value: 'precio' },
+      { text: 'Descripcion', value: 'descripcion', sortable: false },
       { text: 'Productos', align: 'center', value: 'data-table-expand' },
       { text: 'Actions', value: 'actions', sortable: false },
     ],
@@ -254,6 +281,7 @@ export default {
       proveedor_id: '',
       precio: 0,
       productos: [],
+      descripcion: '',
     },
     defaultItem: {
       nro_articulo: 0,
@@ -261,6 +289,7 @@ export default {
       proveedor_id: '',
       precio: 0,
       productos: [],
+      descripcion: '',
     },
   }),
 
@@ -288,6 +317,9 @@ export default {
     },
     dialogAgregarProducto(val) {
       val || this.closeAgregarProducto()
+    },
+    dialogDescripciones(val) {
+      val || this.closeDescripciones()
     },
   },
 
@@ -321,17 +353,21 @@ export default {
 
     agregarProducto() {
       this.dialogAgregarProducto = true
-      console.log('item',this.editedItem)
+      console.log('item', this.editedItem)
+    },
+
+    mostrarDescripcion(item) {
+      this.editedIndex = this.accesorios.indexOf(item)
+      this.editedItem = Object.assign({}, item)
+      this.dialogDescripciones = true
     },
 
     async agregarItemConfirmProducto() {
-      
       //console.log('item',this.productosParaAgregar)
-      console.log('item',this.editedItem)
+      console.log('item', this.editedItem)
 
-      //this.editedItem.productos 
+      //this.editedItem.productos
 
-      
       try {
         const res = await this.$http.$put(
           `accesorio/${this.editedItem.id}`,
@@ -342,8 +378,6 @@ export default {
       } catch (error) {
         console.log(error)
       }
-      
-
     },
 
     async deleteItemConfirm() {
@@ -395,6 +429,14 @@ export default {
 
     closeAgregarProducto() {
       this.dialogAgregarProducto = false
+    },
+
+    closeDescripciones() {
+      this.dialogDescripciones = false
+      this.$nextTick(() => {
+        this.editedItem = Object.assign({}, this.defaultItem)
+        this.editedIndex = -1
+      })
     },
 
     async getProductos(item) {

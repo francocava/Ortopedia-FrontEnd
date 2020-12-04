@@ -168,7 +168,33 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
+
+          <v-dialog v-model="dialogDescripciones" max-width="500px">
+            <v-card>
+              <v-card-title class="headline">Descripcion</v-card-title>
+              <v-row>
+                <v-col>
+                  <v-card-text class="mx-5">
+                    {{ editedItem.descripcion }}
+                  </v-card-text>
+                </v-col>
+              </v-row>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="blue darken-1" text @click="closeDescripciones"
+                  >OK</v-btn
+                >
+                <v-spacer></v-spacer>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
         </v-toolbar>
+      </template>
+
+      <template v-slot:item.descripcion="{ item }">
+        <v-icon @click="mostrarDescripcion(item)">
+          mdi-card-text-outline
+        </v-icon>
       </template>
 
       <template v-slot:item.data-table-expand="{ item, expand, isExpanded }">
@@ -230,6 +256,7 @@ export default {
     dialogDelete: false,
     dialogDeleteAccesorio: false,
     dialogAgregarAccesorio: false,
+    dialogDescripciones: false,
     headers: [
       {
         text: 'Numero Articulo',
@@ -240,6 +267,7 @@ export default {
       { text: 'Nombre', value: 'nombre' },
       { text: 'Proveedor', value: 'proveedor.nombre', sortable: true },
       { text: 'Precio', value: 'precio' },
+      { text: 'Descripcion', value: 'descripcion', sortable: false },
       { text: 'Accesorios', align: 'center', value: 'data-table-expand' },
       { text: 'Actions', value: 'actions', sortable: false },
     ],
@@ -251,6 +279,7 @@ export default {
       proveedor_id: '',
       precio: 0,
       accesorios: [],
+      descripcion: '',
     },
     defaultItem: {
       nro_articulo: 0,
@@ -258,6 +287,7 @@ export default {
       proveedor_id: '',
       precio: 0,
       accesorios: [],
+      descripcion: '',
     },
     proveedores: [],
     accesoriosExpandidos: [],
@@ -288,6 +318,9 @@ export default {
     },
     dialogAgregarAccesorio(val) {
       val || this.closeAgregarAccesorio()
+    },
+    dialogDescripciones(val) {
+      val || this.closeDescripciones()
     },
   },
 
@@ -322,6 +355,12 @@ export default {
       console.log(this.editedItem)
 
       this.dialogDeleteAccesorio = true
+    },
+
+    mostrarDescripcion(item) {
+      this.editedIndex = this.productos.indexOf(item)
+      this.editedItem = Object.assign({}, item)
+      this.dialogDescripciones = true
     },
 
     agregarAccesorio() {
@@ -395,6 +434,14 @@ export default {
 
     closeAgregarAccesorio() {
       this.dialogAgregarAccesorio = false
+    },
+
+    closeDescripciones() {
+      this.dialogDescripciones = false
+      this.$nextTick(() => {
+        this.editedItem = Object.assign({}, this.defaultItem)
+        this.editedIndex = -1
+      })
     },
 
     async getAccesorios(item) {

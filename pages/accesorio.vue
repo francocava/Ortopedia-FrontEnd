@@ -59,6 +59,12 @@
             label="Número de Articulo"
           ></v-text-field>
 
+          <v-textarea
+            v-model="form.descripcion"
+            label="Descripcion"
+            outlined
+          ></v-textarea>
+
           <v-btn
             :disabled="!valid"
             color="success"
@@ -96,6 +102,7 @@ export default {
       precio: '',
       proveedor_id: null,
       productos: [],
+      descripcion: '',
     },
     productos: [],
     proveedores: [],
