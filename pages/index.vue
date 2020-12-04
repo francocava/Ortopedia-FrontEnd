@@ -181,6 +181,13 @@
           <v-dialog v-model="dialogObservaciones" max-width="500px">
             <v-card>
               <v-card-title class="headline">Observaciones</v-card-title>
+              <v-row>
+                <v-col>
+                  <v-card-text class="mx-5">
+                    {{ editedItem.observaciones }}
+                  </v-card-text>
+                </v-col>
+              </v-row>
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="blue darken-1" text @click="closeObservaciones"
