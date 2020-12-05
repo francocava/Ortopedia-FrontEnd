@@ -286,7 +286,7 @@ export default {
   }),
 
   async fetch() {
-    this.pedidos = await this.$http.$get('pedido')
+    this.pedidos = await this.$http.$get('pedido?confirmado=1')
     this.sucursales = await this.$http.$get('sucursal')
     this.clientes = await this.$http.$get('cliente')
   },
