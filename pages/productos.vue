@@ -215,11 +215,6 @@
                 v-for="(accesorio, i) in accesoriosExpandidos"
                 :key="i"
               >
-                <!-- <v-list-item-icon>
-                  <v-icon @click="deleteItemAccesorio(accesorio)"
-                    >mdi-delete</v-icon
-                  >
-                </v-list-item-icon> -->
                 <v-list-item-content>
                   <v-list-item-title
                     v-text="accesorio.nombre"

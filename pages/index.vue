@@ -15,6 +15,9 @@
       :search="search"
       sort-by="monto"
       class="elevation-1"
+      show-expand
+      :single-expand="true"
+      :expanded-sync="itemsExpandidos"
     >
       <template v-slot:top>
         <v-toolbar flat>
@@ -138,12 +141,6 @@
                         label="Importe"
                       ></v-text-field>
                     </v-col>
-                    <!--                     <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.fl_ct"
-                        label="FL/CT"
-                      ></v-text-field>
-                    </v-col> -->
                   </v-row>
                 </v-container>
               </v-card-text>
@@ -214,6 +211,36 @@
         }}</v-icon>
       </template>
 
+      <template v-slot:item.data-table-expand="{ item, expand, isExpanded }">
+        <v-icon
+          @click="
+            getItems(item)
+            expand(!isExpanded)
+          "
+          >mdi-arrow-down-drop-circle-outline</v-icon
+        >
+      </template>
+
+      <template v-slot:expanded-item="{ headers }">
+        <v-card>
+          <v-list nav dense outlined>
+            <v-list-item-group color="primary">
+              <v-list-item v-for="(item, i) in itemsExpandidos" :key="i">
+                <v-list-item-content>
+                  <v-list-item-title
+                    v-text="item.producto ? item.producto.nombre : item.accesorio.nombre"
+                  ></v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item @click="agregarItems">
+                <v-list-item-title>Editar</v-list-item-title>
+                <v-icon>mdi-plus</v-icon>
+              </v-list-item>
+            </v-list-item-group>
+          </v-list>
+        </v-card>
+      </template>
+
       <template v-slot:item.actions="{ item }">
         <v-icon small class="mr-2" @click="adjuntarFactura(item)">
           mdi-alpha-f-circle-outline
@@ -252,7 +279,7 @@ export default {
       { text: 'Fecha Retiro', value: 'fecha_retiro', sortable: false },
       { text: 'Importe', value: 'importe' },
       { text: 'Nro Recibo', value: 'nro_recibo_proveedor', sortable: false },
-      { text: 'Items', value: 'cancelado', sortable: false },
+      { text: 'Items', value: 'data-table-expand', sortable: false },
       { text: 'Obs.', value: 'observaciones', sortable: false },
       { text: 'Cancelado', value: 'cancelado', sortable: false },
       { text: 'Actions', value: 'actions', sortable: false },
@@ -260,6 +287,7 @@ export default {
     pedidos: [],
     sucursales: [],
     clientes: [],
+    itemsExpandidos: [],
     editedIndex: -1,
     editedItem: {
       fecha_ingreso_autorizacion: '',
@@ -271,6 +299,7 @@ export default {
       importe: '',
       nro_recibo_proveedor: '',
       cancelado: '',
+      items: [],
     },
     defaultItem: {
       fecha_ingreso_autorizacion: '',
@@ -282,6 +311,7 @@ export default {
       importe_fac: '',
       nro_recibo_proveedor: '',
       cancelado: '',
+      items: [],
     },
   }),
 
@@ -403,6 +433,26 @@ export default {
       }
 
       this.closeAdjuntar()
+    },
+
+    agregarItems() {
+      this.dialogAgregarAccesorio = true // hay que hacer este dialog
+      console.log('item', this.editedItem)
+    },
+
+    async getItems(item) {
+      this.editedIndex = this.pedidos.indexOf(item)
+      this.editedItem = Object.assign({}, item)
+
+      const pedidoConItems = await this.$http.$get(
+        `pedido/${this.editedItem.id}`,
+        this.editedItem
+      )
+
+      this.itemsExpandidos = pedidoConItems.items
+
+      this.editedItem.items = this.itemsExpandidos
+      console.info(this.editedItem)
     },
 
     async save() {
