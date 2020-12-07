@@ -441,7 +441,7 @@ export default {
     },
 
     async getItems(item) {
-      this.editedIndex = this.pedidos.indexOf(item)
+     // this.editedIndex = this.pedidos.indexOf(item)
       this.editedItem = Object.assign({}, item)
 
       const pedidoConItems = await this.$http.$get(

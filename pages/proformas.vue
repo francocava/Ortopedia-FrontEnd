@@ -205,6 +205,40 @@
         }}</v-icon>
       </template>
 
+      <template v-slot:item.data-table-expand="{ item, expand, isExpanded }">
+        <v-icon
+          @click="
+            getItems(item)
+            expand(!isExpanded)
+          "
+          >mdi-arrow-down-drop-circle-outline</v-icon
+        >
+      </template>
+
+      <template v-slot:expanded-item="{ headers }">
+        <v-card>
+          <v-list nav dense outlined>
+            <v-list-item-group color="primary">
+              <v-list-item v-for="(item, i) in itemsExpandidos" :key="i">
+                <v-list-item-content>
+                  <v-list-item-title
+                    v-text="
+                      item.producto
+                        ? item.producto.nombre
+                        : item.accesorio.nombre
+                    "
+                  ></v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item @click="agregarItems">
+                <v-list-item-title>Editar</v-list-item-title>
+                <v-icon>mdi-plus</v-icon>
+              </v-list-item>
+            </v-list-item-group>
+          </v-list>
+        </v-card>
+      </template>
+
       <template v-slot:item.observaciones="{ item }">
         <v-icon @click="mostrarObservaciones(item)">
           mdi-card-text-outline
@@ -222,20 +256,6 @@
       <template v-slot:no-data>
         <v-btn color="primary" @click="initialize"> Reset </v-btn>
       </template>
-
-      <!--        <template v-slot:item.data-table-expand="{ item, expand, isExpanded }">
-        <v-icon
-          >mdi-arrow-down-drop-circle-outline</v-icon
-        >
-      </template> 
-
-      <template v-slot:expanded-item="{ headers, item }">
-        <v-card>
-          <v-card-text>
-          <td :colspan="headers.length">More info about {{ item.observaciones }}</td>
-          </v-card-text>
-        </v-card> 
-      </template> -->
     </v-data-table>
   </v-card>
 </template>
@@ -263,6 +283,7 @@ export default {
     ],
     pedidos: [],
     pedidosSinConfirmar: [],
+    itemsExpandidos: [],
     sucursales: [],
     clientes: [],
     expandido: [],
@@ -278,6 +299,7 @@ export default {
       nro_recibo_proveedor: '',
       cancelado: '',
       confirmado: '',
+      items: [],
     },
     defaultItem: {
       fecha_ingreso_autorizacion: '',
@@ -290,6 +312,7 @@ export default {
       nro_recibo_proveedor: '',
       cancelado: '',
       confirmado: '',
+      items: [],
     },
   }),
 
@@ -410,6 +433,26 @@ export default {
         console.log(error)
         console.log(error.response)
       }
+    },
+
+    agregarItems() {
+      //this.dialogAgregarItem = true // hay que hacer este dialog
+      console.log('item', this.editedItem)
+    },
+
+    async getItems(item) {
+      this.editedIndex = this.pedidos.indexOf(item)
+      this.editedItem = Object.assign({}, item)
+
+      const pedidoConItems = await this.$http.$get(
+        `pedido/${this.editedItem.id}`,
+        this.editedItem
+      )
+
+      this.itemsExpandidos = pedidoConItems.items
+
+      this.editedItem.items = this.itemsExpandidos
+      console.info(this.editedItem)
     },
 
     async save() {
