@@ -121,7 +121,7 @@ export default {
         {
           //icon: 'mdi-file-powerpoint-box-outline',
           icon: 'mdi-format-paragraph',
-          title: 'Crear Proforma',
+          title: 'Proforma',
           to: '/pedido',
         },
         {
@@ -137,24 +137,8 @@ export default {
       ],
       items: [
         {
-          icon: 'mdi-plus-outline',
-          title: 'Alta',
-          items: [
-            { title: 'Cliente', to: '/cliente' },
-            { title: 'Producto', to: '/producto' },
-            { title: 'Accesorio', to: '/accesorio' },
-            { title: 'Pago', to: '/pago' },
-            { title: 'Cobro', to: '/cobro' },
-            { title: 'Proveedor', to: '/proveedor' },
-            { title: 'Sucursal', to: '/sucursal' },
-            { title: 'Obra social', to: '/obraSocial' },
-            { title: 'Empleado', to: '/empleado' },
-            { title: 'Forma de pago', to: '/formaPago' },
-          ],
-        },
-        {
           icon: 'mdi-file-outline',
-          title: 'Ver',
+          title: 'Entidades',
           items: [
             { title: 'Proformas', to: '/proformas' },
             { title: 'Pedidos', to: '/' },
