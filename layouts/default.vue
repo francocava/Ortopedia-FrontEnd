@@ -142,7 +142,6 @@ export default {
           items: [
             { title: 'Proformas', to: '/proformas' },
             { title: 'Pedidos', to: '/' },
-            { title: 'Items', to: '/pedidoItems' },
             { title: 'Clientes', to: '/clientes' },
             { title: 'Pagos', to: '/pagos' },
             { title: 'Cobros', to: '/cobros' },

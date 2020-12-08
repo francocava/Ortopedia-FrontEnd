@@ -250,6 +250,9 @@
         <v-icon small class="mr-2" @click="adjuntarFactura(item)">
           mdi-alpha-f-circle-outline
         </v-icon>
+        <v-icon small class="mr-2" @click="goToItems(item)">
+          mdi-clipboard-edit-outline
+        </v-icon>
         <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
         <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
       </template>
@@ -386,13 +389,15 @@ export default {
     },
 
     adjuntarFactura(item) {
-      /*
-        La idea es que aca me muestre una pantalla como la de edit pero para
-        adjuntar una factura (crearla). Se activa cuando tocas el boton de f al lado del de edit.
-      */
+      // La idea es que aca me muestre una pantalla como la de edit pero para
+      // adjuntar una factura (crearla). Se activa cuando tocas el boton de f al lado del de edit.
       this.editedIndex = this.pedidos.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialogAdjuntar = true
+    },
+
+    goToItems(item) {
+      this.$router.push(`/pedidoItems/${item.id}`)
     },
 
     close() {

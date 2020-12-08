@@ -23,7 +23,14 @@
           <v-spacer></v-spacer>
           <v-dialog v-model="dialog" max-width="500px">
             <template v-slot:activator="{ on, attrs }">
-              <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on" to='/pedido'>
+              <v-btn
+                color="primary"
+                dark
+                class="mb-2"
+                v-bind="attrs"
+                v-on="on"
+                to="/pedido"
+              >
                 Nuevo
               </v-btn>
             </template>
@@ -41,7 +48,7 @@
                         label="Nro Cotizacion"
                       ></v-text-field>
                     </v-col>
-                     <v-col cols="12" sm="6" md="4">
+                    <v-col cols="12" sm="6" md="4">
                       <v-select
                         v-model="editedItem.producto_id"
                         label="Producto"
@@ -129,11 +136,31 @@ export default {
         sortable: true,
         value: 'pedido_id',
       },
-      { text: 'Producto', value: 'producto.nombre', sortable: true, filterable: false },
-      { text: 'Accesorio', value: 'accesorio.nombre', sortable: true, filterable: false },
-      { text: 'Precio', value: 'precio_item', filterable: false},
-      { text: 'Porcentaje Cobertura', value: 'porcentaje_os', sortable: true, filterable: false },
-      { text: 'Precio Final', value: 'precio_final', sortable: true, filterable: false },
+      {
+        text: 'Producto',
+        value: 'producto.nombre',
+        sortable: true,
+        filterable: false,
+      },
+      {
+        text: 'Accesorio',
+        value: 'accesorio.nombre',
+        sortable: true,
+        filterable: false,
+      },
+      { text: 'Precio', value: 'precio_item', filterable: false },
+      {
+        text: 'Porcentaje Cobertura',
+        value: 'porcentaje_os',
+        sortable: true,
+        filterable: false,
+      },
+      {
+        text: 'Precio Final',
+        value: 'precio_final',
+        sortable: true,
+        filterable: false,
+      },
       { text: 'Actions', value: 'actions', sortable: false, filterable: false },
     ],
     editedIndex: -1,
@@ -141,8 +168,8 @@ export default {
       pedido_id: 0,
       proveedor_id: null,
       precio_item: 0,
-      porcentaje_os:'',
-      precio_final:0,
+      porcentaje_os: '',
+      precio_final: 0,
       producto_id: null,
       accesorio_id: null,
     },
@@ -150,19 +177,24 @@ export default {
       pedido_id: 0,
       proveedor_id: null,
       precio_item: 0,
-      porcentaje_os:'',
-      precio_final:0,
+      porcentaje_os: '',
+      precio_final: 0,
       producto_id: null,
       accesorio_id: null,
     },
     items: [],
     productos: [],
     accesorios: [],
-
   }),
 
   async fetch() {
-    this.items = await this.$http.$get('pedidoItem')
+    if (this.$route.params.pedido) {
+      const rsp = await this.$http.$get(`pedido/${this.$route.params.pedido}`)
+      this.items = rsp.items
+    } else {
+      this.items = await this.$http.$get('pedidoItem')
+    }
+
     this.productos = await this.$http.$get('producto')
     this.accesorios = await this.$http.$get('accesorio')
   },
@@ -181,8 +213,6 @@ export default {
       val || this.closeDelete()
     },
   },
-
-  
 
   methods: {
     initialize() {
@@ -231,26 +261,21 @@ export default {
     },
 
     async save() {
-
       try {
         const res = await this.$http.$put(
           `pedidoItem/${this.editedItem.id}`,
           this.editedItem
         )
-        console.log(res)
 
-
-      if (this.editedIndex > -1) {
-        Object.assign(this.items[this.editedIndex], this.editedItem)
-      } else {
-        this.items.push(this.editedItem)
-      }
-      this.close()
-
+        if (this.editedIndex > -1) {
+          Object.assign(this.items[this.editedIndex], this.editedItem)
+        } else {
+          this.items.push(this.editedItem)
+        }
+        this.close()
       } catch (error) {
         console.log(error)
       }
-
     },
   },
 }
