@@ -219,13 +219,13 @@
         <v-card>
           <v-list nav dense outlined>
             <v-list-item-group color="primary">
-              <v-list-item v-for="(item, i) in itemsExpandidos" :key="i">
+              <v-list-item v-for="(itemPedido, i) in itemsExpandidos" :key="i">
                 <v-list-item-content>
                   <v-list-item-title
                     v-text="
-                      item.producto
-                        ? item.producto.nombre
-                        : item.accesorio.nombre
+                      itemPedido.producto
+                        ? itemPedido.producto.nombre
+                        : itemPedido.accesorio.nombre
                     "
                   ></v-list-item-title>
                   <v-list-item-subtitle

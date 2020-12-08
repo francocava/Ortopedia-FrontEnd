@@ -42,21 +42,27 @@
                       ></v-text-field>
                     </v-col>
                      <v-col cols="12" sm="6" md="4">
-                      <v-text-field
+                      <v-select
                         v-model="editedItem.producto_id"
                         label="Producto"
-                      ></v-text-field>
+                        :items="productos"
+                        item-value="id"
+                        item-text="nombre"
+                      ></v-select>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
-                      <v-text-field
+                      <v-select
                         v-model="editedItem.accesorio_id"
+                        :items="accesorios"
+                        item-value="id"
+                        item-text="nombre"
                         label="Accesorio"
-                      ></v-text-field>
+                      ></v-select>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
                         v-model="editedItem.precio_item"
-                        label="precio_item"
+                        label="Precio"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
@@ -149,12 +155,16 @@ export default {
       producto_id: null,
       accesorio_id: null,
     },
-    items:[],
+    items: [],
+    productos: [],
+    accesorios: [],
 
   }),
 
   async fetch() {
     this.items = await this.$http.$get('pedidoItem')
+    this.productos = await this.$http.$get('producto')
+    this.accesorios = await this.$http.$get('accesorio')
   },
 
   computed: {
