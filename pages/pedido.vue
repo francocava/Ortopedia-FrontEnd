@@ -9,7 +9,7 @@
 
       <v-card-text>
         <v-form ref="form" v-model="valid" lazy-validation>
-<!--           <v-menu
+          <!--           <v-menu
             ref="menuAutorizacion"
             v-model="menuAutorizacion"
             :close-on-content-click="false"
@@ -97,7 +97,9 @@
               <v-list-item>
                 <v-list-item-content>
                   <v-list-item-title>
-                    No se encuentra al cliente "<strong>{{ searchCliente }}</strong
+                    No se encuentra al cliente "<strong>{{
+                      searchCliente
+                    }}</strong
                     >".
                   </v-list-item-title>
                 </v-list-item-content>
@@ -120,7 +122,9 @@
               <v-list-item>
                 <v-list-item-content>
                   <v-list-item-title>
-                    No se encuentra al producto "<strong>{{ searchProducto }}</strong
+                    No se encuentra al producto "<strong>{{
+                      searchProducto
+                    }}</strong
                     >".
                   </v-list-item-title>
                 </v-list-item-content>
@@ -143,7 +147,9 @@
               <v-list-item>
                 <v-list-item-content>
                   <v-list-item-title>
-                    No se encuentra al accesorio "<strong>{{ searchAccesorio }}</strong
+                    No se encuentra al accesorio "<strong>{{
+                      searchAccesorio
+                    }}</strong
                     >".
                   </v-list-item-title>
                 </v-list-item-content>

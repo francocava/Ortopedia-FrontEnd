@@ -88,10 +88,11 @@
             required
           ></v-select>
 
-          <v-text-field
+          <v-textarea
             v-model="form.observaciones"
             label="Observaciones"
-          ></v-text-field>
+            outlined
+          ></v-textarea>
 
           <v-btn
             :disabled="!valid"
