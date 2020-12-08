@@ -305,6 +305,7 @@ export default {
       nro_recibo_proveedor: '',
       cancelado: '',
       items: [],
+      observaciones: '',
     },
     defaultItem: {
       fecha_ingreso_autorizacion: '',
@@ -317,6 +318,7 @@ export default {
       nro_recibo_proveedor: '',
       cancelado: '',
       items: [],
+      observaciones: '',
     },
   }),
 
