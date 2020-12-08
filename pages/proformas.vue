@@ -301,6 +301,7 @@ export default {
       cancelado: '',
       confirmado: '',
       items: [],
+      observaciones: '',
     },
     defaultItem: {
       fecha_ingreso_autorizacion: '',
@@ -314,6 +315,7 @@ export default {
       cancelado: '',
       confirmado: '',
       items: [],
+      observaciones: '',
     },
   }),
 
