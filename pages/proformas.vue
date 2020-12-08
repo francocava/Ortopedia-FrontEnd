@@ -228,11 +228,12 @@
                         : item.accesorio.nombre
                     "
                   ></v-list-item-title>
+                  <v-list-item-subtitle
+                    v-text="
+                      itemPedido.precio_item"
+                  >
+                  </v-list-item-subtitle>
                 </v-list-item-content>
-              </v-list-item>
-              <v-list-item @click="agregarItems">
-                <v-list-item-title>Editar</v-list-item-title>
-                <v-icon>mdi-plus</v-icon>
               </v-list-item>
             </v-list-item-group>
           </v-list>

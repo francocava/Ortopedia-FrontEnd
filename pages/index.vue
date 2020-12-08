@@ -225,16 +225,21 @@
         <v-card>
           <v-list nav dense outlined>
             <v-list-item-group color="primary">
-              <v-list-item v-for="(item, i) in itemsExpandidos" :key="i">
+              <v-list-item v-for="(itemPedido, i) in itemsExpandidos" :key="i">
                 <v-list-item-content>
                   <v-list-item-title
-                    v-text="item.producto ? item.producto.nombre : item.accesorio.nombre"
+                    v-text="
+                      itemPedido.producto
+                        ? itemPedido.producto.nombre
+                        : itemPedido.accesorio.nombre
+                    "
                   ></v-list-item-title>
+                  <v-list-item-subtitle
+                    v-text="
+                      itemPedido.precio_item"
+                  >
+                  </v-list-item-subtitle>
                 </v-list-item-content>
-              </v-list-item>
-              <v-list-item @click="agregarItems">
-                <v-list-item-title>Editar</v-list-item-title>
-                <v-icon>mdi-plus</v-icon>
               </v-list-item>
             </v-list-item-group>
           </v-list>
@@ -441,7 +446,7 @@ export default {
     },
 
     async getItems(item) {
-     // this.editedIndex = this.pedidos.indexOf(item)
+      // this.editedIndex = this.pedidos.indexOf(item)
       this.editedItem = Object.assign({}, item)
 
       const pedidoConItems = await this.$http.$get(

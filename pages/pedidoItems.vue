@@ -13,7 +13,7 @@
       :headers="headers"
       :items="items"
       :search="search"
-      sort-by="nombre"
+      sort-by=""
       class="elevation-1"
     >
       <template v-slot:top>
@@ -123,12 +123,12 @@ export default {
         sortable: true,
         value: 'pedido_id',
       },
-      { text: 'Producto', value: 'producto.nombre', sortable: true },
-      { text: 'Accesorio', value: 'accesorio.nombre', sortable: true },
-      { text: 'Precio', value: 'precio_item'},
-      { text: 'Porcentaje Cobertura', value: 'porcentaje_os', sortable: true },
-      { text: 'Precio Final', value: 'precio_final', sortable: true },
-      { text: 'Actions', value: 'actions', sortable: false },
+      { text: 'Producto', value: 'producto.nombre', sortable: true, filterable: false },
+      { text: 'Accesorio', value: 'accesorio.nombre', sortable: true, filterable: false },
+      { text: 'Precio', value: 'precio_item', filterable: false},
+      { text: 'Porcentaje Cobertura', value: 'porcentaje_os', sortable: true, filterable: false },
+      { text: 'Precio Final', value: 'precio_final', sortable: true, filterable: false },
+      { text: 'Actions', value: 'actions', sortable: false, filterable: false },
     ],
     editedIndex: -1,
     editedItem: {
