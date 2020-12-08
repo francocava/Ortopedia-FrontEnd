@@ -2,7 +2,7 @@
   <div>
     <v-card>
       <v-card-title
-        >Proforma Nueva
+        >Nueva Proforma
         <v-spacer></v-spacer>
         <v-btn to="/cliente">Nuevo Cliente</v-btn>
       </v-card-title>

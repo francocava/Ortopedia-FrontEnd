@@ -2,7 +2,7 @@
   <div>
     <v-card>
       <v-card-title
-        >Pedido Directo
+        >Nuevo Pedido Directo
         <v-spacer></v-spacer>
         <v-btn to="/cliente">Nuevo Cliente</v-btn>
       </v-card-title>
