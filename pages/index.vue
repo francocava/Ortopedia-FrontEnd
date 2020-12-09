@@ -246,6 +246,8 @@
         </v-card>
       </template>
 
+      <template v-slot:item.importe="{ item }"> ${{ item.importe }} </template>
+
       <template v-slot:item.actions="{ item }">
         <v-icon small class="mr-2" @click="adjuntarFactura(item)">
           mdi-alpha-f-circle-outline
