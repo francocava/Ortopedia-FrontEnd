@@ -158,7 +158,7 @@ export default {
       ],
       miniVariant: false,
       right: true,
-      title: 'Ortopedia',
+      title: 'Óptica-Ortopedia Floresta',
     }
   },
   methods: {
