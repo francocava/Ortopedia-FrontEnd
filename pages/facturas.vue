@@ -22,11 +22,6 @@
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
           <v-dialog v-model="dialog" max-width="500px">
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on" to='/facturas'>
-                Nuevo Item
-              </v-btn>
-            </template>
             <v-card>
               <v-card-title>
                 <span class="headline">{{ formTitle }}</span>
@@ -83,7 +78,7 @@
       </template>
 
       <template v-slot:item.importe="{ item }"> ${{ item.importe }} </template>
-      
+
       <template v-slot:item.actions="{ item }">
         <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
         <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
@@ -118,13 +113,11 @@ export default {
       pedido_id:'',
       fecha_fac: '',
       importe: '',
-      //fl_ct: '',
     },
     defaultItem: {
       pedido_id:'',
       fecha_fac: '',
       importe: '',
-      //fl_ct: '',
     },
   }),
 

@@ -29,7 +29,7 @@
                 class="mb-2"
                 v-bind="attrs"
                 v-on="on"
-                to="/pagos"
+                to="/pago"
               >
                 Nuevo Item
               </v-btn>
