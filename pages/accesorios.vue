@@ -74,6 +74,26 @@
                         label="Precio"
                       ></v-text-field>
                     </v-col>
+                    <v-col cols="12">
+                      <v-combobox
+                        v-model="editedItem.productos"
+                        :items="todosLosProductos"
+                        item-value="id"
+                        item-text="nombre"
+                        :rules="[(v) => !!v || 'Seleccionar producto/s']"
+                        label="Productos"
+                        required
+                        multiple
+                        return-object
+                      ></v-combobox>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-textarea
+                        outlined
+                        v-model="editedItem.descripcion"
+                        label="Descripcion"
+                      ></v-textarea>
+                    </v-col>
                   </v-row>
                 </v-container>
               </v-card-text>
@@ -90,7 +110,7 @@
             </v-card>
           </v-dialog>
 
-          <v-dialog v-model="dialogDelete" max-width="500px">
+          <v-dialog v-model="dialogDelete" max-width="570px">
             <v-card>
               <v-card-title class="headline"
                 >Estas seguro que queres eliminar el accesorio?</v-card-title
@@ -215,11 +235,6 @@
                 v-for="(producto, i) in productosExpandidos"
                 :key="i"
               >
-                <!-- <v-list-item-icon>
-                  <v-icon @click="deleteItemProducto(producto)"
-                    >mdi-delete</v-icon
-                  >
-                </v-list-item-icon> -->
                 <v-list-item-content>
                   <v-list-item-title
                     v-text="producto.nombre"
@@ -331,8 +346,7 @@ export default {
     },
 
     editItem(item) {
-      this.editedIndex = this.accesorios.indexOf(item)
-      this.editedItem = Object.assign({}, item)
+      this.getProductos(item)
       this.dialog = true
     },
 

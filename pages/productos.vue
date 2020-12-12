@@ -74,6 +74,26 @@
                         label="Precio"
                       ></v-text-field>
                     </v-col>
+                    <v-col cols="12">
+                      <v-combobox
+                        v-model="editedItem.accesorios"
+                        :items="todosLosAccesorios"
+                        item-value="id"
+                        item-text="nombre"
+                        :rules="[(v) => !!v || 'Seleccionar accesorio/s']"
+                        label="Accesorios"
+                        required
+                        multiple
+                        return-object
+                      ></v-combobox>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-textarea
+                        outlined
+                        v-model="editedItem.descripcion"
+                        label="Descripcion"
+                      ></v-textarea>
+                    </v-col>
                   </v-row>
                 </v-container>
               </v-card-text>
@@ -90,7 +110,7 @@
             </v-card>
           </v-dialog>
 
-          <v-dialog v-model="dialogDelete" max-width="500px">
+          <v-dialog v-model="dialogDelete" max-width="550px">
             <v-card>
               <v-card-title class="headline"
                 >Estas seguro que queres eliminar el producto?</v-card-title
@@ -325,8 +345,7 @@ export default {
     },
 
     editItem(item) {
-      this.editedIndex = this.productos.indexOf(item)
-      this.editedItem = Object.assign({}, item)
+      this.getAccesorios(item)
       this.dialog = true
     },
 
