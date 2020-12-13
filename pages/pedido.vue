@@ -9,79 +9,6 @@
 
       <v-card-text>
         <v-form ref="form" v-model="valid" lazy-validation>
-          <!--           <v-menu
-            ref="menuAutorizacion"
-            v-model="menuAutorizacion"
-            :close-on-content-click="false"
-            :return-value.sync="form.fecha_ingreso_autorizacion"
-            transition="scale-transition"
-            offset-y
-            min-width="290px"
-          >
-            <template v-slot:activator="{ on, attrs }">
-              <v-text-field
-                v-model="form.fecha_ingreso_autorizacion"
-                label="Ingreso de Autorizacion"
-                prepend-icon="mdi-calendar"
-                readonly
-                v-bind="attrs"
-                v-on="on"
-              ></v-text-field>
-            </template>
-            <v-date-picker
-              v-model="form.fecha_ingreso_autorizacion"
-              no-title
-              scrollable
-            >
-              <v-spacer></v-spacer>
-              <v-btn text color="primary" @click="menuAutorizacion = false">
-                Cancel
-              </v-btn>
-              <v-btn
-                text
-                color="primary"
-                @click="
-                  $refs.menuAutorizacion.save(form.fecha_ingreso_autorizacion)
-                "
-              >
-                OK
-              </v-btn>
-            </v-date-picker>
-          </v-menu>
-
-          <v-menu
-            ref="menuRetiro"
-            v-model="menuRetiro"
-            :close-on-content-click="false"
-            :return-value.sync="form.fecha_retiro"
-            transition="scale-transition"
-            offset-y
-            min-width="290px"
-          >
-            <template v-slot:activator="{ on, attrs }">
-              <v-text-field
-                v-model="form.fecha_retiro"
-                label="Retiro Estimado"
-                prepend-icon="mdi-calendar"
-                readonly
-                v-bind="attrs"
-                v-on="on"
-              ></v-text-field>
-            </template>
-            <v-date-picker v-model="form.fecha_retiro" no-title scrollable>
-              <v-spacer></v-spacer>
-              <v-btn text color="primary" @click="menuRetiro = false">
-                Cancel
-              </v-btn>
-              <v-btn
-                text
-                color="primary"
-                @click="$refs.menuRetiro.save(form.fecha_retiro)"
-              >
-                OK
-              </v-btn>
-            </v-date-picker>
-          </v-menu> -->
 
           <v-combobox
             v-model="form.cliente"
@@ -216,8 +143,7 @@ export default {
       observaciones: null,
       confirmado: false,
       usuario_id: 1, //pongo 1 por defecto pero tendria que sacar este dato de la sesion
-      //fac_id
-      //nro_recibo_proveedor
+      //importe: 0,
     },
     valid: true,
     menuAutorizacion: false,
@@ -261,8 +187,10 @@ export default {
       this.snackbar.text = message
       this.snackbar.color = color ?? 'black'
     },
+    calcularImporte() {
+      
+    },
   },
 }
 
-//necesito una barra de busqueda para los clientes
 </script>

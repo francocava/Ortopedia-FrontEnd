@@ -236,7 +236,7 @@
                   ></v-list-item-title>
                   <v-list-item-subtitle
                     v-text="
-                      itemPedido.precio_item"
+                      itemPedido.precio_final"
                   >
                   </v-list-item-subtitle>
                 </v-list-item-content>
@@ -335,7 +335,7 @@ export default {
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+      return this.editedIndex === -1 ? 'New Item' : 'Editar Pedido'
     },
   },
 
