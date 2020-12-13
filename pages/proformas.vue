@@ -240,7 +240,7 @@
       <template v-slot:item.importe="{ item }"> ${{ item.importe }} </template>
 
       <template v-slot:item.created_at="{ item }">
-        {{ formatted(item.created_at) }}
+        {{ formatDate(item.created_at) }}
       </template>
 
       <template v-slot:item.observaciones="{ item }">
@@ -337,16 +337,6 @@ export default {
     formTitle() {
       return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
     },
-    /*     formatted(item){
-      const dateObj = new Date(item);
-
-      const year = dateObj.getFullYear();
-      const month = (dateObj.getMonth()+1).toString().padStart(2, '0');
-      const date = dateObj.getDate().toString().padStart(2, '0');
-
-      const result = `${year}-${month}-${date}`;
-      return result;
-    } */
   },
 
   watch: {
@@ -365,16 +355,15 @@ export default {
   },
 
   methods: {
-    formatted(item) {
+    formatDate(item) {
       //Acomoda el formato feo del created_at
-      const dateObj = new Date(item)
+      const date = new Date(item)
 
-      const year = dateObj.getFullYear()
-      const month = (dateObj.getMonth() + 1).toString().padStart(2, '0')
-      const date = dateObj.getDate().toString().padStart(2, '0')
+      const year = date.getFullYear()
+      const month = (date.getMonth() + 1).toString().padStart(2, '0')
+      const date = date.getDate().toString().padStart(2, '0')
 
-      const result = `${year}-${month}-${date}`
-      return result
+      return `${year}-${month}-${date}`
     },
 
     initialize() {
