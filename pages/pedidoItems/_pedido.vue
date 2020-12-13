@@ -116,6 +116,13 @@
         <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
         <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
       </template>
+
+      <template v-slot:item.precio_item="{ item }"> ${{ item.precio_item }} </template>
+
+      <template v-slot:item.precio_final="{ item }"> ${{ item.precio_final }} </template>
+
+      <template v-slot:item.porcentaje_os="{ item }"> {{ item.porcentaje_os }}% </template>
+
       <template v-slot:no-data>
         <v-btn color="primary" @click="initialize"> Reset </v-btn>
       </template>
