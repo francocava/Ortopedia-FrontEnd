@@ -228,10 +228,7 @@
                         : itemPedido.accesorio.nombre
                     "
                   ></v-list-item-title>
-                  <v-list-item-subtitle
-                    v-text="
-                      itemPedido.precio_item"
-                  >
+                  <v-list-item-subtitle v-text="itemPedido.precio_item">
                   </v-list-item-subtitle>
                 </v-list-item-content>
               </v-list-item>
@@ -242,7 +239,9 @@
 
       <template v-slot:item.importe="{ item }"> ${{ item.importe }} </template>
 
-      <template v-slot:item.created_at="{ item }"> {{ formatted(item.created_at) }} </template>
+      <template v-slot:item.created_at="{ item }">
+        {{ formatted(item.created_at) }}
+      </template>
 
       <template v-slot:item.observaciones="{ item }">
         <v-icon @click="mostrarObservaciones(item)">
@@ -253,6 +252,9 @@
       <template v-slot:item.actions="{ item }">
         <v-icon small class="mr-2" @click="confirmarProforma(item)">
           mdi-check-outline
+        </v-icon>
+        <v-icon small class="mr-2" @click="goToItems(item)">
+          mdi-clipboard-edit-outline
         </v-icon>
         <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
         <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
@@ -335,7 +337,7 @@ export default {
     formTitle() {
       return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
     },
-/*     formatted(item){
+    /*     formatted(item){
       const dateObj = new Date(item);
 
       const year = dateObj.getFullYear();
@@ -363,21 +365,24 @@ export default {
   },
 
   methods: {
-
-    formatted(item){
+    formatted(item) {
       //Acomoda el formato feo del created_at
-      const dateObj = new Date(item);
+      const dateObj = new Date(item)
 
-      const year = dateObj.getFullYear();
-      const month = (dateObj.getMonth()+1).toString().padStart(2, '0');
-      const date = dateObj.getDate().toString().padStart(2, '0');
+      const year = dateObj.getFullYear()
+      const month = (dateObj.getMonth() + 1).toString().padStart(2, '0')
+      const date = dateObj.getDate().toString().padStart(2, '0')
 
-      const result = `${year}-${month}-${date}`;
-      return result;
+      const result = `${year}-${month}-${date}`
+      return result
     },
 
     initialize() {
       this.$fetch()
+    },
+
+    goToItems(item) {
+      this.$router.push(`/pedidoItems/${item.id}`)
     },
 
     editItem(item) {
