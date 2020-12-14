@@ -335,7 +335,7 @@ export default {
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+      return this.editedIndex === -1 ? 'New Item' : 'Editar Proforma'
     },
   },
 
@@ -357,13 +357,14 @@ export default {
   methods: {
     formatDate(item) {
       //Acomoda el formato feo del created_at
-      const date = new Date(item)
+      const dateObj = new Date(item);
 
-      const year = date.getFullYear()
-      const month = (date.getMonth() + 1).toString().padStart(2, '0')
-      const date = date.getDate().toString().padStart(2, '0')
-
-      return `${year}-${month}-${date}`
+      const year = dateObj.getFullYear();
+      const month = (dateObj.getMonth()+1).toString().padStart(2, '0');
+      const date = dateObj.getDate().toString().padStart(2, '0');
+      const result = `${year}-${month}-${date}`;
+      
+      return result;
     },
 
     initialize() {
