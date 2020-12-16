@@ -87,12 +87,6 @@
                         label="Fecha Retiro"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.importe"
-                        label="Importe"
-                      ></v-text-field>
-                    </v-col>
 
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
@@ -306,7 +300,6 @@ export default {
       usuario_id: '',
       id: '',
       fecha_retiro: '',
-      importe: '',
       nro_recibo_proveedor: '',
       cancelado: '',
       items: [],
@@ -319,7 +312,6 @@ export default {
       usuario_id: '',
       id: '',
       fecha_retiro: '',
-      importe_fac: '',
       nro_recibo_proveedor: '',
       cancelado: '',
       items: [],
@@ -484,7 +476,7 @@ export default {
       } catch (error) {
         console.log(error)
       }
-
+      this.$fetch()
       this.close()
     },
   },

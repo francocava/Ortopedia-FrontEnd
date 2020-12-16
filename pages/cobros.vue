@@ -228,6 +228,7 @@ export default {
         } else {
           this.cobros.push(this.editedItem)
         }
+        this.$fetch()
         this.close()
       } catch (error) {
         console.log(error)

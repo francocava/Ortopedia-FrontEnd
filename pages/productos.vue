@@ -317,7 +317,7 @@ export default {
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+      return this.editedIndex === -1 ? 'New Item' : 'Editar Producto'
     },
   },
 
@@ -486,6 +486,7 @@ export default {
         } else {
           this.productos.push(this.editedItem)
         }
+        this.$fetch()
         this.close()
       } catch (error) {
         console.log(error)
