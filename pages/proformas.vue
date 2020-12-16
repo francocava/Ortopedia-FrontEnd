@@ -48,12 +48,6 @@
                 <v-container>
                   <v-row>
                     <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.fecha_ingreso_autorizacion"
-                        label="Fecha Ingreso"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
                       <v-select
                         v-model="editedItem.cliente_id"
                         :items="clientes"
@@ -81,29 +75,11 @@
                         label="Nro Cotizacion"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.fecha_retiro"
-                        label="Fecha Retiro"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.importe"
-                        label="Importe"
-                      ></v-text-field>
-                    </v-col>
 
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
                         v-model="editedItem.nro_recibo_proveedor"
                         label="Nro Recibo"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.cancelado"
-                        label="Cancelado"
                       ></v-text-field>
                     </v-col>
                   </v-row>
