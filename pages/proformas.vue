@@ -204,7 +204,8 @@
                         : itemPedido.accesorio.nombre
                     "
                   ></v-list-item-title>
-                  <v-list-item-subtitle v-text="itemPedido.precio_final">
+                  <v-list-item-subtitle >
+                    ${{itemPedido.precio_final}}
                   </v-list-item-subtitle>
                 </v-list-item-content>
               </v-list-item>
