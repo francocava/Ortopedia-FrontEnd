@@ -204,8 +204,8 @@
                         : itemPedido.accesorio.nombre
                     "
                   ></v-list-item-title>
-                  <v-list-item-subtitle >
-                    ${{itemPedido.precio_final}}
+                  <v-list-item-subtitle>
+                    ${{ itemPedido.precio_final }}
                   </v-list-item-subtitle>
                 </v-list-item-content>
               </v-list-item>
@@ -232,6 +232,9 @@
         </v-icon>
         <v-icon small class="mr-2" @click="goToItems(item)">
           mdi-clipboard-edit-outline
+        </v-icon>
+        <v-icon small class="mr-2" @click="goToImpresiones(item)">
+          mdi-printer
         </v-icon>
         <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
         <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
@@ -334,14 +337,14 @@ export default {
   methods: {
     formatDate(item) {
       //Acomoda el formato feo del created_at
-      const dateObj = new Date(item);
+      const dateObj = new Date(item)
 
-      const year = dateObj.getFullYear();
-      const month = (dateObj.getMonth()+1).toString().padStart(2, '0');
-      const date = dateObj.getDate().toString().padStart(2, '0');
-      const result = `${year}-${month}-${date}`;
-      
-      return result;
+      const year = dateObj.getFullYear()
+      const month = (dateObj.getMonth() + 1).toString().padStart(2, '0')
+      const date = dateObj.getDate().toString().padStart(2, '0')
+      const result = `${year}-${month}-${date}`
+
+      return result
     },
 
     initialize() {
@@ -350,6 +353,10 @@ export default {
 
     goToItems(item) {
       this.$router.push(`/pedidoItems/${item.id}`)
+    },
+
+    goToImpresiones(item) {
+      this.$router.push(`/impresionProforma/${item.id}`)
     },
 
     editItem(item) {
