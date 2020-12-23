@@ -133,7 +133,7 @@
             </v-card>
           </v-dialog>
 
-          <v-dialog v-model="dialogDelete" max-width="530px">
+          <v-dialog v-model="dialogDelete" max-width="550px">
             <v-card>
               <v-card-title class="headline"
                 >Estas seguro que queres eliminar la proforma?</v-card-title
