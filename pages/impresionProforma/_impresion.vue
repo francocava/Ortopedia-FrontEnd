@@ -17,20 +17,24 @@
             <v-card-text>
               Fecha: {{ pedido.fecha_ingreso_autorizacion }}
             </v-card-text>
+            <v-card-text>CUIT Nro: 20-13515459-9</v-card-text>
           </v-card>
         </v-col>
       </v-row>
       <v-row>
         <v-col>
           <v-card outlined style="height: 150px">
-            <v-card-text>
-              Cliente: {{ pedido.cliente.nombre }} {{pedido.cliente.apellido}}
+<!--             <v-card-text>
+              Cliente: {{ pedido.cliente.nombre }} {{ pedido.cliente.apellido }}
             </v-card-text>
 
-            <v-card-text> Afiliado: {{pedido.cliente.nro_afiliado}} </v-card-text>
+            <v-card-text>
+              Afiliado: {{ pedido.cliente.nro_afiliado }}
+            </v-card-text>
 
-            <v-card-text> Obra Social: {{pedido.cliente.obra_social.nombre}} </v-card-text>
-
+            <v-card-text>
+              Obra Social: {{ pedido.cliente.obra_social.nombre }}
+            </v-card-text> -->
           </v-card>
         </v-col>
       </v-row>
@@ -66,12 +70,16 @@
       </v-row>
       <v-row>
         <v-col>
-          <v-card outlined style="height: 150px">Total</v-card>
+          <v-card outlined style="height: 150px">Total: {{pedido.importe}}</v-card>
         </v-col>
       </v-row>
       <v-row>
         <v-col>
-          <v-card style="height: 50px">Importante</v-card>
+          <v-card elevation="0">
+            <v-card-title>Importante</v-card-title>
+            <v-card-text>Ante una repentina devaluación de la moneda los precios
+              pueden verse modificados sin mediar preaviso  </v-card-text>
+          </v-card>
         </v-col>
       </v-row>
       <v-row>
