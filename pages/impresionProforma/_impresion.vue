@@ -48,8 +48,8 @@
       </v-row>
       <v-row>
         <v-col>
-          <v-card outlined style="height: 150px">
-            <v-simple-table>
+          <v-card flat>
+            <v-simple-table fixed-header>
               <template v-slot:default>
                 <thead>
                   <tr>
@@ -82,11 +82,16 @@
           </v-card>
         </v-col>
       </v-row>
-      <v-row align="center" no-gutters>
+      <v-row>
+        <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
         <v-col>
-          <v-card outlined min-height="50px" width="200px"
-            >Total: ${{ pedido.importe }}</v-card
-          >
+          <v-card outlined min-height="50px" width="200px"  align="center">
+            <v-card-text> Total: ${{ pedido.importe }} </v-card-text>
+            </v-card>
         </v-col>
       </v-row>
       <v-row>
