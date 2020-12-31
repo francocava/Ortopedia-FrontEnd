@@ -77,6 +77,12 @@
                         label="Porcentaje"
                       ></v-text-field>
                     </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="editedItem.cantidad"
+                        label="Cantidad"
+                      ></v-text-field>
+                    </v-col>
                   </v-row>
                 </v-container>
               </v-card-text>
@@ -116,11 +122,17 @@
         <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
       </template>
 
-      <template v-slot:item.precio_item="{ item }"> ${{ item.precio_item }} </template>
+      <template v-slot:item.precio_item="{ item }">
+        ${{ item.precio_item }}
+      </template>
 
-      <template v-slot:item.precio_final="{ item }"> ${{ item.precio_final }} </template>
+      <template v-slot:item.precio_final="{ item }">
+        ${{ item.precio_final }}
+      </template>
 
-      <template v-slot:item.porcentaje_os="{ item }"> {{ item.porcentaje_os }}% </template>
+      <template v-slot:item.porcentaje_os="{ item }">
+        {{ item.porcentaje_os }}%
+      </template>
 
       <template v-slot:no-data>
         <v-btn color="primary" @click="initialize"> Reset </v-btn>
@@ -152,6 +164,7 @@ export default {
         value: 'accesorio.nombre',
         sortable: true,
       },
+      { text: 'Cantidad', value: 'cantidad' },
       { text: 'Precio', value: 'precio_item', filterable: false },
       {
         text: 'Porcentaje Cobertura',
@@ -174,6 +187,7 @@ export default {
       precio_final: 0,
       producto_id: null,
       accesorio_id: null,
+      cantidad: '',
     },
     defaultItem: {
       pedido_id: 0,
@@ -183,6 +197,7 @@ export default {
       precio_final: 0,
       producto_id: null,
       accesorio_id: null,
+      cantidad: '',
     },
     items: [],
     productos: [],
@@ -274,6 +289,7 @@ export default {
         } else {
           this.items.push(this.editedItem)
         }
+        this.$fetch()
         this.close()
       } catch (error) {
         console.log(error)
