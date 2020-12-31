@@ -15,8 +15,12 @@
         <v-col>
           <v-card class="pa-2 h-100" outlined tile align="center">
             <v-card-text class="black--text font--text top--margin">
-              <div class="especial--padding">Nro Cotización: {{ pedido.id }}</div>
-              <div class="especial--padding">Fecha: {{ pedido.fecha_ingreso_autorizacion }}</div>
+              <div class="especial--padding">
+                Nro Cotización: {{ pedido.id }}
+              </div>
+              <div class="especial--padding">
+                Fecha: {{ pedido.fecha_ingreso_autorizacion }}
+              </div>
               <div class="especial--padding">CUIT Nro: 20-13515459-9</div>
             </v-card-text>
           </v-card>
@@ -24,36 +28,30 @@
       </v-row>
       <v-row>
         <v-col>
-          <v-card outlined align="center" >
+          <v-card outlined align="center">
             <v-card-text class="black--text font--text">
               <v-row>
-              <v-col>
-              <v-card flat>
-              <div>
-                Cliente: {{ pedido.cliente.nombre }}
-                {{ pedido.cliente.apellido }}
-              </div>
-              <div>Obra Social: {{ pedido.cliente.obra_social.nombre }}</div>
-              </v-card>
-              </v-col>
-              <v-col>
-              <v-card flat>
-              <div>Afiliado: {{ pedido.cliente.nro_afiliado }}</div>
-              <div>Teléfono: {{ pedido.cliente.telefono }}</div>
-              </v-card>
-              </v-col>
+                <v-col>
+                  <v-card flat>
+                    <div>
+                      <span class="bold--text">Cliente:</span> {{ pedido.cliente.nombre }}
+                      {{ pedido.cliente.apellido }}
+                    </div>
+                    <div>
+                      <span class="bold--text"> Social:</span> {{ pedido.cliente.obra_social.nombre }}
+                    </div>
+                  </v-card>
+                </v-col>
+                <v-col>
+                  <v-card flat>
+                    <div><span class="bold--text"> Afiliado:</span> {{ pedido.cliente.nro_afiliado }}</div>
+                    <div><span class="bold--text"> Teléfono:</span> {{ pedido.cliente.telefono }}</div>
+                  </v-card>
+                </v-col>
               </v-row>
             </v-card-text>
           </v-card>
         </v-col>
-<!--         <v-col>
-          <v-card outlined align="center">
-            <v-card-text class="black--text font--text">
-              <div>Afiliado: {{ pedido.cliente.nro_afiliado }}</div>
-              <div>Teléfono: {{ pedido.cliente.telefono }}</div>
-            </v-card-text>
-          </v-card>
-        </v-col> -->
       </v-row>
       <v-row>
         <v-col>
@@ -68,7 +66,11 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="item in pedido.items" :key="item.nombre" class="font--text">
+                  <tr
+                    v-for="item in pedido.items"
+                    :key="item.nombre"
+                    class="font--text"
+                  >
                     <td>
                       {{
                         item.producto
@@ -88,23 +90,11 @@
                 </tbody>
               </template>
             </v-simple-table>
-          </v-card>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col>
-          <v-card flat align="end" class="d-flex flex-row-reverse font--text">
-            <v-card-text class="black--text bold--text bigger--text"> Total: ${{ pedido.importe }} </v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col>
-          <v-card flat align="center">
-            <v-card-text class="black--text font--text"
-              ><span class="bold--text">IMPORTANTE: </span><span class="italic--text"> Ante una repentina devaluación de la moneda los
-              precios pueden verse modificados sin mediar preaviso</span>
-            </v-card-text>
+            <v-card align="end" class="d-flex flex-row-reverse font--text total--padding">
+              <v-card-text class="black--text bold--text bigger--text">
+                Total: ${{ pedido.importe }}
+              </v-card-text>
+            </v-card>
           </v-card>
         </v-col>
       </v-row>
@@ -123,6 +113,19 @@
             <v-card-text>
               <div>- Condición de Pago: Pago previo a entrega</div>
               <div>- Plazo de entrega: 30 días</div>
+            </v-card-text>
+          </v-card>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <v-card flat align="center">
+            <v-card-text class="black--text font--text"
+              ><span class="bold--text">IMPORTANTE: </span
+              ><span class="italic--text">
+                Ante una repentina devaluación de la moneda los precios pueden
+                verse modificados sin mediar preaviso</span
+              >
             </v-card-text>
           </v-card>
         </v-col>
@@ -154,7 +157,7 @@ export default {
 }
 </script>
 
-<style>
+<style type="text/css" media="print">
 .black--text {
   color: #000 !important;
 }
@@ -165,7 +168,8 @@ export default {
   font-style: italic;
 }
 .font--text {
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 .bigger--text {
   font-size: larger;
@@ -182,6 +186,9 @@ export default {
 .especial--padding {
   padding: 7px;
 }
+.total--padding {
+  padding-right: 10px;
+}
 .col {
   padding: 3px;
 }
@@ -194,5 +201,12 @@ export default {
 th {
   font-size: 1rem !important;
   text-align: left !important;
+}
+
+@media print {
+  *{
+    -webkit-transition: none !important;
+    transition: none !important;
+  }
 }
 </style>
