@@ -87,17 +87,10 @@
                         label="Fecha Retiro"
                       ></v-text-field>
                     </v-col>
-
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
                         v-model="editedItem.nro_recibo_proveedor"
                         label="Nro Recibo"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.cancelado"
-                        label="Cancelado"
                       ></v-text-field>
                     </v-col>
                   </v-row>
@@ -229,7 +222,9 @@
                     "
                   ></v-list-item-title>
                   <v-list-item-subtitle>
-                    ${{itemPedido.precio_final}}
+                    ${{ itemPedido.precio_final / itemPedido.cantidad }} x{{
+                      itemPedido.cantidad
+                    }}
                   </v-list-item-subtitle>
                 </v-list-item-content>
               </v-list-item>
@@ -246,6 +241,9 @@
         </v-icon>
         <v-icon small class="mr-2" @click="goToItems(item)">
           mdi-clipboard-edit-outline
+        </v-icon>
+        <v-icon small class="mr-2" @click="goToImpresiones(item)">
+          mdi-printer
         </v-icon>
         <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
         <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
@@ -284,7 +282,7 @@ export default {
       { text: 'Items', value: 'data-table-expand', sortable: false },
       { text: 'Obs.', value: 'observaciones', sortable: false },
       { text: 'Cancelado', value: 'cancelado', sortable: false },
-      { text: 'Actions', value: 'actions', sortable: false },
+      { text: 'Opciones', value: 'actions', sortable: false },
     ],
     pedidos: [],
     sucursales: [],
@@ -378,6 +376,10 @@ export default {
         console.log(error)
         console.log(error.response)
       }
+    },
+
+    goToImpresiones(item) {
+      this.$router.push(`/impresionProforma/${item.id}`)
     },
 
     adjuntarFactura(item) {

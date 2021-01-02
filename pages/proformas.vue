@@ -205,7 +205,9 @@
                     "
                   ></v-list-item-title>
                   <v-list-item-subtitle>
-                    ${{ itemPedido.precio_final }}
+                    ${{ itemPedido.precio_final / itemPedido.cantidad }} x{{
+                      itemPedido.cantidad
+                    }}
                   </v-list-item-subtitle>
                 </v-list-item-content>
               </v-list-item>
@@ -266,7 +268,7 @@ export default {
       { text: 'Nro Recibo', value: 'nro_recibo_proveedor', sortable: false },
       { text: 'Items', value: 'data-table-expand', sortable: false },
       { text: 'Obs.', value: 'observaciones', sortable: false },
-      { text: 'Actions', value: 'actions', sortable: false },
+      { text: 'Opciones', value: 'actions', sortable: false },
     ],
     pedidos: [],
     pedidosSinConfirmar: [],

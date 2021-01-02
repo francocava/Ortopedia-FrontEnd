@@ -62,7 +62,8 @@
                   <tr>
                     <th class="text-left font--text">Nombre</th>
                     <th class="text-left font--text">Descripción</th>
-                    <th class="text-left font--text">Precio</th>
+                    <th class="text-left font--text">Cantidad</th>
+                    <th class="text-left font--text">Precio Unitario</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -85,7 +86,8 @@
                           : item.accesorio.descripcion
                       }}
                     </td>
-                    <td>${{ item.precio_final }}</td>
+                    <td>{{ item.cantidad }}</td>
+                    <td>${{ item.precio_final/item.cantidad }}</td>
                   </tr>
                 </tbody>
               </template>
@@ -157,7 +159,7 @@ export default {
 }
 </script>
 
-<style type="text/css" media="print">
+<style>
 .black--text {
   color: #000 !important;
 }
@@ -203,10 +205,10 @@ th {
   text-align: left !important;
 }
 
-@media print {
+/* @media print {
   *{
     -webkit-transition: none !important;
     transition: none !important;
   }
-}
+} */
 </style>
