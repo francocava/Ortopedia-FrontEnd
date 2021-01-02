@@ -105,7 +105,7 @@ export default {
       },
       { text: 'Fecha', value: 'fecha_fac' },
       { text: 'Importe', value: 'importe' },
-      { text: 'Actions', value: 'actions', sortable: false },
+      { text: 'Opciones', value: 'actions', sortable: false },
     ],
     facturas: [],
     editedIndex: -1,

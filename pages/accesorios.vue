@@ -284,7 +284,7 @@ export default {
       { text: 'Precio', value: 'precio' },
       { text: 'Descripcion', value: 'descripcion', sortable: false },
       { text: 'Productos', align: 'center', value: 'data-table-expand' },
-      { text: 'Actions', value: 'actions', sortable: false },
+      { text: 'Opciones', value: 'actions', sortable: false },
     ],
     accesorios: [],
     proveedores: [],

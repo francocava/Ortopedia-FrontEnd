@@ -98,7 +98,7 @@ export default {
         align: 'start',
         value: 'tipo',
       },
-      { text: 'Actions', value: 'actions', sortable: false },
+      { text: 'Opciones', value: 'actions', sortable: false },
     ],
     
     editedIndex: -1,

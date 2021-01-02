@@ -153,7 +153,7 @@ export default {
       { text: 'Teléfono', value: 'dni', sortable: true },
       { text: 'Obra Social', value: 'obra_social.nombre', sortable: true },
       { text: 'Número Afiliado', value: 'nro_afiliado', sortable: true },
-      { text: 'Actions', value: 'actions', sortable: false },
+      { text: 'Opciones', value: 'actions', sortable: false },
     ],
     clientes: [],
     obras: [],

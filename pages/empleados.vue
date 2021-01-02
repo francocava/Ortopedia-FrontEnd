@@ -126,7 +126,7 @@ export default {
       { text: 'Apellido', value: 'apellido' },
       { text: 'Rol', value: 'rol.nombre', sortable: true },
       { text: 'Usuario', value: 'usuario' },
-      { text: 'Actions', value: 'actions', sortable: false },
+      { text: 'Opciones', value: 'actions', sortable: false },
     ],
     empleados: [],
     roles: [],

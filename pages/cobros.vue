@@ -130,7 +130,7 @@ export default {
       { text: 'Forma de pago', value: 'forma_pago.tipo' },
       { text: 'Cliente', value: 'pedido.cliente.apellido' },
       { text: 'Nro Cotizacion', value: 'pedido_id' },
-      { text: 'Actions', value: 'actions', sortable: false },
+      { text: 'Opciones', value: 'actions', sortable: false },
     ],
     cobros: [],
     formas: [],

@@ -147,7 +147,7 @@ export default {
       { text: 'Nro Cotizacion', value: 'pedido_id' },
       { text: 'Proveedor', value: 'proveedor.nombre' },
       { text: 'Nro Confirmacion', value: 'nro_confirmacion' },
-      { text: 'Actions', value: 'actions', sortable: false },
+      { text: 'Opciones', value: 'actions', sortable: false },
     ],
     pagos: [],
     formasPagos: [],
