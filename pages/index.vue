@@ -242,9 +242,13 @@
         <v-icon small class="mr-2" @click="goToItems(item)">
           mdi-clipboard-edit-outline
         </v-icon>
-        <v-icon small class="mr-2" @click="goToImpresiones(item)">
-          mdi-printer
-        </v-icon>
+        <a
+          :href="`/impresionProforma/${item.id}`"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <v-icon small class="mr-2"> mdi-printer </v-icon>
+        </a>
         <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
         <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
       </template>
@@ -376,10 +380,6 @@ export default {
         console.log(error)
         console.log(error.response)
       }
-    },
-
-    goToImpresiones(item) {
-      this.$router.push(`/impresionProforma/${item.id}`)
     },
 
     adjuntarFactura(item) {
