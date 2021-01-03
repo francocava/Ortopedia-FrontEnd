@@ -159,7 +159,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .black--text {
   color: #000 !important;
 }
