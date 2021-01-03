@@ -147,7 +147,7 @@ export default {
   async fetch() {
     try {
       this.pedido = await this.$http.$get(
-        `pedido/${this.$route.params.impresion}`
+        `pedido/${this.$route.params.pedido}`
       )
 
       this.productos = await this.$http.$get('producto')
