@@ -216,6 +216,8 @@
         </v-card>
       </template>
 
+      <template v-slot:item.cliente.apellido="{ item }"> {{item.cliente.nombre}} {{ item.cliente.apellido }} </template>
+
       <template v-slot:item.importe="{ item }"> ${{ item.importe }} </template>
 
       <template v-slot:item.created_at="{ item }">

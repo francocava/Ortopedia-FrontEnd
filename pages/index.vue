@@ -235,6 +235,8 @@
 
       <template v-slot:item.importe="{ item }"> ${{ item.importe }} </template>
 
+      <template v-slot:item.cliente.apellido="{ item }"> {{item.cliente.nombre}} {{ item.cliente.apellido }} </template>
+
       <template v-slot:item.actions="{ item }">
         <v-icon small class="mr-2" @click="adjuntarFactura(item)">
           mdi-alpha-f-circle-outline
@@ -323,6 +325,7 @@ export default {
     this.pedidos = await this.$http.$get('pedido?confirmado=1')
     this.sucursales = await this.$http.$get('sucursal')
     this.clientes = await this.$http.$get('cliente')
+    console.log(this.pedidos)
   },
 
   computed: {
