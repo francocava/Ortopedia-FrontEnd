@@ -18,6 +18,8 @@
       show-expand
       :single-expand="true"
       :expanded-sync="itemsExpandidos"
+      :loading="loading"
+
     >
       <template v-slot:top>
         <v-toolbar flat>
@@ -265,6 +267,7 @@
 <script>
 export default {
   data: () => ({
+    loading: true,
     search: '',
     dialog: false,
     dialogDelete: false,
@@ -325,6 +328,8 @@ export default {
     this.pedidos = await this.$http.$get('pedido?confirmado=1')
     this.sucursales = await this.$http.$get('sucursal')
     this.clientes = await this.$http.$get('cliente')
+
+    this.loading=false
     console.log(this.pedidos)
   },
 
