@@ -38,7 +38,7 @@
                       {{ pedido.cliente.apellido }}
                     </div>
                     <div>
-                      <span class="bold--text"> Social:</span> {{ pedido.cliente.obra_social.nombre }}
+                      <span class="bold--text"> Obra Social:</span> {{ pedido.cliente.obra_social.nombre }}
                     </div>
                   </v-card>
                 </v-col>
