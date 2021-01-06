@@ -4,7 +4,7 @@
       <v-row align="center">
         <v-col>
           <v-card class="pa-2" outlined tile align="center">
-            <v-img src="/img/logo.jpg" max-height="111" max-width="309"></v-img>
+            <v-img src="/img/logo.jpg" max-height="150" max-width="309"></v-img>
             <v-card-text class="black--text font--text">
               <div>Av. Rivadavia 8860</div>
               <div>Tel: 4672-9996</div>
@@ -92,7 +92,7 @@
                 </tbody>
               </template>
             </v-simple-table>
-            <v-card align="end" class="d-flex flex-row-reverse font--text total--padding">
+            <v-card flat align="end" class="d-flex flex-row-reverse font--text total--padding">
               <v-card-text class="black--text bold--text bigger--text">
                 Total: ${{ pedido.importe }}
               </v-card-text>
@@ -100,11 +100,11 @@
           </v-card>
         </v-col>
       </v-row>
-      <v-row v-if="pedido.observaciones">
+      <v-row >
         <v-col>
           <v-card outlined class="font--text">
             <v-card-title>Observaciones</v-card-title>
-            <v-card-text>{{ pedido.observaciones }}</v-card-text>
+            <v-card-text>{{ pedido.observaciones ? pedido.observaciones : "-------" }}</v-card-text>
           </v-card>
         </v-col>
       </v-row>

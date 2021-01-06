@@ -19,7 +19,6 @@
       :single-expand="true"
       :expanded-sync="itemsExpandidos"
       :loading="loading"
-
     >
       <template v-slot:top>
         <v-toolbar flat>
@@ -193,11 +192,9 @@
       </template>
 
       <template v-slot:item.cancelado="{ item }">
-        <v-icon>{{
-          item.cancelado
-            ? 'mdi-check-circle-outline'
-            : 'mdi-alpha-x-circle-outline'
-        }}</v-icon>
+        <v-icon v-if="item.cancelado === 0"> mdi-alpha-x-circle-outline</v-icon>
+        <v-icon v-if="item.cancelado === 1"> mdi-minus-circle-outline</v-icon>
+        <v-icon v-if="item.cancelado === 2"> mdi-check-circle-outline</v-icon>
       </template>
 
       <template v-slot:item.data-table-expand="{ item, expand, isExpanded }">
@@ -237,7 +234,9 @@
 
       <template v-slot:item.importe="{ item }"> ${{ item.importe }} </template>
 
-      <template v-slot:item.cliente.apellido="{ item }"> {{item.cliente.nombre}} {{ item.cliente.apellido }} </template>
+      <template v-slot:item.cliente.apellido="{ item }">
+        {{ item.cliente.nombre }} {{ item.cliente.apellido }}
+      </template>
 
       <template v-slot:item.actions="{ item }">
         <v-icon small class="mr-2" @click="adjuntarFactura(item)">
@@ -329,7 +328,7 @@ export default {
     this.sucursales = await this.$http.$get('sucursal')
     this.clientes = await this.$http.$get('cliente')
 
-    this.loading=false
+    this.loading = false
     console.log(this.pedidos)
   },
 
