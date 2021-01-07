@@ -119,7 +119,8 @@ export default {
 
         this.showSnackbar('Cliente agregado con exito', 'success')
       } catch (error) {
-        console.log(error)
+        console.error(error.response ?? error)
+
         this.showSnackbar(`Ocurrió un error: ${error.message}`, 'red')
       }
     },

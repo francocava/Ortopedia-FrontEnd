@@ -123,11 +123,13 @@ export default {
       this.$refs.form.validate()
       try {
         const res = await this.$http.$post('producto', this.form)
-        console.log(res)
+
         this.$refs.form.reset()
+
         this.showSnackbar('Producto agregado con exito', 'success')
       } catch (error) {
-        console.log(error)
+        console.error(error.response ?? error)
+
         this.showSnackbar(`Ocurrió un error: ${error.message}`, 'red')
       }
     },

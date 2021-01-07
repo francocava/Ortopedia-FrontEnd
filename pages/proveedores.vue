@@ -156,8 +156,7 @@ export default {
 
         this.closeDelete()
       } catch (error) {
-        console.log(error)
-        console.log(error.response)
+        console.error(error.response ?? error)
       }
     },
 
@@ -184,7 +183,6 @@ export default {
           `proveedor/${this.editedItem.id}`,
           this.editedItem
         )
-        console.log(res)
 
       if (this.editedIndex > -1) {
         Object.assign(this.proveedores[this.editedIndex], this.editedItem)
@@ -193,7 +191,7 @@ export default {
       }
 
       } catch (error) {
-        console.log(error)
+        console.error(error.response ?? error)
       }
       this.$fetch()
       this.close()

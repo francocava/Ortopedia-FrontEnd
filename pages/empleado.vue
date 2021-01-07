@@ -99,12 +99,12 @@ export default {
 
       try {
         const res = await this.$http.$post('usuario', this.form )
-        console.log(res)
+
         this.$refs.form.reset()
 
         this.showSnackbar('Empleado agregado con exito', 'success')
       } catch (error) {
-        console.log(error)
+        console.error(error.response ?? error)
          this.showSnackbar(`Ocurrió un error: ${error.message}`, 'red')
       }
 

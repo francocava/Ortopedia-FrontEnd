@@ -73,8 +73,12 @@
                 <span class="pr-2">
                   {{ item.nombre }} {{ item.cantidad }}
                 </span>
-                <v-icon small @click="removeProducto(index, item)"> mdi-minus </v-icon>
-                <v-icon small @click="addProducto(index, item)"> mdi-plus </v-icon>
+                <v-icon small @click="removeProducto(index, item)">
+                  mdi-minus
+                </v-icon>
+                <v-icon small @click="addProducto(index, item)">
+                  mdi-plus
+                </v-icon>
               </v-chip>
             </template>
           </v-combobox>
@@ -117,8 +121,12 @@
                 <span class="pr-2">
                   {{ item.nombre }} {{ item.cantidad }}
                 </span>
-                <v-icon small @click="removeAccesorio(index, item)"> mdi-minus </v-icon>
-                <v-icon small @click="addAccesorio(index, item)"> mdi-plus </v-icon>
+                <v-icon small @click="removeAccesorio(index, item)">
+                  mdi-minus
+                </v-icon>
+                <v-icon small @click="addAccesorio(index, item)">
+                  mdi-plus
+                </v-icon>
               </v-chip>
             </template>
           </v-combobox>
@@ -221,11 +229,13 @@ export default {
 
       try {
         const res = await this.$http.$post('pedido', this.form)
-        console.log(res)
+
         this.$refs.form.reset()
+
         this.showSnackbar('Pedido agregado con exito', 'success')
       } catch (error) {
-        console.log(error)
+        console.error(error.response ?? error)
+
         this.showSnackbar(`Ocurrió un error: ${error.message}`, 'red')
       }
     },

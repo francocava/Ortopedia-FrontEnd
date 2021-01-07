@@ -114,7 +114,6 @@ export default {
 
   async fetch() {
     this.formasPago = await this.$http.$get('formaPago')
-    console.log(this.formasPago);
   },
 
   computed: {
@@ -161,8 +160,7 @@ export default {
 
         this.closeDelete()
       } catch (error) {
-        console.log(error)
-        console.log(error.response)
+        console.error(error.response ?? error)
       }
     },
 
@@ -189,7 +187,6 @@ export default {
           `formaPago/${this.editedItem.id}`,
           this.editedItem
         )
-        console.log(res)
 
       if (this.editedIndex > -1) {
         Object.assign(this.formasPago[this.editedIndex], this.editedItem)
@@ -198,7 +195,7 @@ export default {
       }
 
       } catch (error) {
-        console.log(error)
+        console.error(error.response ?? error)
       }
       this.$fetch()
       this.close()

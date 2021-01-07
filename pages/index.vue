@@ -329,7 +329,6 @@ export default {
     this.clientes = await this.$http.$get('cliente')
 
     this.loading = false
-    console.log(this.pedidos)
   },
 
   computed: {
@@ -384,8 +383,7 @@ export default {
 
         this.closeDelete()
       } catch (error) {
-        console.log(error)
-        console.log(error.response)
+        console.error(error.response ?? error)
       }
     },
 
@@ -434,15 +432,10 @@ export default {
     },
 
     async saveFactura() {
-      //this.$refs.form.validate()
-      //console.log(this.form)
-
       try {
         const res = await this.$http.$post('factura', this.editedItem)
-        console.log(res)
-        //this.$refs.form.reset()
       } catch (error) {
-        console.log(error)
+        console.error(error.response ?? error)
       }
 
       this.closeAdjuntar()
@@ -450,11 +443,9 @@ export default {
 
     agregarItems() {
       this.dialogAgregarAccesorio = true // hay que hacer este dialog
-      console.log('item', this.editedItem)
     },
 
     async getItems(item) {
-      // this.editedIndex = this.pedidos.indexOf(item)
       this.editedItem = Object.assign({}, item)
 
       const pedidoConItems = await this.$http.$get(
@@ -465,7 +456,6 @@ export default {
       this.itemsExpandidos = pedidoConItems.items
 
       this.editedItem.items = this.itemsExpandidos
-      console.info(this.editedItem)
     },
 
     async save() {
@@ -481,8 +471,9 @@ export default {
           this.pedidos.push(this.editedItem)
         }
       } catch (error) {
-        console.log(error)
+        console.error(error.response ?? error)
       }
+
       this.$fetch()
       this.close()
     },

@@ -215,8 +215,7 @@ export default {
 
         this.closeDelete()
       } catch (error) {
-        console.log(error)
-        console.log(error.response)
+        console.error(error.response ?? error)
       }
     },
 
@@ -242,7 +241,6 @@ export default {
           `pago/${this.editedItem.id}`,
           this.editedItem
         )
-        console.log(res)
 
         if (this.editedIndex > -1) {
           Object.assign(this.pagos[this.editedIndex], this.editedItem)
@@ -250,7 +248,7 @@ export default {
           this.facturas.pagos(this.editedItem)
         }
       } catch (error) {
-        console.log(error)
+        console.error(error.response ?? error)
       }
       this.$fetch()
       this.close()

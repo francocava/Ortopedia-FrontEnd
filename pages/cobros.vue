@@ -194,8 +194,7 @@ export default {
 
         this.closeDelete()
       } catch (error) {
-        console.log(error)
-        console.log(error.response)
+        console.error(error.response ?? error)
       }
     },
 
@@ -221,7 +220,6 @@ export default {
           `cobro/${this.editedItem.id}`,
           this.editedItem
         )
-        console.log(res)
 
         if (this.editedIndex > -1) {
           Object.assign(this.cobros[this.editedIndex], this.editedItem)
@@ -231,7 +229,7 @@ export default {
         this.$fetch()
         this.close()
       } catch (error) {
-        console.log(error)
+        console.error(error.response ?? error)
       }
     },
   },

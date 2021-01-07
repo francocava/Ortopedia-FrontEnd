@@ -188,8 +188,7 @@ export default {
 
         this.closeDelete()
       } catch (error) {
-        console.log(error)
-        console.log(error.response)
+        console.error(error.response ?? error)
       }
     },
 
@@ -215,7 +214,6 @@ export default {
           `usuario/${this.editedItem.id}`,
           this.editedItem
         )
-        console.log(res)
 
         if (this.editedIndex > -1) {
           Object.assign(this.empleados[this.editedIndex], this.editedItem)
@@ -223,7 +221,7 @@ export default {
           this.empleados.push(this.editedItem)
         }
       } catch (error) {
-        console.log(error)
+        console.error(error.response ?? error)
       }
       this.$fetch()
       this.close()

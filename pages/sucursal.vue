@@ -40,17 +40,16 @@ export default {
   methods: {
     async validate() {
       if (!this.$refs.form.validate()) {
-        return 
+        return
       }
 
       try {
         const res = await this.$http.$post('sucursal', this.form )
-        console.log(res)
+
         this.$refs.form.reset()
       } catch (error) {
-        console.log(error)
+        console.error(error.response ?? error)
       }
-      
     },
   },
 }

@@ -53,12 +53,17 @@ export default {
 
       try {
         const res = await this.$http.$post('proveedor', this.form)
-        console.log(res)
+
         this.$refs.form.reset()
+
         this.showSnackbar('Forma de pago agregada con exito', 'success')
       } catch (error) {
-        console.log(error)
-        this.showSnackbar(`Ocurrió un error: ${error.response.message ?? error.message}`, 'red')
+        console.error(error.response ?? error)
+
+        this.showSnackbar(
+          `Ocurrió un error: ${error.response.message ?? error.message}`,
+          'red'
+        )
       }
     },
     showSnackbar(message, color) {

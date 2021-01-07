@@ -120,15 +120,16 @@ export default {
   methods: {
     async validate() {
       this.$refs.form.validate()
-      console.log(this.form)
 
       try {
         const res = await this.$http.$post('accesorio', this.form)
-        console.log(res)
+
         this.$refs.form.reset()
+
         this.showSnackbar('Accesorio agregado con exito', 'success')
       } catch (error) {
-        console.log(error)
+        console.error(error.response ?? error)
+
         this.showSnackbar(`Ocurrió un error: ${error.message}`, 'red')
       }
     },

@@ -356,17 +356,11 @@ export default {
     },
 
     deleteItemAccesorio(accesorio) {
-      //console.info(item)
-      /* this.editedIndex = this.productos.indexOf(item)
-      this.editedItem = Object.assign({}, item) */
-      //this.editItem =
-
-      console.log(this.editedItem)
       const deleteIndex = this.editedItem.accesorios.findIndex(
         (element) => (element.id = accesorio.id)
       )
+
       this.editedItem.accesorios.splice(deleteIndex, 1)
-      console.log(this.editedItem)
 
       this.dialogDeleteAccesorio = true
     },
@@ -379,15 +373,9 @@ export default {
 
     agregarAccesorio() {
       this.dialogAgregarAccesorio = true
-      console.log('item', this.editedItem)
     },
 
     async agregarItemConfirmAccesorio() {
-      //console.log('item',this.productosParaAgregar)
-      console.log('item', this.editedItem)
-
-      //this.editedItem.productos
-
       try {
         const res = await this.$http.$put(
           `producto/${this.editedItem.id}`,
@@ -396,7 +384,7 @@ export default {
 
         this.closeAgregarAccesorio()
       } catch (error) {
-        console.log(error)
+        console.error(error.response ?? error)
       }
     },
     async deleteItemConfirm() {
@@ -407,13 +395,11 @@ export default {
 
         this.closeDelete()
       } catch (error) {
-        console.log(error)
-        console.log(error.response)
+        console.error(error.response ?? error)
       }
     },
 
     async deleteItemConfirmAccesorio() {
-      console.info('item', this.editedItem)
       try {
         const res = await this.$http.$put(
           `producto/${this.editedItem.id}`,
@@ -422,12 +408,13 @@ export default {
 
         this.closeDeleteAccesorio()
       } catch (error) {
-        console.log(error)
+        console.error(error.response ?? error)
       }
     },
 
     close() {
       this.dialog = false
+
       this.$nextTick(() => {
         this.editedItem = Object.assign({}, this.defaultItem)
         this.editedIndex = -1
@@ -436,6 +423,7 @@ export default {
 
     closeDelete() {
       this.dialogDelete = false
+
       this.$nextTick(() => {
         this.editedItem = Object.assign({}, this.defaultItem)
         this.editedIndex = -1
@@ -452,6 +440,7 @@ export default {
 
     closeDescripciones() {
       this.dialogDescripciones = false
+
       this.$nextTick(() => {
         this.editedItem = Object.assign({}, this.defaultItem)
         this.editedIndex = -1
@@ -470,7 +459,6 @@ export default {
       this.accesoriosExpandidos = productoConAccesorios.accesorios
 
       this.editedItem.accesorios = this.accesoriosExpandidos
-      console.info(this.editedItem)
     },
 
     async save() {
@@ -479,17 +467,17 @@ export default {
           `producto/${this.editedItem.id}`,
           this.editedItem
         )
-        console.log(res)
 
         if (this.editedIndex > -1) {
           Object.assign(this.productos[this.editedIndex], this.editedItem)
         } else {
           this.productos.push(this.editedItem)
         }
+
         this.$fetch()
         this.close()
       } catch (error) {
-        console.log(error)
+        console.error(error.response ?? error)
       }
     },
   },

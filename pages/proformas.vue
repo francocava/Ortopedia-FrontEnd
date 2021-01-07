@@ -398,8 +398,7 @@ export default {
 
         this.closeDelete()
       } catch (error) {
-        console.log(error)
-        console.log(error.response)
+        console.error(error.response ?? error)
       }
     },
 
@@ -437,7 +436,7 @@ export default {
 
     async saveConfirmar() {
       this.editedItem.confirmado = true
-      console.log(this.editedItem)
+
       try {
         const res = await this.$http.$put(
           `pedido/${this.editedItem.id}`,
@@ -448,8 +447,7 @@ export default {
 
         this.closeConfirmar()
       } catch (error) {
-        console.log(error)
-        console.log(error.response)
+        console.error(error.response ?? error)
       }
     },
 
@@ -470,7 +468,6 @@ export default {
       this.itemsExpandidos = pedidoConItems.items
 
       this.editedItem.items = this.itemsExpandidos
-      console.info(this.editedItem)
     },
 
     async save() {
@@ -486,7 +483,7 @@ export default {
           this.pedidos.push(this.editedItem)
         }
       } catch (error) {
-        console.log(error)
+        console.error(error.response ?? error)
       }
       this.$fetch()
       this.close()
