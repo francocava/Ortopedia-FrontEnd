@@ -194,7 +194,7 @@
 
       <template v-slot:expanded-item="{ headers }">
         <v-card>
-          <v-list nav dense outlined>
+          <v-list nav dense outlined flat disabled>
             <v-list-item-group color="primary">
               <v-list-item v-for="(itemPedido, i) in itemsExpandidos" :key="i">
                 <v-list-item-content>
@@ -217,7 +217,9 @@
         </v-card>
       </template>
 
-      <template v-slot:item.cliente.apellido="{ item }"> {{item.cliente.nombre}} {{ item.cliente.apellido }} </template>
+      <template v-slot:item.cliente.apellido="{ item }">
+        {{ item.cliente.nombre }} {{ item.cliente.apellido }}
+      </template>
 
       <template v-slot:item.importe="{ item }"> ${{ item.importe }} </template>
 
@@ -232,21 +234,41 @@
       </template>
 
       <template v-slot:item.actions="{ item }">
-        <v-icon small class="mr-2" @click="confirmarProforma(item)">
-          mdi-check-outline
-        </v-icon>
-        <v-icon small class="mr-2" @click="goToItems(item)">
-          mdi-clipboard-edit-outline
-        </v-icon>
-        <a
-          :href="`/impresionProforma/${item.id}`"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <v-icon small class="mr-2"> mdi-printer </v-icon>
-        </a>
-        <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
-        <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
+        <v-menu offset-y>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn v-bind="attrs" v-on="on" icon>
+              <v-icon>mdi-dots-vertical</v-icon>
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item @click="confirmarProforma(item)">
+              <v-icon small class="mr-2"> mdi-check-outline </v-icon>
+              <v-list-item-title> Confirmar</v-list-item-title>
+            </v-list-item>
+            <v-list-item @click="goToItems(item)">
+              <v-icon small class="mr-2"> mdi-clipboard-edit-outline </v-icon>
+              <v-list-item-title> Items</v-list-item-title>
+            </v-list-item>
+            <v-list-item @click="editItem(item)">
+              <v-icon small class="mr-2"> mdi-pencil </v-icon>
+              <v-list-item-title> Editar</v-list-item-title>
+            </v-list-item>
+            <v-list-item @click="deleteItem(item)">
+              <v-icon small class="mr-2"> mdi-delete </v-icon>
+              <v-list-item-title> Eliminar</v-list-item-title>
+            </v-list-item>
+            <v-list-item>
+              <a
+                :href="`/impresionProforma/${item.id}`"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <v-icon small class="mr-2"> mdi-printer </v-icon>
+              </a>
+              <v-list-item-title> Imprimir</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
       </template>
 
       <template v-slot:no-data>
