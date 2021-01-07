@@ -200,6 +200,7 @@ export default {
 
     close() {
       this.dialog = false
+
       this.$nextTick(() => {
         this.editedItem = Object.assign({}, this.defaultItem)
         this.editedIndex = -1
@@ -208,6 +209,7 @@ export default {
 
     closeDelete() {
       this.dialogDelete = false
+
       this.$nextTick(() => {
         this.editedItem = Object.assign({}, this.defaultItem)
         this.editedIndex = -1
@@ -226,6 +228,7 @@ export default {
         } else {
           this.cobros.push(this.editedItem)
         }
+
         this.$fetch()
         this.close()
       } catch (error) {

@@ -23,7 +23,14 @@
           <v-spacer></v-spacer>
           <v-dialog v-model="dialog" max-width="500px">
             <template v-slot:activator="{ on, attrs }">
-              <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on" to='/obraSocial'>
+              <v-btn
+                color="primary"
+                dark
+                class="mb-2"
+                v-bind="attrs"
+                v-on="on"
+                to="/obraSocial"
+              >
                 Nueva
               </v-btn>
             </template>
@@ -109,8 +116,6 @@ export default {
     },
 
     obras: [],
-
-
   }),
 
   async fetch() {
@@ -163,6 +168,7 @@ export default {
 
     close() {
       this.dialog = false
+
       this.$nextTick(() => {
         this.editedItem = Object.assign({}, this.defaultItem)
         this.editedIndex = -1
@@ -171,6 +177,7 @@ export default {
 
     closeDelete() {
       this.dialogDelete = false
+
       this.$nextTick(() => {
         this.editedItem = Object.assign({}, this.defaultItem)
         this.editedIndex = -1
@@ -178,22 +185,21 @@ export default {
     },
 
     async save() {
-
       try {
         const res = await this.$http.$put(
           `obraSocial/${this.editedItem.id}`,
           this.editedItem
         )
 
-      if (this.editedIndex > -1) {
-        Object.assign(this.obras[this.editedIndex], this.editedItem)
-      } else {
-        this.obras.push(this.editedItem)
-      }
-
+        if (this.editedIndex > -1) {
+          Object.assign(this.obras[this.editedIndex], this.editedItem)
+        } else {
+          this.obras.push(this.editedItem)
+        }
       } catch (error) {
         console.error(error.response ?? error)
       }
+
       this.$fetch()
       this.close()
     },

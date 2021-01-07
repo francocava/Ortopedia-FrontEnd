@@ -23,11 +23,7 @@
       <v-divider></v-divider>
     </v-card>
 
-    <v-card>
-      
-    </v-card>
-
-
+    <v-card> </v-card>
   </div>
 </template>
 

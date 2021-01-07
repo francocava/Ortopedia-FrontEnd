@@ -23,7 +23,14 @@
           <v-spacer></v-spacer>
           <v-dialog v-model="dialog" max-width="500px">
             <template v-slot:activator="{ on, attrs }">
-              <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on" to='/formaPago'>
+              <v-btn
+                color="primary"
+                dark
+                class="mb-2"
+                v-bind="attrs"
+                v-on="on"
+                to="/formaPago"
+              >
                 Nueva
               </v-btn>
             </template>
@@ -100,7 +107,7 @@ export default {
       },
       { text: 'Opciones', value: 'actions', sortable: false },
     ],
-    
+
     editedIndex: -1,
     editedItem: {
       tipo: '',
@@ -166,6 +173,7 @@ export default {
 
     close() {
       this.dialog = false
+
       this.$nextTick(() => {
         this.editedItem = Object.assign({}, this.defaultItem)
         this.editedIndex = -1
@@ -174,6 +182,7 @@ export default {
 
     closeDelete() {
       this.dialogDelete = false
+
       this.$nextTick(() => {
         this.editedItem = Object.assign({}, this.defaultItem)
         this.editedIndex = -1
@@ -181,19 +190,17 @@ export default {
     },
 
     async save() {
-
       try {
         const res = await this.$http.$put(
           `formaPago/${this.editedItem.id}`,
           this.editedItem
         )
 
-      if (this.editedIndex > -1) {
-        Object.assign(this.formasPago[this.editedIndex], this.editedItem)
-      } else {
-        this.formasPago.push(this.editedItem)
-      }
-
+        if (this.editedIndex > -1) {
+          Object.assign(this.formasPago[this.editedIndex], this.editedItem)
+        } else {
+          this.formasPago.push(this.editedItem)
+        }
       } catch (error) {
         console.error(error.response ?? error)
       }
