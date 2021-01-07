@@ -126,6 +126,14 @@
         ${{ item.precio_item }}
       </template>
 
+      <template v-slot:item.producto.nombre="{ item }">
+        {{ item.producto ? item.producto.nombre : " - " }}
+      </template>
+
+      <template v-slot:item.accesorio.nombre="{ item }">
+        {{ item.accesorio ? item.accesorio.nombre : " - " }}
+      </template>
+
       <template v-slot:item.precio_final="{ item }">
         ${{ item.precio_final }}
       </template>
