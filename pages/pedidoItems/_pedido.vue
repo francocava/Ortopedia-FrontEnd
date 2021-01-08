@@ -15,6 +15,7 @@
       :search="search"
       sort-by=""
       class="elevation-1"
+      :loading="loading"
     >
       <template v-slot:top>
         <v-toolbar flat>
@@ -54,6 +55,8 @@
                         :items="productos"
                         item-value="id"
                         item-text="nombre"
+                        :disabled="!editedItem.producto_id"
+
                       ></v-select>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
@@ -63,6 +66,7 @@
                         item-value="id"
                         item-text="nombre"
                         label="Accesorio"
+                        :disabled="!editedItem.accesorio_id"
                       ></v-select>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
@@ -155,6 +159,7 @@ export default {
     search: '',
     dialog: false,
     dialogDelete: false,
+    loading: true,
     headers: [
       {
         text: 'Numero Cotizacion',
@@ -219,7 +224,7 @@ export default {
     } else {
       this.items = await this.$http.$get('pedidoItem')
     }
-
+    this.loading = false
     this.productos = await this.$http.$get('producto')
     this.accesorios = await this.$http.$get('accesorio')
   },
