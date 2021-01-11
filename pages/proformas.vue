@@ -258,13 +258,10 @@
               <v-list-item-title> Eliminar</v-list-item-title>
             </v-list-item>
             <v-list-item>
-              <a
-                :href="`/impresionProforma/${item.id}`"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <nuxt-link :to="{name: 'impresionProforma-pedido', params: { pedido:item.id } }">
                 <v-icon small class="mr-2"> mdi-printer </v-icon>
-              </a>
+              </nuxt-link>
+
               <v-list-item-title> Imprimir</v-list-item-title>
             </v-list-item>
           </v-list>
