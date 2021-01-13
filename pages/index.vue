@@ -198,7 +198,7 @@
       </template>
 
       <template v-slot:item.nro_recibo_proveedor ="{ item }">
-        {{ item.nro_recibo_proveedor ? item.nro_recibo_proveedor : " - " }}
+        {{ item.nro_recibo_proveedor ? item.nro_recibo_proveedor : "-" }}
       </template>
 
       <template v-slot:item.data-table-expand="{ item, expand, isExpanded }">

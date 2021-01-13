@@ -250,7 +250,7 @@
         </v-card>
       </template>
 
-      <template v-slot:item.precio="{ item }"> {{ item.precio ? "$"+ item.precio : " - " }} </template>
+      <template v-slot:item.precio="{ item }"> {{ item.precio ? "$" + item.precio : "-" }} </template>
 
       <template v-slot:item.nro_articulo ="{ item }">
         {{item.nro_articulo ? item.nro_articulo : " - "}}

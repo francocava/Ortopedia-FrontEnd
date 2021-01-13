@@ -132,7 +132,7 @@
       </template>
 
       <template v-slot:item.contacto ="{ item }">
-        {{item.contacto ? item.contacto : " - "}}
+        {{item.contacto ? item.contacto : "-"}}
       </template>
     </v-data-table>
   </v-card>

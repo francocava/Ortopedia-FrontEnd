@@ -222,7 +222,7 @@
       </template>
 
       <template v-slot:item.nro_recibo_proveedor ="{ item }">
-        {{ item.nro_recibo_proveedor ? item.nro_recibo_proveedor : " - " }}
+        {{ item.nro_recibo_proveedor ? item.nro_recibo_proveedor : "-" }}
       </template>
 
       <template v-slot:item.importe="{ item }"> ${{ item.importe }} </template>

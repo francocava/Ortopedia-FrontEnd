@@ -120,7 +120,7 @@
       <template v-slot:item.monto="{ item }"> ${{ item.monto }} </template>
 
       <template v-slot:item.nro_confirmacion ="{ item }">
-        {{item.nro_confirmacion ? item.nro_confirmacion : " - "}}
+        {{item.nro_confirmacion ? item.nro_confirmacion : "-"}}
       </template>
 
       <template v-slot:item.actions="{ item }">
