@@ -191,10 +191,14 @@
         </v-icon>
       </template>
 
-      <template v-slot:item.cancelado="{ item }">
+      <template v-slot:item.cancelado ="{ item }">
         <v-icon v-if="item.cancelado === 0"> mdi-alpha-x-circle-outline</v-icon>
         <v-icon v-if="item.cancelado === 1"> mdi-minus-circle-outline</v-icon>
         <v-icon v-if="item.cancelado === 2"> mdi-check-circle-outline</v-icon>
+      </template>
+
+      <template v-slot:item.nro_recibo_proveedor ="{ item }">
+        {{ item.nro_recibo_proveedor ? item.nro_recibo_proveedor : " - " }}
       </template>
 
       <template v-slot:item.data-table-expand="{ item, expand, isExpanded }">

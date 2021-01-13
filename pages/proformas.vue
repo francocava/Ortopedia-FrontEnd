@@ -221,6 +221,10 @@
         {{ item.cliente.nombre }} {{ item.cliente.apellido }}
       </template>
 
+      <template v-slot:item.nro_recibo_proveedor ="{ item }">
+        {{ item.nro_recibo_proveedor ? item.nro_recibo_proveedor : " - " }}
+      </template>
+
       <template v-slot:item.importe="{ item }"> ${{ item.importe }} </template>
 
       <template v-slot:item.created_at="{ item }">
