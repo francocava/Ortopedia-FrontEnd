@@ -100,7 +100,7 @@
           <v-dialog v-model="dialogDelete" max-width="500px">
             <v-card>
               <v-card-title class="headline"
-                >Estas seguro que queres eliminar el item?</v-card-title
+                >Estás seguro que queres eliminar el pago?</v-card-title
               >
               <v-card-actions>
                 <v-spacer></v-spacer>
