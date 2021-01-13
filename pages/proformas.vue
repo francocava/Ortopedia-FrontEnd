@@ -221,6 +221,10 @@
         {{ item.cliente.nombre }} {{ item.cliente.apellido }}
       </template>
 
+      <template v-slot:item.nro_recibo_proveedor ="{ item }">
+        {{ item.nro_recibo_proveedor ? item.nro_recibo_proveedor : "-" }}
+      </template>
+
       <template v-slot:item.importe="{ item }"> ${{ item.importe }} </template>
 
       <template v-slot:item.created_at="{ item }">
@@ -258,13 +262,10 @@
               <v-list-item-title> Eliminar</v-list-item-title>
             </v-list-item>
             <v-list-item>
-              <a
-                :href="`/impresionProforma/${item.id}`"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <nuxt-link :to="{name: 'impresionProforma-pedido', params: { pedido:item.id } }">
                 <v-icon small class="mr-2"> mdi-printer </v-icon>
-              </a>
+              </nuxt-link>
+
               <v-list-item-title> Imprimir</v-list-item-title>
             </v-list-item>
           </v-list>

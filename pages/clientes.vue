@@ -130,6 +130,10 @@
       <template v-slot:no-data>
         <v-btn color="primary" @click="initialize"> Reset </v-btn>
       </template>
+
+      <template v-slot:item.contacto ="{ item }">
+        {{item.contacto ? item.contacto : "-"}}
+      </template>
     </v-data-table>
   </v-card>
 </template>

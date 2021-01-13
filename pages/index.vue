@@ -191,10 +191,14 @@
         </v-icon>
       </template>
 
-      <template v-slot:item.cancelado="{ item }">
+      <template v-slot:item.cancelado ="{ item }">
         <v-icon v-if="item.cancelado === 0"> mdi-alpha-x-circle-outline</v-icon>
         <v-icon v-if="item.cancelado === 1"> mdi-minus-circle-outline</v-icon>
         <v-icon v-if="item.cancelado === 2"> mdi-check-circle-outline</v-icon>
+      </template>
+
+      <template v-slot:item.nro_recibo_proveedor ="{ item }">
+        {{ item.nro_recibo_proveedor ? item.nro_recibo_proveedor : "-" }}
       </template>
 
       <template v-slot:item.data-table-expand="{ item, expand, isExpanded }">
@@ -246,12 +250,10 @@
             </v-btn>
           </template>
           <v-list>
-          <v-list-item @click="adjuntarFactura(item)">
-            <v-icon small class="mr-2">
-          mdi-alpha-f-circle-outline
-        </v-icon>
-            <v-list-item-title> Adjuntar Factura</v-list-item-title>
-          </v-list-item>
+            <v-list-item @click="adjuntarFactura(item)">
+              <v-icon small class="mr-2"> mdi-alpha-f-circle-outline </v-icon>
+              <v-list-item-title> Adjuntar Factura</v-list-item-title>
+            </v-list-item>
             <v-list-item @click="goToItems(item)">
               <v-icon small class="mr-2"> mdi-clipboard-edit-outline </v-icon>
               <v-list-item-title> Items</v-list-item-title>
@@ -265,13 +267,10 @@
               <v-list-item-title> Eliminar</v-list-item-title>
             </v-list-item>
             <v-list-item>
-              <a
-                :href="`/impresionProforma/${item.id}`"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <nuxt-link :to="{name: 'impresionProforma-pedido', params: { pedido:item.id } }">
                 <v-icon small class="mr-2"> mdi-printer </v-icon>
-              </a>
+              </nuxt-link>
+
               <v-list-item-title> Imprimir</v-list-item-title>
             </v-list-item>
           </v-list>

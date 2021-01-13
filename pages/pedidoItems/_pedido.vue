@@ -127,7 +127,7 @@
       </template>
 
       <template v-slot:item.precio_item="{ item }">
-        ${{ item.precio_item }}
+        {{ item.precio_item ?  "$" + item.precio_item : " - "  }}
       </template>
 
       <template v-slot:item.producto.nombre="{ item }">
@@ -139,11 +139,11 @@
       </template>
 
       <template v-slot:item.precio_final="{ item }">
-        ${{ item.precio_final }}
+        {{ item.precio_final ?  "$" + item.precio_final : " - " }}
       </template>
 
       <template v-slot:item.porcentaje_os="{ item }">
-        {{ item.porcentaje_os }}%
+        {{ item.porcentaje_os ? item.porcentaje_os + "%" : " - " }}
       </template>
 
       <template v-slot:no-data>
