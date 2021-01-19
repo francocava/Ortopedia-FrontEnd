@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-container class="mx-auto my-12" v-if="pedido">
-      <v-row align="center">
+      <v-row align="center" class="col">
         <v-col>
           <v-card class="pa-2" outlined tile align="center">
             <v-img src="/img/logo.jpg" max-height="150" max-width="309"></v-img>
@@ -26,7 +26,7 @@
           </v-card>
         </v-col>
       </v-row>
-      <v-row>
+      <v-row  class="col">
         <v-col>
           <v-card outlined align="center">
             <v-card-text class="black--text font--text">
@@ -34,18 +34,18 @@
                 <v-col>
                   <v-card flat>
                     <div>
-                      <span class="bold--text">Cliente:</span> {{ pedido.cliente.nombre }}
+                      <span class="bold--text especial--padding">Cliente:</span> {{ pedido.cliente.nombre }}
                       {{ pedido.cliente.apellido }}
                     </div>
                     <div>
-                      <span class="bold--text"> Obra Social:</span> {{ pedido.cliente.obra_social.nombre }}
+                      <span class="bold--text especial--padding"> Obra Social:</span> {{ pedido.cliente.obra_social.nombre }}
                     </div>
                   </v-card>
                 </v-col>
                 <v-col>
                   <v-card flat>
-                    <div><span class="bold--text"> Afiliado:</span> {{ pedido.cliente.nro_afiliado }}</div>
-                    <div><span class="bold--text"> Teléfono:</span> {{ pedido.cliente.telefono }}</div>
+                    <div><span class="bold--text especial--padding"> Afiliado:</span> {{ pedido.cliente.nro_afiliado }}</div>
+                    <div><span class="bold--text especial--padding"> Teléfono:</span> {{ pedido.cliente.telefono }}</div>
                   </v-card>
                 </v-col>
               </v-row>
@@ -53,7 +53,7 @@
           </v-card>
         </v-col>
       </v-row>
-      <v-row>
+      <v-row  class="col">
         <v-col>
           <v-card outlined>
             <v-simple-table fixed-header>
@@ -100,7 +100,7 @@
           </v-card>
         </v-col>
       </v-row>
-      <v-row >
+      <v-row  class="col">
         <v-col>
           <v-card outlined class="font--text">
             <v-card-title>Observaciones</v-card-title>
@@ -108,7 +108,7 @@
           </v-card>
         </v-col>
       </v-row>
-      <v-row>
+      <v-row  class="col">
         <v-col>
           <v-card outlined class="font--text">
             <v-card-title>Condiciones Comerciales</v-card-title>
@@ -119,7 +119,7 @@
           </v-card>
         </v-col>
       </v-row>
-      <v-row>
+      <v-row  class="col">
         <v-col>
           <v-card flat align="center">
             <v-card-text class="black--text font--text"
@@ -192,7 +192,7 @@ export default {
   padding-right: 10px;
 }
 .col {
-  padding: 3px;
+  padding: 4px;
 }
 .v-sheet--outlined {
   border: solid rgba(0, 0, 0, 0.7) !important;
