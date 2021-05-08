@@ -15,13 +15,13 @@
         <v-col>
           <v-card class="pa-2 h-100" outlined tile align="center">
             <v-card-text class="black--text font--text top--margin">
-              <div class="especial--padding">
+              <div class="bold--text especial--padding">
                 Nro Cotización: {{ pedido.id }}
               </div>
-              <div class="especial--padding">
+              <div class="bold--text especial--padding">
                 Fecha: {{ pedido.fecha_ingreso_autorizacion }}
               </div>
-              <div class="especial--padding">CUIT Nro: 20-13515459-9</div>
+              <div class="bold--text especial--padding">CUIT Nro: 20-13515459-9</div>
             </v-card-text>
           </v-card>
         </v-col>
@@ -109,7 +109,7 @@
         </v-col>
       </v-row>
       <v-row  class="col">
-        <v-col>
+        <!-- <v-col>
           <v-card outlined class="font--text">
             <v-card-title>Condiciones Comerciales</v-card-title>
             <v-card-text>
@@ -117,7 +117,7 @@
               <div>- Plazo de entrega: 30 días</div>
             </v-card-text>
           </v-card>
-        </v-col>
+        </v-col> -->
       </v-row>
       <v-row  class="col">
         <v-col>
