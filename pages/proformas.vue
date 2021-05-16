@@ -83,6 +83,12 @@
                         label="Nro Recibo"
                       ></v-text-field>
                     </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-textarea
+                        v-model="editedItem.observaciones"
+                        label="Observaciones"
+                      ></v-textarea>
+                    </v-col>
                   </v-row>
                 </v-container>
               </v-card-text>
