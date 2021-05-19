@@ -191,14 +191,35 @@
         </v-icon>
       </template>
 
-      <template v-slot:item.cancelado ="{ item }">
-        <v-icon v-if="item.cancelado === 0"> mdi-alpha-x-circle-outline</v-icon>
-        <v-icon v-if="item.cancelado === 1"> mdi-minus-circle-outline</v-icon>
-        <v-icon v-if="item.cancelado === 2"> mdi-check-circle-outline</v-icon>
+      <template v-slot:item.cancelado="{ item }">
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on, attrs }">
+            <v-icon v-if="item.cancelado === 0" v-bind="attrs" v-on="on">
+              mdi-alpha-x-circle-outline</v-icon
+            >
+          </template>
+          <span>Sin pago</span>
+        </v-tooltip>
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on, attrs }">
+            <v-icon v-if="item.cancelado === 1" v-bind="attrs" v-on="on">
+              mdi-minus-circle-outline</v-icon
+            >
+          </template>
+          <span>Pago parcial</span>
+        </v-tooltip>
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on, attrs }">
+            <v-icon v-if="item.cancelado === 2" v-bind="attrs" v-on="on">
+              mdi-check-circle-outline</v-icon
+            >
+          </template>
+          <span>Pago completo</span>
+        </v-tooltip>
       </template>
 
-      <template v-slot:item.nro_recibo_proveedor ="{ item }">
-        {{ item.nro_recibo_proveedor ? item.nro_recibo_proveedor : "-" }}
+      <template v-slot:item.nro_recibo_proveedor="{ item }">
+        {{ item.nro_recibo_proveedor ? item.nro_recibo_proveedor : '-' }}
       </template>
 
       <template v-slot:item.data-table-expand="{ item, expand, isExpanded }">
@@ -267,7 +288,12 @@
               <v-list-item-title> Eliminar</v-list-item-title>
             </v-list-item>
             <v-list-item>
-              <nuxt-link :to="{name: 'impresionProforma-pedido', params: { pedido:item.id } }">
+              <nuxt-link
+                :to="{
+                  name: 'impresionProforma-pedido',
+                  params: { pedido: item.id },
+                }"
+              >
                 <v-icon small class="mr-2"> mdi-printer </v-icon>
               </nuxt-link>
 
