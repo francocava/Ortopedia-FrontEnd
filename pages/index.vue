@@ -19,6 +19,7 @@
       :single-expand="true"
       :expanded-sync="itemsExpandidos"
       :loading="loading"
+      loading-text="Cargando..."
     >
       <template v-slot:top>
         <v-toolbar flat>
