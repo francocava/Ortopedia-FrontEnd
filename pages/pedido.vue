@@ -13,7 +13,7 @@
             v-model="form.cliente"
             :items="clientes"
             item-value="id"
-            item-text="apellido"
+            :item-text="cliente => cliente.nombre +' '+ cliente.apellido"
             label="Cliente"
             :search-input.sync="searchCliente"
             :rules="[(v) => !!v || 'Elija un Cliente']"
