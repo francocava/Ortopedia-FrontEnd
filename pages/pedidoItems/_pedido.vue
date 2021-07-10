@@ -178,7 +178,7 @@ export default {
         sortable: true,
       },
       { text: 'Cantidad', value: 'cantidad' },
-      { text: 'Precio', value: 'precio_item', filterable: false },
+      { text: 'Precio Unitario', value: 'precio_item', filterable: false },
       {
         text: 'Porcentaje Cobertura',
         value: 'porcentaje_os',
