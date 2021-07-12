@@ -108,8 +108,8 @@
           </v-card>
         </v-col>
       </v-row>
-      <v-row  class="col">
-        <!-- <v-col>
+      <!-- <v-row  class="col">
+        <v-col>
           <v-card outlined class="font--text">
             <v-card-title>Condiciones Comerciales</v-card-title>
             <v-card-text>
@@ -117,8 +117,8 @@
               <div>- Plazo de entrega: 30 días</div>
             </v-card-text>
           </v-card>
-        </v-col> -->
-      </v-row>
+        </v-col>
+      </v-row> -->
       <!-- <v-row  class="col">
         <v-col>
           <v-card flat align="center">
@@ -204,11 +204,4 @@ th {
   font-size: 1rem !important;
   text-align: left !important;
 }
-
-/* @media print {
-  *{
-    -webkit-transition: none !important;
-    transition: none !important;
-  }
-} */
 </style>
