@@ -113,7 +113,7 @@ export default {
     ],
     proveedorRules: [
       (v) => !!v || 'Falta el nombre del proveedor',
-      (v) => (v && v.length <= 30) || 'Nombre muy largo',
+      (v) => (v && v.length <= 30) || 'Muy largo',
     ],
   }),
 
