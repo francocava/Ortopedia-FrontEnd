@@ -3,6 +3,7 @@ export default function ({ $http }) {
   $http.setToken(token, 'Bearer')
   $http.setBaseURL('http://localhost:8000/api/')
   // $http.setBaseURL('https://api.opticaortopediafloresta.com.ar/api/')
+  $http.setHeader('X-Requested-With', 'XMLHttpRequest')
 
   $http.onRequest((config) => {
     console.log('Making request to ' + config.url)
