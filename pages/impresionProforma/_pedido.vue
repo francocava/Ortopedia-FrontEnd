@@ -119,7 +119,7 @@
           </v-card>
         </v-col>
       </v-row> -->
-      <!-- <v-row  class="col">
+      <v-row  class="col">
         <v-col>
           <v-card flat align="center">
             <v-card-text class="black--text font--text"
@@ -131,7 +131,7 @@
             </v-card-text>
           </v-card>
         </v-col>
-      </v-row> -->
+      </v-row>
     </v-container>
   </div>
 </template>
