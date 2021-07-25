@@ -126,7 +126,7 @@
               ><span class="bold--text">IMPORTANTE: </span
               ><span class="italic--text">
                 Ante una repentina devaluación de la moneda los precios pueden
-                verse modificados sin mediar preaviso</span
+                verse modificados sin mediar preaviso </span
               >
             </v-card-text>
           </v-card>
