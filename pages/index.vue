@@ -375,7 +375,6 @@ export default {
     this.pedidos = await this.$http.$get('pedido?confirmado=1')
     this.sucursales = await this.$http.$get('sucursal')
     this.clientes = await this.$http.$get('cliente')
-
     this.loading = false
   },
 
