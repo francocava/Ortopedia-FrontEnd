@@ -119,19 +119,19 @@
           </v-card>
         </v-col>
       </v-row> -->
-      <!-- <v-row  class="col">
+      <v-row  class="col">
         <v-col>
           <v-card flat align="center">
             <v-card-text class="black--text font--text"
               ><span class="bold--text">IMPORTANTE: </span
               ><span class="italic--text">
                 Ante una repentina devaluación de la moneda los precios pueden
-                verse modificados sin mediar preaviso</span
+                verse modificados sin mediar preaviso </span
               >
             </v-card-text>
           </v-card>
         </v-col>
-      </v-row> -->
+      </v-row>
     </v-container>
   </div>
 </template>

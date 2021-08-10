@@ -13,7 +13,7 @@
             v-model="form.cliente"
             :items="clientes"
             item-value="id"
-            :item-text="cliente => cliente.nombre +' '+ cliente.apellido"
+            item-text="nombreEntero"
             label="Cliente"
             :search-input.sync="searchCliente"
             :rules="[(v) => !!v || 'Elija un Cliente']"
@@ -173,7 +173,6 @@ export default {
     this.sucursales = await this.$http.$get('sucursal')
     this.clientes = await this.$http.$get('cliente')
     this.productos = await this.$http.$get('producto')
-
     this.loading = false
   },
 
