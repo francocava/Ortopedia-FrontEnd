@@ -64,6 +64,7 @@
                     <th class="text-left font--text">Descripción</th>
                     <th class="text-left font--text">Cantidad</th>
                     <th class="text-left font--text">Precio Unitario</th>
+                    <th class="text-left font--text">Total Item</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -88,6 +89,8 @@
                     </td>
                     <td>{{ item.cantidad }}</td>
                     <td>${{ item.precio_final/item.cantidad }}</td>
+                    <td>${{ item.precio_final }}</td>
+
                   </tr>
                 </tbody>
               </template>
