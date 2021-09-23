@@ -64,7 +64,7 @@
                     <th class="text-left font--text">Descripción</th>
                     <th class="text-left font--text">Cantidad</th>
                     <th class="text-left font--text">Precio Unitario</th>
-                    <th class="text-left font--text">Total Item</th>
+                    <th class="text-left font--text">Total</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -97,7 +97,7 @@
             </v-simple-table>
             <v-card flat align="end" class="d-flex flex-row-reverse font--text total--padding">
               <v-card-text class="black--text bold--text bigger--text">
-                Total: ${{ pedido.importe }}
+                Importe total: ${{ pedido.importe }}
               </v-card-text>
             </v-card>
           </v-card>
