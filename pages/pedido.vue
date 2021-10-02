@@ -132,6 +132,33 @@
             </template>
           </v-combobox>
 
+          <v-text-field
+            v-model="form.vigencia_presupuesto"
+            item-value="id"
+            item-text="nombre"
+            label="Vigencia"
+            required
+            :loading="loading"
+          ></v-text-field>
+
+          <v-text-field
+            v-model="form.plazo_entrega"
+            item-value="id"
+            item-text="nombre"
+            label="Plazo de Entrega"
+            required
+            :loading="loading"
+          ></v-text-field>
+
+          <v-select
+            v-model="form.forma_pago_id"
+            item-value="id"
+            item-text="nombre"
+            label="Forma de Pago"
+            required
+            :loading="loading"
+          ></v-select>
+
           <v-select
             v-model="form.sucursal_id"
             :rules="[(v) => !!v || 'Elija una Sucursal']"

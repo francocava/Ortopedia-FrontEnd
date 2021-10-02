@@ -111,17 +111,18 @@
           </v-card>
         </v-col>
       </v-row>
-      <!-- <v-row  class="col">
+      <v-row  class="col">
         <v-col>
           <v-card outlined class="font--text">
             <v-card-title>Condiciones Comerciales</v-card-title>
             <v-card-text>
-              <div>- Condición de Pago: Pago previo a entrega</div>
-              <div>- Plazo de entrega: 30 días</div>
+              <div>- Vigencia Presupuesto: {{pedido.vigencia_presupuesto}}</div>
+              <div>- Condición de Pago: {{}}</div>
+              <div>- Plazo de entrega: {{pedido.plazo_entrega}}</div>
             </v-card-text>
           </v-card>
         </v-col>
-      </v-row> -->
+      </v-row> 
       <v-row  class="col">
         <v-col>
           <v-card flat align="center">
