@@ -116,13 +116,13 @@
           <v-card outlined class="font--text">
             <v-card-title>Condiciones Comerciales</v-card-title>
             <v-card-text>
-              <div>- Vigencia Presupuesto: {{pedido.vigencia_presupuesto}}</div>
-              <div>- Condición de Pago: {{}}</div>
-              <div>- Plazo de entrega: {{pedido.plazo_entrega}}</div>
+              <div>- Vigencia Presupuesto: {{pedido.vigencia_presupuesto ? pedido.vigencia_presupuesto + " dias" : "-------"}}</div>
+              <div>- Condición de Pago: {{pedido.forma_pago ? pedido.forma_pago.tipo : "-------"}}</div>
+              <div>- Plazo de entrega: {{pedido.plazo_entrega ? pedido.plazo_entrega : "-------"}}</div>
             </v-card-text>
           </v-card>
         </v-col>
-      </v-row> 
+      </v-row>
       <v-row  class="col">
         <v-col>
           <v-card flat align="center">
@@ -153,7 +153,7 @@ export default {
       this.pedido = await this.$http.$get(
         `pedido/${this.$route.params.pedido}`
       )
-
+      console.log(this.pedido)
       this.productos = await this.$http.$get('producto')
       this.accesorios = await this.$http.$get('accesorio')
     } catch (error) {

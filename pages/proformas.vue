@@ -84,6 +84,31 @@
                         label="Nro Recibo"
                       ></v-text-field>
                     </v-col>
+
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="editedItem.vigencia_presupuesto"
+                        label="Vigencia"
+                      ></v-text-field>
+                    </v-col>
+
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="editedItem.plazo_entrega"
+                        label="Plazo de entrega"
+                      ></v-text-field>
+                    </v-col>
+
+                    <v-select
+                        v-model="editedItem.forma_pago_id"
+                        :items="formasPagos"
+                        item-value="id"
+                        item-text="tipo"
+                        :rules="[(v) => !!v || 'Ingrese forma de pago']"
+                        label="Forma de pago"
+                        required
+                      ></v-select>
+
                     <v-col cols="12" sm="6" md="12">
                       <v-textarea
                         v-model="editedItem.observaciones"
