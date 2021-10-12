@@ -132,6 +132,35 @@
             </template>
           </v-combobox>
 
+          <v-text-field
+            v-model="form.vigencia_presupuesto"
+            item-value="id"
+            item-text="nombre"
+            label="Vigencia"
+            required
+            :loading="loading"
+          ></v-text-field>
+
+          <v-text-field
+            v-model="form.plazo_entrega"
+            item-value="id"
+            item-text="nombre"
+            label="Plazo de Entrega"
+            required
+            :loading="loading"
+          ></v-text-field>
+
+          <v-select
+            v-model="form.forma_pago_id"
+            :items="formas"
+            item-value="id"
+            item-text="tipo"
+            :rules="[(v) => !!v || 'Ingrese forma de pago']"
+            label="Forma de pago"
+            required
+            :loading="loading"
+          ></v-select>
+
           <v-select
             v-model="form.sucursal_id"
             :rules="[(v) => !!v || 'Elija una Sucursal']"
@@ -173,6 +202,7 @@ export default {
     this.sucursales = await this.$http.$get('sucursal')
     this.clientes = await this.$http.$get('cliente')
     this.productos = await this.$http.$get('producto')
+    this.formas = await this.$http.$get('formaPago')
 
     this.loading = false
   },
@@ -194,9 +224,10 @@ export default {
       cliente: null,
       sucursal_id: null,
       observaciones: null,
+      vigencia_presupuesto: null,
+      plazo_entrega: null,
+      forma_pago_id: null,
       confirmado: false,
-      usuario_id: 1, //pongo 1 por defecto pero tendria que sacar este dato de la sesion
-      //importe: 0,
     },
     valid: true,
     menuAutorizacion: false,

@@ -64,6 +64,7 @@
                     <th class="text-left font--text">Descripción</th>
                     <th class="text-left font--text">Cantidad</th>
                     <th class="text-left font--text">Precio Unitario</th>
+                    <th class="text-left font--text">Total</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -88,13 +89,15 @@
                     </td>
                     <td>{{ item.cantidad }}</td>
                     <td>${{ item.precio_final/item.cantidad }}</td>
+                    <td>${{ item.precio_final }}</td>
+
                   </tr>
                 </tbody>
               </template>
             </v-simple-table>
             <v-card flat align="end" class="d-flex flex-row-reverse font--text total--padding">
               <v-card-text class="black--text bold--text bigger--text">
-                Total: ${{ pedido.importe }}
+                Importe total: ${{ pedido.importe }}
               </v-card-text>
             </v-card>
           </v-card>
@@ -108,17 +111,18 @@
           </v-card>
         </v-col>
       </v-row>
-      <!-- <v-row  class="col">
+      <v-row  class="col">
         <v-col>
           <v-card outlined class="font--text">
             <v-card-title>Condiciones Comerciales</v-card-title>
             <v-card-text>
-              <div>- Condición de Pago: Pago previo a entrega</div>
-              <div>- Plazo de entrega: 30 días</div>
+              <div>- Vigencia Presupuesto: {{pedido.vigencia_presupuesto ? pedido.vigencia_presupuesto + " dias" : "-------"}}</div>
+              <div>- Condición de Pago: {{pedido.forma_pago ? pedido.forma_pago.tipo : "-------"}}</div>
+              <div>- Plazo de entrega: {{pedido.plazo_entrega ? pedido.plazo_entrega : "-------"}}</div>
             </v-card-text>
           </v-card>
         </v-col>
-      </v-row> -->
+      </v-row>
       <v-row  class="col">
         <v-col>
           <v-card flat align="center">
@@ -149,7 +153,7 @@ export default {
       this.pedido = await this.$http.$get(
         `pedido/${this.$route.params.pedido}`
       )
-
+      console.log(this.pedido)
       this.productos = await this.$http.$get('producto')
       this.accesorios = await this.$http.$get('accesorio')
     } catch (error) {
