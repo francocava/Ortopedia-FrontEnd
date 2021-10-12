@@ -228,8 +228,6 @@ export default {
       plazo_entrega: null,
       forma_pago_id: null,
       confirmado: false,
-      usuario_id: 1, //pongo 1 por defecto pero tendria que sacar este dato de la sesion
-      //importe: 0,
     },
     valid: true,
     menuAutorizacion: false,

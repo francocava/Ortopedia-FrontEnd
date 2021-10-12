@@ -158,7 +158,6 @@
           </v-btn>
         </v-form>
       </v-card-text>
-      <!-- <v-card-text>Total {{ form.productos[0].precio}}</v-card-text> -->
     </v-card>
     <v-snackbar v-model="snackbar.display" :color="snackbar.color">
       {{ snackbar.text }}
@@ -195,7 +194,6 @@ export default {
         sucursal_id: null,
         observaciones: null,
         confirmado: true,
-        usuario_id: 1, //pongo 1 por defecto pero tendria que sacar este dato de la sesion
         cantidad: [],
       },
       valid: true,
