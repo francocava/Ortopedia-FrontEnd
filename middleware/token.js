@@ -5,7 +5,7 @@ export default function ({
   $axios,
   $config: { baseURL },
 }) {
-  console.log('v0.2.6')
+  console.log('v0.2.7')
 
   if (route.name === 'login') return
 

@@ -21,12 +21,14 @@
               <div class="bold--text especial--padding">
                 Fecha: {{ pedido.fecha_ingreso_autorizacion }}
               </div>
-              <div class="bold--text especial--padding">CUIT Nro: 20-13515459-9</div>
+              <div class="bold--text especial--padding">
+                CUIT Nro: 20-13515459-9
+              </div>
             </v-card-text>
           </v-card>
         </v-col>
       </v-row>
-      <v-row  class="col">
+      <v-row class="col">
         <v-col>
           <v-card outlined align="center">
             <v-card-text class="black--text font--text">
@@ -34,18 +36,32 @@
                 <v-col>
                   <v-card flat>
                     <div>
-                      <span class="bold--text especial--padding">Cliente:</span> {{ pedido.cliente.nombre }}
+                      <span class="bold--text especial--padding">Cliente:</span>
+                      {{ pedido.cliente.nombre }}
                       {{ pedido.cliente.apellido }}
                     </div>
                     <div>
-                      <span class="bold--text especial--padding"> Obra Social:</span> {{ pedido.cliente.obra_social.nombre }}
+                      <span class="bold--text especial--padding">
+                        Obra Social:</span
+                      >
+                      {{ pedido.cliente.obra_social.nombre }}
                     </div>
                   </v-card>
                 </v-col>
                 <v-col>
                   <v-card flat>
-                    <div><span class="bold--text especial--padding"> Afiliado:</span> {{ pedido.cliente.nro_afiliado }}</div>
-                    <div><span class="bold--text especial--padding"> Teléfono:</span> {{ pedido.cliente.telefono }}</div>
+                    <div>
+                      <span class="bold--text especial--padding">
+                        Afiliado:</span
+                      >
+                      {{ pedido.cliente.nro_afiliado }}
+                    </div>
+                    <div>
+                      <span class="bold--text especial--padding">
+                        Teléfono:</span
+                      >
+                      {{ pedido.cliente.telefono }}
+                    </div>
                   </v-card>
                 </v-col>
               </v-row>
@@ -53,7 +69,7 @@
           </v-card>
         </v-col>
       </v-row>
-      <v-row  class="col">
+      <v-row class="col">
         <v-col>
           <v-card outlined>
             <v-simple-table fixed-header>
@@ -88,14 +104,17 @@
                       }}
                     </td>
                     <td>{{ item.cantidad }}</td>
-                    <td>${{ item.precio_final/item.cantidad }}</td>
+                    <td>${{ item.precio_final / item.cantidad }}</td>
                     <td>${{ item.precio_final }}</td>
-
                   </tr>
                 </tbody>
               </template>
             </v-simple-table>
-            <v-card flat align="end" class="d-flex flex-row-reverse font--text total--padding">
+            <v-card
+              flat
+              align="end"
+              class="d-flex flex-row-reverse font--text total--padding"
+            >
               <v-card-text class="black--text bold--text bigger--text">
                 Importe total: ${{ pedido.importe }}
               </v-card-text>
@@ -103,35 +122,50 @@
           </v-card>
         </v-col>
       </v-row>
-      <v-row  class="col">
+      <v-row class="col">
         <v-col>
           <v-card outlined class="font--text">
             <v-card-title>Observaciones</v-card-title>
-            <v-card-text>{{ pedido.observaciones ? pedido.observaciones : "-------" }}</v-card-text>
+            <v-card-text>{{
+              pedido.observaciones ? pedido.observaciones : '-------'
+            }}</v-card-text>
           </v-card>
         </v-col>
       </v-row>
-      <v-row  class="col">
+      <v-row class="col">
         <v-col>
           <v-card outlined class="font--text">
             <v-card-title>Condiciones Comerciales</v-card-title>
             <v-card-text>
-              <div>- Vigencia Presupuesto: {{pedido.vigencia_presupuesto ? pedido.vigencia_presupuesto + " dias" : "-------"}}</div>
-              <div>- Condición de Pago: {{pedido.forma_pago ? pedido.forma_pago.tipo : "-------"}}</div>
-              <div>- Plazo de entrega: {{pedido.plazo_entrega ? pedido.plazo_entrega : "-------"}}</div>
+              <div>
+                - Vigencia Presupuesto:
+                {{
+                  pedido.vigencia_presupuesto
+                    ? pedido.vigencia_presupuesto + ' dias'
+                    : '-------'
+                }}
+              </div>
+              <div>
+                - Condición de Pago:
+                {{ pedido.forma_pago ? pedido.forma_pago.tipo : '-------' }}
+              </div>
+              <div>
+                - Plazo de entrega:
+                {{ pedido.plazo_entrega ? pedido.plazo_entrega : '-------' }}
+              </div>
             </v-card-text>
           </v-card>
         </v-col>
       </v-row>
-      <v-row  class="col">
+      <v-row class="col">
         <v-col>
           <v-card flat align="center">
             <v-card-text class="black--text font--text"
               ><span class="bold--text">IMPORTANTE: </span
               ><span class="italic--text">
                 Ante una repentina devaluación de la moneda los precios pueden
-                verse modificados sin mediar preaviso </span
-              >
+                verse modificados sin mediar preaviso
+              </span>
             </v-card-text>
           </v-card>
         </v-col>
@@ -150,10 +184,7 @@ export default {
 
   async fetch() {
     try {
-      this.pedido = await this.$http.$get(
-        `pedido/${this.$route.params.pedido}`
-      )
-      console.log(this.pedido)
+      this.pedido = await this.$http.$get(`pedido/${this.$route.params.pedido}`)
       this.productos = await this.$http.$get('producto')
       this.accesorios = await this.$http.$get('accesorio')
     } catch (error) {
